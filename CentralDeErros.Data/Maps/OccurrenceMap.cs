@@ -43,6 +43,5 @@ namespace CentralDeErros.Core.Models.Maps
                 .IsRequired();
 
         }
-
     }
 }
