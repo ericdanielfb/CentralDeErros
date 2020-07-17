@@ -41,7 +41,6 @@ namespace CentralDeErros.Core.Models.Maps
                 .Property(k => k.OccurrenceDate)
                 .HasColumnName("occurrence_date")
                 .IsRequired();
-
         }
     }
 }
