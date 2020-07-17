@@ -8,5 +8,10 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CentralDeErros.Core\CentralDeErros.Core.csproj" />
+    <ProjectReference Include="..\CentralDeErros.Tests\CentralDeErros.Tests.csproj" />
+  </ItemGroup>
+
 
 </Project>
