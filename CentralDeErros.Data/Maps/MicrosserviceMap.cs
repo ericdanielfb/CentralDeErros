@@ -29,7 +29,6 @@ namespace CentralDeErros.Core.Models.Maps
                 .Property(k => k.Name)
                 .HasColumnName("name")
                 .IsRequired();
-
         }
     }
 }
