@@ -12,6 +12,9 @@ namespace CentralDeErros.Data.Maps
     {
         public void Configure(EntityTypeBuilder<Perfil> builder)
         {
+            builder
+                .ToTable("perfil");
+
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
