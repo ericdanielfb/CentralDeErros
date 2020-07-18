@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CentralDeErros.API.Models
+namespace CentralDeErros.Core.Models
 {
     public class Occurrence
     {

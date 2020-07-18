@@ -1,4 +1,4 @@
-﻿using CentralDeErros.API.Models;
+﻿using CentralDeErros.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
