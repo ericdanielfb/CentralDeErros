@@ -18,10 +18,12 @@ namespace CentralDeErros.Data.Maps
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .HasColumnName("Id");
+                .HasColumnName("id")
+                .HasColumnType("int")
+                .IsRequired();
 
             builder.Property(x => x.Type)
-                .HasColumnName("Type")
+                .HasColumnName("type")
                 .HasColumnType("varchar")
                 .HasMaxLength(45)
                 .IsRequired();
