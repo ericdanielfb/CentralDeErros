@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CentralDeErros.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Security;
@@ -13,5 +14,7 @@ namespace CentralDeErros.API.Models
         public string Title { get; set; }
         public int LevelId { get; set; }
         public Level Level { get; set; }
+
+        public ICollection<Occurrence> Occurrences { get; set; }
     }
 }
