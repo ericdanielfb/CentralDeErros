@@ -17,7 +17,7 @@ namespace CentralDeErros.Data.Maps
 
             builder
                 .Property(x => x.Id)
-                .HasColumnName("idLevel")
+                .HasColumnName("id")
                 .HasColumnType("int")
                 .IsRequired();
 
@@ -25,7 +25,7 @@ namespace CentralDeErros.Data.Maps
                 .Property(x => x.Name)
                 .HasColumnName("name")
                 .HasColumnType("varvhar")
-                .HasMaxLength(45)
+                .HasMaxLength(32)
                 .IsRequired();
 
             builder
