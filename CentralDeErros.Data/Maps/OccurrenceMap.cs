@@ -43,20 +43,17 @@ namespace CentralDeErros.Core.Models.Maps
             builder
                 .HasOne(k => k.Microsservice)
                 .WithMany(s => s.Occurrences)
-                .HasForeignKey(x => x.MicrosserviceId)
-                .IsRequired();
+                .HasForeignKey(x => x.MicrosserviceId);
 
             builder
                 .HasOne(x => x.Environment)
                 .WithMany(x => x.Occurrences)
-                .HasForeignKey(x => x.EnviromentId)
-                .IsRequired();
+                .HasForeignKey(x => x.EnviromentId);
 
             builder
                 .HasOne(x => x.Error)
                 .WithMany(x => x.Occurrences)
-                .HasForeignKey(x => x.ErrorId)
-                .IsRequired();
+                .HasForeignKey(x => x.ErrorId);
         }
     }
 }
