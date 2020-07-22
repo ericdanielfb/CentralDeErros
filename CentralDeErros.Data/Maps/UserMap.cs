@@ -11,29 +11,31 @@ namespace CentralDeErros.Data.Maps
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("User");
+            builder.ToTable("user");
 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .HasColumnName("Id");
+                .HasColumnName("id")
+                .HasColumnType("int")
+                .IsRequired();
 
             builder.Property(x => x.UserName)
-                .HasColumnName("UserName")
+                .HasColumnName("username")
                 .HasColumnType("varchar")
-                .HasMaxLength(45)
+                .HasMaxLength(100)
                 .IsRequired();
 
             builder.Property(x => x.Email)
-                .HasColumnName("Email")
+                .HasColumnName("email")
                 .HasColumnType("varchar")
                 .HasMaxLength(45)
                 .IsRequired();
 
             builder.Property(x => x.Password)
-                .HasColumnName("Password")
+                .HasColumnName("password")
                 .HasColumnType("varchar")
-                .HasMaxLength(45)
+                .HasMaxLength(100)
                 .IsRequired();
 
             builder
