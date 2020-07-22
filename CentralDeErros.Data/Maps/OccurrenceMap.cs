@@ -22,38 +22,48 @@ namespace CentralDeErros.Core.Models.Maps
             builder
                 .Property(k => k.Id)
                 .HasColumnName("id")
+                .HasColumnType("int")
                 .IsRequired();
 
             builder
                 .Property(k => k.Details)
                 .HasColumnName("details")
+                .HasColumnType("varchar")
+                .HasMaxLength(250)
                 .IsRequired();
 
             builder
                 .Property(k => k.Origin)
                 .HasColumnName("origin")
+                .HasColumnType("varchar")
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder
                 .Property(k => k.OccurrenceDate)
                 .HasColumnName("occurrence_date")
+                .HasColumnType("datetime")
                 .IsRequired();
 
             builder
                 .HasOne(k => k.Microsservice)
                 .WithMany(s => s.Occurrences)
-                .HasForeignKey(x => x.MicrosserviceId);
+                .HasForeignKey(x => x.MicrosserviceId)
+                .IsRequired();
 
             builder
                 .HasOne(x => x.Environment)
                 .WithMany(x => x.Occurrences)
-                .HasForeignKey(x => x.EnviromentId);
+                .HasForeignKey(x => x.EnviromentId)
+                .IsRequired();
 
             builder
                 .HasOne(x => x.Error)
                 .WithMany(x => x.Occurrences)
-                .HasForeignKey(x => x.ErrorId);
+                .HasForeignKey(x => x.ErrorId)
+                .IsRequired();
+
+
         }
     }
 }

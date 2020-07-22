@@ -12,24 +12,36 @@ namespace CentralDeErros.Core.Models.Maps
     {
         public void Configure(EntityTypeBuilder<Microsservice> builder)
         {
-            builder
-                .ToTable("microsservice");
 
             builder
-               .HasKey(k => k.Id);
+                .ToTable("microservice");
 
             builder
-                .HasMany(k => k.Occurrences)
-                .WithOne(a => a.Microsservice);
+                .HasKey(k => k.Id);
 
             builder
                 .Property(k => k.Id)
                 .HasColumnName("id")
+                .HasColumnType("int")
                 .IsRequired();
 
             builder
                 .Property(k => k.Name)
                 .HasColumnName("name")
+                .HasColumnType("varchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder
+                .Property(k => k.Token)
+                .HasColumnName("token")
+                .HasColumnType("varchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder
+                .HasMany(k => k.Occurrences)
+                .WithOne(a => a.Microsservice)
                 .IsRequired();
         }
     }
