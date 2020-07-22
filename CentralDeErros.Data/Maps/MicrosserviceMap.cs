@@ -13,7 +13,7 @@ namespace CentralDeErros.Core.Models.Maps
         public void Configure(EntityTypeBuilder<Microsservice> builder)
         {
             builder
-                .ToTable("microservice");
+                .ToTable("microsservice");
 
             builder
                .HasKey(k => k.Id);
