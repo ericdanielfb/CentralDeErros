@@ -1,4 +1,4 @@
-﻿using CentralDeErros.API.Models;
+﻿using CentralDeErros.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -13,13 +13,11 @@ namespace CentralDeErros.Core.Models.Maps
     {
         public void Configure(EntityTypeBuilder<Occurrence> builder)
         {
+            builder
+                .ToTable("occurrence");
 
             builder
                 .HasKey(k => k.Id);
-
-            builder
-                .HasOne(k => k.Microsservice)
-                .WithMany(s => s.Occurrences);
 
             builder
                 .Property(k => k.Id)
@@ -42,6 +40,20 @@ namespace CentralDeErros.Core.Models.Maps
                 .HasColumnName("occurrence_date")
                 .IsRequired();
 
+            builder
+                .HasOne(k => k.Microsservice)
+                .WithMany(s => s.Occurrences)
+                .HasForeignKey(x => x.MicrosserviceId);
+
+            builder
+                .HasOne(x => x.Environment)
+                .WithMany(x => x.Occurrences)
+                .HasForeignKey(x => x.EnviromentId);
+
+            builder
+                .HasOne(x => x.Error)
+                .WithMany(x => x.Occurrences)
+                .HasForeignKey(x => x.ErrorId);
         }
     }
 }

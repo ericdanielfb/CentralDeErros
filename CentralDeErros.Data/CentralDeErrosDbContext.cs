@@ -2,11 +2,7 @@
 using CentralDeErros.Core.Models;
 using CentralDeErros.Core.Models.Maps;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CentralDeErros.Data
 {
@@ -18,6 +14,7 @@ namespace CentralDeErros.Data
         public DbSet<Level> Levels { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Perfil> Perfils { get; set; }
+        public DbSet<Environment> Environments { get; set; }
 
 
         public CentralDeErrosDbContext(DbContextOptions<CentralDeErrosDbContext> options)

@@ -12,6 +12,8 @@ namespace CentralDeErros.Core.Models.Maps
     {
         public void Configure(EntityTypeBuilder<Microsservice> builder)
         {
+            builder
+                .ToTable("microservice");
 
             builder
                .HasKey(k => k.Id);
@@ -29,7 +31,6 @@ namespace CentralDeErros.Core.Models.Maps
                 .Property(k => k.Name)
                 .HasColumnName("name")
                 .IsRequired();
-
         }
     }
 }
