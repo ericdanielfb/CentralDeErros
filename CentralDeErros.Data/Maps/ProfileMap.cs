@@ -8,7 +8,7 @@ using System.Text;
 
 namespace CentralDeErros.Data.Maps
 {
-    class PerfilMap : IEntityTypeConfiguration<Profile>
+    class ProfileMap : IEntityTypeConfiguration<Profile>
     {
         public void Configure(EntityTypeBuilder<Profile> builder)
         {
