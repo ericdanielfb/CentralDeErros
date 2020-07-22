@@ -21,7 +21,7 @@ namespace CentralDeErros.Data.Maps
                 .IsRequired();
 
             builder.Property(x => x.UserName)
-                .HasColumnName("user_name")
+                .HasColumnName("username")
                 .HasColumnType("varchar")
                 .HasMaxLength(100)
                 .IsRequired();
@@ -35,7 +35,7 @@ namespace CentralDeErros.Data.Maps
             builder.Property(x => x.Password)
                 .HasColumnName("password")
                 .HasColumnType("varchar")
-                .HasMaxLength(100)
+                .HasMaxLength(255)
                 .IsRequired();
 
             builder
