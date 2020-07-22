@@ -35,13 +35,13 @@ namespace CentralDeErros.Data.Maps
             builder.Property(x => x.Password)
                 .HasColumnName("password")
                 .HasColumnType("varchar")
-                .HasMaxLength(100)
+                .HasMaxLength(255)
                 .IsRequired();
 
             builder
-                .HasOne(x => x.Perfil)
+                .HasOne(x => x.Profile)
                 .WithMany(x => x.Users)
-                .HasForeignKey(x => x.PerfilId)
+                .HasForeignKey(x => x.ProfileId)
                 .IsRequired();
 
         }
