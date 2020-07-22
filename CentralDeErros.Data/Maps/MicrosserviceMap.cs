@@ -33,6 +33,13 @@ namespace CentralDeErros.Core.Models.Maps
                 .IsRequired();
 
             builder
+                .Property(k => k.Token)
+                .HasColumnName("token")
+                .HasColumnType("varchar")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder
                 .HasMany(k => k.Occurrences)
                 .WithOne(a => a.Microsservice)
                 .IsRequired();
