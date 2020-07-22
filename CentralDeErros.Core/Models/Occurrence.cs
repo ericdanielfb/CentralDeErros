@@ -19,13 +19,17 @@ namespace CentralDeErros.Core.Models
 
         public DateTime OccurrenceDate { get; set; }
 
-        public Microsservice Microsservice { get; set; }
 
         public int MicrosserviceId { get; set; }
+
+        public Microsservice Microsservice { get; set; }
+
+
         
         public int EnviromentId { get; set; }
         
         public Environment Environment { get; set; }
+
 
         public int ErrorId { get; set; }
 
