@@ -15,35 +15,35 @@ namespace CentralDeErros.Data.Maps
         public void Configure(EntityTypeBuilder<Error> builder)
         {
             builder
-                .ToTable("Error");
+                .ToTable("error");
 
             builder
                .HasKey(x => x.Id);
 
             builder
                 .Property(x => x.Id)
-                .HasColumnName("idError")
+                .HasColumnName("id")
                 .HasColumnType("int")
                 .IsRequired();
 
 
             builder
                 .Property(x => x.Description)
-                .HasColumnName("Description")
+                .HasColumnName("description")
                 .HasColumnType("varchar")
                 .HasMaxLength(45)
                 .IsRequired();
 
             builder
                 .Property(x => x.Title)
-                .HasColumnName("Title")
+                .HasColumnName("title")
                 .HasColumnType("varchar")
                 .HasMaxLength(45)
                 .IsRequired();
 
             builder
                 .Property(x => x.LevelId)
-                .HasColumnName("Level_idLevel")
+                .HasColumnName("level_id")
                 .HasColumnType("int")
                 .IsRequired();
 
