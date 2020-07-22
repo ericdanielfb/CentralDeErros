@@ -8,19 +8,17 @@ using System.Text;
 
 namespace CentralDeErros.Data.Maps
 {
-    class PerfilMap : IEntityTypeConfiguration<Perfil>
+    class ProfileMap : IEntityTypeConfiguration<Profile>
     {
-        public void Configure(EntityTypeBuilder<Perfil> builder)
+        public void Configure(EntityTypeBuilder<Profile> builder)
         {
             builder
-                .ToTable("perfil");
+                .ToTable("profile");
 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .HasColumnName("id")
-                .HasColumnType("int")
-                .IsRequired();
+                .HasColumnName("id");
 
             builder.Property(x => x.Type)
                 .HasColumnName("type")
