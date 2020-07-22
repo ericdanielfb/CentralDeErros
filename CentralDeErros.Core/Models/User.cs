@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace CentralDeErros.API.Models
+namespace CentralDeErros.Core.Models
 {
     public class User
     {
@@ -11,16 +11,8 @@ namespace CentralDeErros.API.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public enum Perfil
-        {
-            Admin,
-            User,
-            Anonimous
-        }
-
-        public int MicrosserviceId { get; set; }
-
-        public ICollection<Occurrence> Occurrences { get; set; }
+        public int ProfileId { get; set; }
+        public Profile Profile { get; set; }
 
 
     }

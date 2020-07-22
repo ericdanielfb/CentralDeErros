@@ -1,15 +1,17 @@
-﻿using System;
+﻿using CentralDeErros.API.Models;
+using CentralDeErros.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CentralDeErros.API.Models
+namespace CentralDeErros.Core.Models
 {
     public class Occurrence
     {
-        public int OccurrenceId { get; set; }
+        public int Id { get; set; }
 
         public int Origin { get; set; }
 
@@ -17,10 +19,22 @@ namespace CentralDeErros.API.Models
 
         public DateTime OccurrenceDate { get; set; }
 
-        [ForeignKey("UserId")]
-        public User User { get; set; }
 
-        public int UserId { get; set; }
+        public int MicrosserviceId { get; set; }
+
+        public Microsservice Microsservice { get; set; }
+
+
+        
+        public int EnviromentId { get; set; }
+        
+        public Environment Environment { get; set; }
+
+
+        public int ErrorId { get; set; }
+
+        public Error Error { get; set; }
+
 
     }
 }
