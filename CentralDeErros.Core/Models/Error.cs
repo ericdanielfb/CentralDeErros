@@ -9,6 +9,12 @@ namespace CentralDeErros.API.Models
 {
     public class Error
     {
+
+        public Error()
+        {
+            Occurrences = new HashSet<Occurrence>();
+        }
+
         public int Id { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
