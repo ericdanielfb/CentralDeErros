@@ -7,6 +7,11 @@ namespace CentralDeErros.API.Models
 {
     public class Level
     {
+        public Level()
+        {
+            this.Errors = new HashSet<Error>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
 

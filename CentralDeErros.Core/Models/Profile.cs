@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CentralDeErros.Core.Models
 {
-    public class Perfil
+    public class Profile
     {
-        public Perfil()
+        public Profile()
         {
-            Users = new HashSet<User>();
+            this.Users = new HashSet<User>();
         }
         public int Id { get; set; }
         public string Type { get; set; }

@@ -6,6 +6,11 @@ namespace CentralDeErros.Core.Models
 {
     public class Environment
     {
+        public Environment()
+        {
+            this.Occurrences = new HashSet<Occurrence>();
+        }
+
         public int Id { get; set; }
         public string Phase { get; set; }
 
