@@ -15,7 +15,7 @@ namespace CentralDeErros.Data.Maps
         public void Configure(EntityTypeBuilder<Error> builder)
         {
             builder
-                .ToTable("Error");
+                .ToTable("error");
 
             builder
                .HasKey(x => x.Id);
