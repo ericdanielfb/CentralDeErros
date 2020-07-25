@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CentralDeErros.Model.Maps
 {
-    class ErrorMap : IEntityTypeConfiguration<Error>
+    public class ErrorMap : IEntityTypeConfiguration<Error>
     {
 
         public void Configure(EntityTypeBuilder<Error> builder)

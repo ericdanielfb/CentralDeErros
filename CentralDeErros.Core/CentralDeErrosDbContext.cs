@@ -1,11 +1,9 @@
-﻿using CentralDeErros.API.Models;
-using CentralDeErros.Core.Models;
-using CentralDeErros.Core.Models.Maps;
-using CentralDeErros.Data.Maps;
+﻿using CentralDeErros.Model.Maps;
+using CentralDeErros.Model.Models;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace CentralDeErros.Data
+namespace CentralDeErros.Core
 {
     public class CentralDeErrosDbContext : DbContext
     {
@@ -26,27 +24,13 @@ namespace CentralDeErros.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder
-                .ApplyConfiguration(new MicrosserviceMap());
-
-            builder
-                .ApplyConfiguration(new OccurrenceMap());
-
-            builder
-                .ApplyConfiguration(new ErrorMap());
-
-            builder
-                .ApplyConfiguration(new LevelMap());
-            
-            builder
-                .ApplyConfiguration(new UserMap());
-            
-            builder
-                .ApplyConfiguration(new ProfileMap());
-            
-            builder
-                .ApplyConfiguration(new EnvironmentMap());
-
+            builder.ApplyConfiguration(new MicrosserviceMap());
+            builder.ApplyConfiguration(new OccurrenceMap());
+            builder.ApplyConfiguration(new ErrorMap());
+            builder.ApplyConfiguration(new LevelMap());
+            builder.ApplyConfiguration(new UserMap());
+            builder.ApplyConfiguration(new ProfileMap());
+            builder.ApplyConfiguration(new EnvironmentMap());
         }
     }
 }

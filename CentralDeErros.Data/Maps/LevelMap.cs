@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CentralDeErros.Model.Maps
 {
-    class LevelMap : IEntityTypeConfiguration<Level>
+    public class LevelMap : IEntityTypeConfiguration<Level>
     {
         public void Configure(EntityTypeBuilder<Level> builder)
         {

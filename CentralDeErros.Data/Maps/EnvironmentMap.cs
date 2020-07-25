@@ -5,7 +5,7 @@ using CentralDeErros.Model.Models;
 
 namespace CentralDeErros.Model.Maps
 {
-    class EnvironmentMap : IEntityTypeConfiguration<Environment>
+    public class EnvironmentMap : IEntityTypeConfiguration<Environment>
     {
         public void Configure(EntityTypeBuilder<Environment> builder)
         {

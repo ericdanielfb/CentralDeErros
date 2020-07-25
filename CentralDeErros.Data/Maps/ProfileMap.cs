@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CentralDeErros.Model.Maps
 {
-    class ProfileMap : IEntityTypeConfiguration<Profile>
+    public class ProfileMap : IEntityTypeConfiguration<Profile>
     {
         public void Configure(EntityTypeBuilder<Profile> builder)
         {
