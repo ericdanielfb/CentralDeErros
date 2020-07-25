@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-
-namespace CentralDeErros.Core.Models
+namespace CentralDeErros.Model.Models
 {
     public class User
     {
@@ -13,7 +11,5 @@ namespace CentralDeErros.Core.Models
 
         public int ProfileId { get; set; }
         public Profile Profile { get; set; }
-
-
     }
 }

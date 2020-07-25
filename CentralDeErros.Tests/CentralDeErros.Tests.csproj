@@ -24,7 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CentralDeErros.API\CentralDeErros.API.csproj" />
     <ProjectReference Include="..\CentralDeErros.Core\CentralDeErros.Core.csproj" />
+    <ProjectReference Include="..\CentralDeErros.Data\CentralDeErros.Model.csproj" />
+    <ProjectReference Include="..\CentralDeErros.Services\CentralDeErros.Services.csproj" />
   </ItemGroup>
 
 </Project>

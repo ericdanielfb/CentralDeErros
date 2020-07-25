@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace CentralDeErros.Core.Models
+namespace CentralDeErros.Model.Models
 {
     public class Environment
     {

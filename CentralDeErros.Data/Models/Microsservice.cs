@@ -1,11 +1,7 @@
-﻿using CentralDeErros.API.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CentralDeErros.Core.Models
+namespace CentralDeErros.Model.Models
 {
     public class Microsservice
     {
@@ -18,6 +14,5 @@ namespace CentralDeErros.Core.Models
         public string Name { get; set; }
         public string Token { get; set; }
         public ICollection<Occurrence> Occurrences { get; set; }
-
     }
 }

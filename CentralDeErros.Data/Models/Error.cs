@@ -1,11 +1,7 @@
-﻿using CentralDeErros.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Security;
-using System.Threading.Tasks;
 
-namespace CentralDeErros.API.Models
+namespace CentralDeErros.Model.Models
 {
     public class Error
     {
