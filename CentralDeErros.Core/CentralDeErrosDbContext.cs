@@ -12,7 +12,7 @@ namespace CentralDeErros.Core
         public DbSet<Occurrence> Occurrences { get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Profile> profiles{ get; set; }
+        public DbSet<Profile> Profiles { get; set; }
         public DbSet<Environment> Environments { get; set; }
 
 
