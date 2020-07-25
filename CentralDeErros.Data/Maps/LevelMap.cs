@@ -1,9 +1,9 @@
-﻿using CentralDeErros.API.Models;
+﻿using CentralDeErros.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 
-namespace CentralDeErros.Data.Maps
+namespace CentralDeErros.Model.Maps
 {
     class LevelMap : IEntityTypeConfiguration<Level>
     {
@@ -24,7 +24,7 @@ namespace CentralDeErros.Data.Maps
             builder
                 .Property(x => x.Name)
                 .HasColumnName("name")
-                .HasColumnType("varvhar")
+                .HasColumnType("varvhar(32)")
                 .HasMaxLength(32)
                 .IsRequired();
 

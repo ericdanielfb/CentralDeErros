@@ -1,12 +1,8 @@
-﻿using CentralDeErros.Core.Models;
+﻿using CentralDeErros.Model.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace CentralDeErros.Data.Maps
+namespace CentralDeErros.Model.Maps
 {
     class ProfileMap : IEntityTypeConfiguration<Profile>
     {
@@ -22,7 +18,7 @@ namespace CentralDeErros.Data.Maps
 
             builder.Property(x => x.Type)
                 .HasColumnName("type")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(45)")
                 .HasMaxLength(45)
                 .IsRequired();
         }

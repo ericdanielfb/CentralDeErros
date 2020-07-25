@@ -1,13 +1,8 @@
-﻿using CentralDeErros.Core.Models;
+﻿using CentralDeErros.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CentralDeErros.Core.Models.Maps
+namespace CentralDeErros.Model.Maps
 {
     public class OccurrenceMap : IEntityTypeConfiguration<Occurrence>
     {
@@ -28,14 +23,14 @@ namespace CentralDeErros.Core.Models.Maps
             builder
                 .Property(k => k.Details)
                 .HasColumnName("details")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(250)")
                 .HasMaxLength(250)
                 .IsRequired();
 
             builder
                 .Property(k => k.Origin)
                 .HasColumnName("origin")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();
 

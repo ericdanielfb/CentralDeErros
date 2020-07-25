@@ -1,13 +1,9 @@
-﻿using CentralDeErros.API.Models;
+﻿using CentralDeErros.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CentralDeErros.Data.Maps
+
+namespace CentralDeErros.Model.Maps
 {
     class ErrorMap : IEntityTypeConfiguration<Error>
     {
@@ -30,14 +26,14 @@ namespace CentralDeErros.Data.Maps
             builder
                 .Property(x => x.Description)
                 .HasColumnName("description")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(45)")
                 .HasMaxLength(45)
                 .IsRequired();
 
             builder
                 .Property(x => x.Title)
                 .HasColumnName("title")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(45)")
                 .HasMaxLength(45)
                 .IsRequired();
 

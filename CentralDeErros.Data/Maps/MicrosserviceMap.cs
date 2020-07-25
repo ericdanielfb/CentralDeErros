@@ -1,12 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CentralDeErros.Model.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CentralDeErros.Core.Models.Maps
+namespace CentralDeErros.Model.Maps
 {
     public class MicrosserviceMap : IEntityTypeConfiguration<Microsservice>
     {
@@ -28,14 +24,14 @@ namespace CentralDeErros.Core.Models.Maps
             builder
                 .Property(k => k.Name)
                 .HasColumnName("name")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder
                 .Property(k => k.Token)
                 .HasColumnName("token")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(50)")
                 .HasMaxLength(50)
                 .IsRequired();
 
