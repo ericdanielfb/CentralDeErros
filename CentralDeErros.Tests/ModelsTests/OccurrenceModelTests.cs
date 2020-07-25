@@ -1,4 +1,4 @@
-﻿using CentralDeErros.API.Models;
+﻿using CentralDeErros.Model.Models;
 using Xunit;
 
 namespace CentralDeErros.ModelsTests
