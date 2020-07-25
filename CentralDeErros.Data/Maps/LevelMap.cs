@@ -24,7 +24,7 @@ namespace CentralDeErros.Model.Maps
             builder
                 .Property(x => x.Name)
                 .HasColumnName("name")
-                .HasColumnType("varvhar(32)")
+                .HasColumnType("varchar(32)")
                 .HasMaxLength(32)
                 .IsRequired();
 
