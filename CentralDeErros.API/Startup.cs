@@ -28,8 +28,10 @@ namespace CentralDeErros.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            string dbConnection = Configuration.GetValue<string>("MySettings:DbConnection");
             services.AddDbContext<CentralDeErrosDbContext>
-                (options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=CentralErros;AttachDbFilename=C:\Users\Eric Daniel\CentralErros.mdf;Trusted_Connection=True",
+                (options => options.UseSqlServer(dbConnection,
                 b => b.MigrationsAssembly("CentralDeErros.API"))
             );
         }
