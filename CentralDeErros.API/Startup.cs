@@ -29,11 +29,8 @@ namespace CentralDeErros.API
         {
             services.AddControllers();
 
-            services.AddDbContext<CentralDeErrosDbContext>
-                (options => options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=CentralErros;Trusted_Connection=True",
-                b => b.MigrationsAssembly("CentralDeErros.API"))
-            );
-
+            string dbConnection = Configuration.GetValue<string>("MySettings:DbConnection");
+            services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
