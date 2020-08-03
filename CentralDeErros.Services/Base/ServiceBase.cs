@@ -11,9 +11,9 @@ namespace CentralDeErros.Services.Base
     {
         public CentralDeErrosDbContext Context { get; private set; }
 
-        public ServiceBase()
+        public ServiceBase(CentralDeErrosDbContext context)
         {
-            Context = new CentralDeErrosDbContext();
+            Context = context;
         }
 
         public virtual IQueryable<T> List()
