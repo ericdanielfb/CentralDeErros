@@ -14,7 +14,7 @@ namespace CentralDeErros.ModelsTests
         {          
         }
 
-        [Fact(DisplayName = "Errors shouldn't be null")]
+        [Fact(DisplayName = "Error should not be null")]
         public void ErrorsShouldNotBeNull()
         {
             var errors = context.Errors.ToList();

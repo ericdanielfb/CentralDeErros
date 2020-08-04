@@ -15,7 +15,7 @@ namespace CentralDeErros.ModelsTests
         {
         }
 
-        [Fact(DisplayName = "Atributos do Usuário estão de acordo com as validações")]
+        [Fact(DisplayName = "User should not be null")]
         public void UserShouldNotBeNull()
         {
             

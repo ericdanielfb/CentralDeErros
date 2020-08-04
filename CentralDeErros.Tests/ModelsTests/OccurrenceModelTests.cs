@@ -11,7 +11,7 @@ namespace CentralDeErros.ModelsTests
         {
         }
 
-        [Fact(DisplayName = "Occorrências não podem ser nulas")]
+        [Fact(DisplayName = "Occurrences should not be null")]
         public void OccurrenceShouldNotBeNull()
         {
             var occurrences = context.Occurrences.ToList();
