@@ -53,7 +53,7 @@ namespace CentralDeErros.Services
         /// <returns></returns>
         public ICollection<Occurrence> SearchByErrorLevel(string errorLevel)
         {
-            return List(x => x.Error.Level.Name == errorLevel)
+            return List(x => x.Error.Level.Name == errorLevel.ToLower())
                 .ToList();
         }
 
