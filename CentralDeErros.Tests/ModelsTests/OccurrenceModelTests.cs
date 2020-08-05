@@ -1,17 +1,22 @@
-﻿using CentralDeErros.Model.Models;
+﻿using CentralDeErros.Core;
+using CentralDeErros.Model.Models;
+using System.Linq;
 using Xunit;
 
 namespace CentralDeErros.ModelsTests
 {
-    public class OccurrenceModelTests
+    public class OccurrenceModelTests : BaseModelTest
     {
-        [Fact]
-        public void ShouldReturnOccurrencesAtributes()
+        public OccurrenceModelTests(CentralDeErrosDbContext context) : base(context)
         {
-            var occurrence = new Occurrence();
+        }
 
+        [Fact(DisplayName = "Occurrences should not be null")]
+        public void OccurrenceShouldNotBeNull()
+        {
+            var occurrences = context.Occurrences.ToList();
 
-
+            foreach (var occurrence in occurrences) Assert.NotNull(occurrence);
         }
     }
 }
