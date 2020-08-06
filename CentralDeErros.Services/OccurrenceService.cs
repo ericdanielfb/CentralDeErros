@@ -8,7 +8,7 @@ using System.Text;
 
 namespace CentralDeErros.Services
 {
-    public class OccurrenceService : ServiceBase<Occurrence>
+    public class OccurrenceService : ServiceBase<Error>
     {
         public OccurrenceService(CentralDeErrosDbContext context) : base(context)
         {
@@ -21,7 +21,7 @@ namespace CentralDeErros.Services
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public ICollection<Occurrence> List(int? start, int? end)
+        public ICollection<Error> List(int? start, int? end)
         {
             var response = Context.Occurrences
                 .Skip(start.HasValue ? start.Value : 0);
@@ -40,7 +40,7 @@ namespace CentralDeErros.Services
         /// </summary>
         /// <param name="enviromentId"></param>
         /// <returns></returns>
-        public ICollection<Occurrence> SearchByEnviroment(int enviromentId)
+        public ICollection<Error> SearchByEnviroment(int enviromentId)
         {
             return List(x => x.EnviromentId == enviromentId).ToList();
         }
@@ -51,7 +51,7 @@ namespace CentralDeErros.Services
         /// </summary>
         /// <param name="errorLevel"></param>
         /// <returns></returns>
-        public ICollection<Occurrence> SearchByErrorLevel(string errorLevel)
+        public ICollection<Error> SearchByErrorLevel(string errorLevel)
         {
             return List(x => x.Error.Level.Name == errorLevel.ToLower())
                 .ToList();
@@ -64,7 +64,7 @@ namespace CentralDeErros.Services
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public ICollection<Occurrence> SearchByDate(DateTime start, DateTime end)
+        public ICollection<Error> SearchByDate(DateTime start, DateTime end)
         {
             return List(x => x.OccurrenceDate >= start && x.OccurrenceDate <= end).ToList();
         }

@@ -29,7 +29,7 @@ namespace CentralDeErros.Model.Maps
                 .IsRequired();
 
             builder
-                .HasMany(x => x.Occurrences)
+                .HasMany(x => x.Errors)
                 .WithOne(x => x.Level);
         }
     }

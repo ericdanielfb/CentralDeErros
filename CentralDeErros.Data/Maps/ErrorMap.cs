@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CentralDeErros.Model.Maps
 {
-    public class OccurrenceMap : IEntityTypeConfiguration<Occurrence>
+    public class ErrorMap : IEntityTypeConfiguration<Error>
     {
-        public void Configure(EntityTypeBuilder<Occurrence> builder)
+        public void Configure(EntityTypeBuilder<Error> builder)
         {
             builder
                 .ToTable("occurrence");
@@ -50,19 +50,19 @@ namespace CentralDeErros.Model.Maps
 
             builder
                 .HasOne(k => k.Microsservice)
-                .WithMany(s => s.Occurrences)
+                .WithMany(s => s.Errors)
                 .HasForeignKey(x => x.MicrosserviceId)
                 .IsRequired();
 
             builder
                 .HasOne(x => x.Environment)
-                .WithMany(x => x.Occurrences)
+                .WithMany(x => x.Errors)
                 .HasForeignKey(x => x.EnviromentId)
                 .IsRequired();
 
             builder
                 .HasOne(x => x.Level)
-                .WithMany(s => s.Occurrences)
+                .WithMany(s => s.Errors)
                 .HasForeignKey(b => b.LevelId)
                 .IsRequired();
 

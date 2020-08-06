@@ -36,7 +36,7 @@ namespace CentralDeErros.Model.Maps
                 .IsRequired();
 
             builder
-                .HasMany(k => k.Occurrences)
+                .HasMany(k => k.Errors)
                 .WithOne(a => a.Microsservice)
                 .IsRequired();
         }
