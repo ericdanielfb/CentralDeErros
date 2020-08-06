@@ -8,7 +8,7 @@ namespace CentralDeErros.Model.Models
         public string Title { get; set; }
         public int Origin { get; set; }
         public string Details { get; set; }
-        public DateTime OccurrenceDate { get; set; }
+        public DateTime ErrorDate { get; set; }
 
         public int MicrosserviceId { get; set; }
         public Microsservice Microsservice { get; set; }

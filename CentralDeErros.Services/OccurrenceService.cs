@@ -53,7 +53,7 @@ namespace CentralDeErros.Services
         /// <returns></returns>
         public ICollection<Error> SearchByErrorLevel(string errorLevel)
         {
-            return List(x => x.Error.Level.Name == errorLevel.ToLower())
+            return List(x => x.Level.Name == errorLevel.ToLower())
                 .ToList();
         }
 
@@ -66,7 +66,7 @@ namespace CentralDeErros.Services
         /// <returns></returns>
         public ICollection<Error> SearchByDate(DateTime start, DateTime end)
         {
-            return List(x => x.OccurrenceDate >= start && x.OccurrenceDate <= end).ToList();
+            return List(x => x.ErrorDate >= start && x.ErrorDate <= end).ToList();
         }
     }
 }

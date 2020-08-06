@@ -43,8 +43,8 @@ namespace CentralDeErros.Model.Maps
 
 
             builder
-                .Property(k => k.OccurrenceDate)
-                .HasColumnName("occurrence_date")
+                .Property(k => k.ErrorDate)
+                .HasColumnName("error_date")
                 .HasColumnType("datetime")
                 .IsRequired();
 
