@@ -35,10 +35,23 @@ namespace CentralDeErros.Model.Maps
                 .IsRequired();
 
             builder
+                .Property(x => x.Title)
+                .HasColumnName("title")
+                .HasColumnType("varchar(45)")
+                .HasMaxLength(45)
+                .IsRequired();
+
+
+            builder
                 .Property(k => k.OccurrenceDate)
                 .HasColumnName("occurrence_date")
                 .HasColumnType("datetime")
                 .IsRequired();
+
+            builder
+                .HasOne(x => x.Level)
+                .WithMany(x => x.Occurrences)
+                .HasForeignKey(x => x.LevelId);
 
             builder
                 .HasOne(k => k.Microsservice)
@@ -53,9 +66,9 @@ namespace CentralDeErros.Model.Maps
                 .IsRequired();
 
             builder
-                .HasOne(x => x.Error)
-                .WithOne(s => s.Occurrence)
-                .HasForeignKey<Occurrence>(b => b.ErrorId)
+                .HasOne(x => x.Level)
+                .WithMany(s => s.Occurrences)
+                .HasForeignKey(b => b.LevelId)
                 .IsRequired();
 
 
