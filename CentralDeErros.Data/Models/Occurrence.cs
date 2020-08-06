@@ -5,6 +5,7 @@ namespace CentralDeErros.Model.Models
     public class Occurrence
     {
         public int Id { get; set; }
+        public string Title { get; set; }
         public int Origin { get; set; }
         public string Details { get; set; }
         public DateTime OccurrenceDate { get; set; }
@@ -15,7 +16,7 @@ namespace CentralDeErros.Model.Models
         public int EnviromentId { get; set; }
         public Environment Environment { get; set; }
 
-        public int ErrorId { get; set; }
-        public Error Error { get; set; }
+        public int LevelId { get; set; }
+        public Level Level { get; set; }
     }
 }
