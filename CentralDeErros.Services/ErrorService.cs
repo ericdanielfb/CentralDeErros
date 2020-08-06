@@ -8,9 +8,9 @@ using System.Text;
 
 namespace CentralDeErros.Services
 {
-    public class OccurrenceService : ServiceBase<Error>
+    public class ErrorService : ServiceBase<Error>
     {
-        public OccurrenceService(CentralDeErrosDbContext context) : base(context)
+        public ErrorService(CentralDeErrosDbContext context) : base(context)
         {
         }
 

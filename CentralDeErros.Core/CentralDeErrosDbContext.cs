@@ -15,11 +15,10 @@ namespace CentralDeErros.Core
         public DbSet<Environment> Environments { get; set; }
 
 
-        //public CentralDeErrosDbContext(DbContextOptions<CentralDeErrosDbContext> options)
-        //   : base(options)
-        //{
-
-        //}
+        public CentralDeErrosDbContext(DbContextOptions<CentralDeErrosDbContext> options)
+                  : base(options)
+        { 
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
