@@ -49,11 +49,6 @@ namespace CentralDeErros.Model.Maps
                 .IsRequired();
 
             builder
-                .HasOne(x => x.Level)
-                .WithMany(x => x.Occurrences)
-                .HasForeignKey(x => x.LevelId);
-
-            builder
                 .HasOne(k => k.Microsservice)
                 .WithMany(s => s.Occurrences)
                 .HasForeignKey(x => x.MicrosserviceId)
