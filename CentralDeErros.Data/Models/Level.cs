@@ -7,12 +7,12 @@ namespace CentralDeErros.Model.Models
     {
         public Level()
         {
-            this.Errors = new HashSet<Error>();
+            this.Occurrences = new HashSet<Occurrence>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Error> Errors { get; set; }
+        public ICollection<Occurrence> Occurrences { get; set; }
     }
 }
