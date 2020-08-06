@@ -54,8 +54,8 @@ namespace CentralDeErros.Model.Maps
 
             builder
                 .HasOne(x => x.Error)
-                .WithMany(x => x.Occurrences)
-                .HasForeignKey(x => x.ErrorId)
+                .WithOne(s => s.Occurrence)
+                .HasForeignKey<Occurrence>(b => b.ErrorId)
                 .IsRequired();
 
 
