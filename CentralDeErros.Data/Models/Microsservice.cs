@@ -7,12 +7,13 @@ namespace CentralDeErros.Model.Models
     {
         public Microsservice()
         {
-            Occurrences = new HashSet<Occurrence>();
+            Errors = new HashSet<Error>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public string Token { get; set; }
-        public ICollection<Occurrence> Occurrences { get; set; }
+
+        public ICollection<Error> Errors { get; set; }
     }
 }

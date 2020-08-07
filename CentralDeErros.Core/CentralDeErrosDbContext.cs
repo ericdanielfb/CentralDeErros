@@ -8,8 +8,7 @@ namespace CentralDeErros.Core
     public class CentralDeErrosDbContext : DbContext
     {
         public DbSet<Microsservice> Microsservices { get; set; }
-        public DbSet<Error> Errors { get; set; }
-        public DbSet<Occurrence> Occurrences { get; set; }
+        public DbSet<Error> Errors{ get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
@@ -17,15 +16,13 @@ namespace CentralDeErros.Core
 
 
         public CentralDeErrosDbContext(DbContextOptions<CentralDeErrosDbContext> options)
-           : base(options)
-        {
-
+                  : base(options)
+        { 
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new MicrosserviceMap());
-            builder.ApplyConfiguration(new OccurrenceMap());
             builder.ApplyConfiguration(new ErrorMap());
             builder.ApplyConfiguration(new LevelMap());
             builder.ApplyConfiguration(new UserMap());
