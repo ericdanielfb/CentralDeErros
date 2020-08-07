@@ -29,7 +29,7 @@ namespace CentralDeErros.API
         {
             services.AddControllers();
 
-            string dbConnection = Configuration.GetValue<string>("MySettings:DbConnection");
+            string dbConnection = Configuration.GetConnectionString("DbConnection");
             services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
         }
 
