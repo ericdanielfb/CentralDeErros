@@ -8,7 +8,7 @@ namespace CentralDeErros.Core
     public class CentralDeErrosDbContext : DbContext
     {
         public DbSet<Microsservice> Microsservices { get; set; }
-        public DbSet<Error> Occurrences { get; set; }
+        public DbSet<Error> Errors{ get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
