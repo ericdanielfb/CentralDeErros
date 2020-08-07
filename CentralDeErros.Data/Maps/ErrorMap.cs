@@ -9,7 +9,7 @@ namespace CentralDeErros.Model.Maps
         public void Configure(EntityTypeBuilder<Error> builder)
         {
             builder
-                .ToTable("occurrence");
+                .ToTable("error");
 
             builder
                 .HasKey(k => k.Id);
