@@ -1,7 +1,5 @@
 ﻿using CentralDeErros.Core;
 using CentralDeErros.Services.Base;
-using System;
-using CentralDeErros.Model.Models;
 
 
 namespace CentralDeErros.Services
