@@ -1,10 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CentralDeErros.Core;
+using CentralDeErros.Services.Base;
+using System;
+using CentralDeErros.Model.Models;
+
 
 namespace CentralDeErros.Services
 {
-    class EnvironmentService
+    public class EnvironmentService:ServiceBase<Model.Models.Environment>
     {
+        public EnvironmentService(CentralDeErrosDbContext context) : base(context) 
+        {
+        }
+
     }
 }
