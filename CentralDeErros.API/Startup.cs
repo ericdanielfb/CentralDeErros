@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CentralDeErros.Core;
+using CentralDeErros.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,8 @@ namespace CentralDeErros.API
 
             string dbConnection = Configuration.GetConnectionString("DbConnection");
             services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
+
+            services.AddScoped<ErrorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
