@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CentralDeErros.Transport
 {
-    class EnvironmentDTO
+    public  class EnvironmentDTO
     {
         public int Id { get; set; }
 
