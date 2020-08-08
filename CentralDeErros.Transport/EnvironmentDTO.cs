@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CentralDeErros.Transport
 {
-    public  class EnvironmentDTO
+    public class EnvironmentDTO
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "É obrigatório informar o nome do ambiente", AllowEmptyStrings = false)]
         public string Phase { get; set; }
     }
 }

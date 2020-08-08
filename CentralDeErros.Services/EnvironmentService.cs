@@ -2,7 +2,6 @@
 using CentralDeErros.Services.Base;
 using System;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace CentralDeErros.Services
 {

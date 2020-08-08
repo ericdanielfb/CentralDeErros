@@ -62,11 +62,11 @@ namespace CentralDeErros.API.Controllers
                     ((int)id)));
             }
         }
-        
+
         // DELETE api/v1/environment/{id}
         [HttpDelete("{id}")]
         public void DeleteEnvironmentId(int? id)
-        { 
+        {
             _service.Delete((int)id);
         }
 
@@ -77,7 +77,7 @@ namespace CentralDeErros.API.Controllers
             if (id == null)
             {
                 return NoContent();
-            } 
+            }
             else
             {
                 return Ok
@@ -92,12 +92,12 @@ namespace CentralDeErros.API.Controllers
         [HttpPost]
         public ActionResult<EnvironmentDTO> SaveEnvironment([FromBody] EnvironmentDTO value)
         {
-      
-                return Ok
-                    (_mapper.Map<EnvironmentDTO>
-                    (_service.RegisterOrUpdate
-                    (_mapper.Map<Model.Models.Environment>
-                    ((value)))));
+
+            return Ok
+                (_mapper.Map<EnvironmentDTO>
+                (_service.RegisterOrUpdate
+                (_mapper.Map<Model.Models.Environment>
+                ((value)))));
 
         }
 
