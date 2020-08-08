@@ -1,51 +1,52 @@
 ﻿using AutoMapper;
+using CentralDeErros.Model.Models;
 using CentralDeErros.Services;
 using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace CentralDeErros.API.Controllers
 {
-
     [Route("api/v1/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin")]
-    public class EnvironmentController : ControllerBase
+    public class MicrosserviceController:ControllerBase
     {
-        private EnvironmentService _service;
+        private MicrosserviceService _service;
         private IMapper _mapper;
 
-        public EnvironmentController(EnvironmentService service, IMapper mapper)
+        public MicrosserviceController(MicrosserviceService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
         }
 
-        // GET api/v1/environment
+        // GET api/v1/microsservice
         [HttpGet]
-        public ActionResult<IEnumerable<EnvironmentDTO>> GetAllEnvironments()
+        public ActionResult<IEnumerable<MicrosserviceDTO>> GetAllMicrosservices()
         {
-            var environments = _service.List();
+            var microsservices = _service.List();
 
-            if (environments == null)
+            if (microsservices == null)
             {
                 return NoContent();
             }
             else
             {
                 return Ok
-                    (environments.Select
-                    (x => _mapper.Map<IEnumerable<EnvironmentDTO>>(x)
+                    (microsservices.Select
+                    (x => _mapper.Map<IEnumerable<MicrosserviceDTO>>(x)
                     .ToList()));
             }
         }
 
-        // GET api/v1/environment/{id}
+        // GET api/v1/microsservice/{id}
         [HttpGet("{id}")]
-        public ActionResult<EnvironmentDTO> GetEnviromentId(int? id)
+        public ActionResult<MicrosserviceDTO> GetEnviromentId(int? id)
         {
             if (id == null)
             {
@@ -54,22 +55,22 @@ namespace CentralDeErros.API.Controllers
             else
             {
                 return Ok
-                    (_mapper.Map<EnvironmentDTO>
+                    (_mapper.Map<MicrosserviceDTO>
                     (_service.Fetch
                     ((int)id)));
             }
         }
 
-        // DELETE api/v1/environment/{id}
+        // DELETE api/v1/microsservice/{id}
         [HttpDelete("{id}")]
         public void DeleteEnvironmentId(int? id)
         {
             _service.Delete((int)id);
         }
 
-        // PUT api/v1/environment/{id}
+        // PUT api/v1/microsservice/{id}
         [HttpPut("{id}")]
-        public ActionResult<EnvironmentDTO> UpdateEnvironment(int? id, Model.Models.Environment environment)
+        public ActionResult<MicrosserviceDTO> UpdateEnvironment(int? id, Microsservice microsservice)
         {
             if (id == null)
             {
@@ -78,16 +79,16 @@ namespace CentralDeErros.API.Controllers
             else
             {
                 return Ok
-                    (_mapper.Map<EnvironmentDTO>
+                    (_mapper.Map<MicrosserviceDTO>
                     (_service.RegisterOrUpdate
-                    ((environment))));
+                    ((microsservice))));
             }
 
         }
 
-        // POST api/v1/environment
+        // POST api/v1/microsservice
         [HttpPost]
-        public ActionResult<EnvironmentDTO> SaveEnvironment([FromBody] EnvironmentDTO value)
+        public ActionResult<MicrosserviceDTO> SaveEnvironment([FromBody] MicrosserviceDTO value)
         {
             if (!ModelState.IsValid)
             {
@@ -96,16 +97,12 @@ namespace CentralDeErros.API.Controllers
             else
             {
                 return Ok
-                (_mapper.Map<EnvironmentDTO>
+                (_mapper.Map<MicrosserviceDTO>
                 (_service.RegisterOrUpdate
-                (_mapper.Map<Model.Models.Environment>
+                (_mapper.Map<Microsservice>
                 ((value)))));
             }
         }
 
-
-
     }
-
 }
-
