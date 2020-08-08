@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CentralDeErros.Core;
 using CentralDeErros.Services;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +35,9 @@ namespace CentralDeErros.API
             services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
 
             services.AddScoped<ErrorService>();
+
+            services.AddAutoMapper(typeof(Startup));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
