@@ -7,7 +7,9 @@ namespace CentralDeErros.Transport
 {
     public class MicrosserviceDTO
     {
-        [Required]
+        public int? Id { get; set; }
+
+        [Required(ErrorMessage = "É obrigatório informar um microsservice", AllowEmptyStrings = false)]
         public string Name { get; set; }
 
         public string Token { get; set; }
