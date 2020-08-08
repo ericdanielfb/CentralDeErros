@@ -2,7 +2,7 @@
 
 namespace CentralDeErros.Transport
 {
-    class LevelDTO
+    public class LevelDTO
     {
         public int? Id { get; set; }
 

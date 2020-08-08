@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CentralDeErros.Model.Models;
 using CentralDeErros.Services;
 using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Authorization;
@@ -6,46 +7,44 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace CentralDeErros.API.Controllers
 {
-
     [Route("api/v1/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin")]
-    public class EnvironmentController : ControllerBase
+    public class LevelController : ControllerBase
     {
-        private EnvironmentService _service;
+        private LevelService _service;
         private IMapper _mapper;
 
-        public EnvironmentController(EnvironmentService service, IMapper mapper)
+        public LevelController(LevelService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
         }
 
-        // GET api/v1/environment
+        // GET api/v1/level
         [HttpGet]
-        public ActionResult<IEnumerable<EnvironmentDTO>> GetAllEnvironments()
+        public ActionResult<IEnumerable<LevelDTO>> GetAllLevel()
         {
-            var environments = _service.List();
+            var levels = _service.List();
 
-            if (environments == null)
+            if (levels == null)
             {
                 return NoContent();
             }
             else
             {
                 return Ok
-                    (environments.Select
-                    (x => _mapper.Map<IEnumerable<EnvironmentDTO>>(x)
+                    (levels.Select
+                    (x => _mapper.Map<IEnumerable<LevelDTO>>(x)
                     .ToList()));
             }
         }
 
-        // GET api/v1/environment/{id}
+        // GET api/v1/level/{id}
         [HttpGet("{id}")]
-        public ActionResult<EnvironmentDTO> GetEnviromentId(int? id)
+        public ActionResult<LevelDTO> GetEnviromentId(int? id)
         {
             if (id == null)
             {
@@ -54,22 +53,22 @@ namespace CentralDeErros.API.Controllers
             else
             {
                 return Ok
-                    (_mapper.Map<EnvironmentDTO>
+                    (_mapper.Map<LevelDTO>
                     (_service.Fetch
                     ((int)id)));
             }
         }
 
-        // DELETE api/v1/environment/{id}
+        // DELETE api/v1/level/{id}
         [HttpDelete("{id}")]
-        public void DeleteEnvironmentId(int? id)
+        public void DeleteLevelId(int? id)
         {
             _service.Delete((int)id);
         }
 
-        // PUT api/v1/environment/{id}
+        // PUT api/v1/level/{id}
         [HttpPut("{id}")]
-        public ActionResult<EnvironmentDTO> UpdateEnvironment(int? id, Model.Models.Environment environment)
+        public ActionResult<LevelDTO> UpdateLevel(int? id, Level level)
         {
             if (id == null)
             {
@@ -78,29 +77,30 @@ namespace CentralDeErros.API.Controllers
             else
             {
                 return Ok
-                    (_mapper.Map<EnvironmentDTO>
+                    (_mapper.Map<LevelDTO>
                     (_service.RegisterOrUpdate
-                    ((environment))));
+                    ((level))));
             }
 
         }
 
-        // POST api/v1/environment
+        // POST api/v1/level
         [HttpPost]
-        public ActionResult<EnvironmentDTO> SaveEnvironment([FromBody] EnvironmentDTO value)
+        public ActionResult<LevelDTO> SaveEnvironment([FromBody] LevelDTO value)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Ok
+                    (_mapper.Map<LevelDTO>
+                    (_service.RegisterOrUpdate
+                    (_mapper.Map<Level>
+                    ((value)))));
 
-            return Ok
-                (_mapper.Map<EnvironmentDTO>
-                (_service.RegisterOrUpdate
-                (_mapper.Map<Model.Models.Environment>
-                ((value)))));
-
+            }
         }
-
-
-
     }
-
 }
-
