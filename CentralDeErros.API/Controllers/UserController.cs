@@ -32,19 +32,19 @@ namespace CentralDeErros.API.Controllers
          
 
         [HttpDelete("{id}")]
-        public ActionResult<UserDTO> Delete(UserDTO entry)
+        public ActionResult<UserDTO> Delete(UserDTO entry) 
         {
-            service.Delete(mapper.Map<User>(entry));
+            service.Delete(mapper.Map<User>(entry)); 
+            return Ok();     
+        }   
+          
 
-            return Ok(); 
-        }  
-
-        
         [HttpPut("{id}")]
-        public ActionResult<UserDTO> Put(int id) => Ok(mapper.Map<UserDTO>(service.Fetch(id)));
+        public ActionResult<UserDTO> Update(int id) => Ok(mapper.Map<UserDTO>(service.Fetch(id)));
         
+
         [HttpPost]
-        public ActionResult<UserDTO> Post([FromBody]User value)
+        public ActionResult<UserDTO> Create([FromBody]User value)
         {
             var userModel = mapper.Map<User>(value);
 

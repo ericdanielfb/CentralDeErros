@@ -31,8 +31,11 @@ namespace CentralDeErros.API
         {
             services.AddControllers();
 
-            string dbConnection = Configuration.GetConnectionString("DbConnection");
-            services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
+            // string dbConnection = Configuration.GetConnectionString("DbConnection");
+            // services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
+
+            services.AddDbContext<CentralDeErrosDbContext>(opt =>
+               opt.UseInMemoryDatabase("Teste"));
 
             services.AddScoped<ErrorService>();
             services.AddScoped<UserService>();
