@@ -35,6 +35,7 @@ namespace CentralDeErros.API
             services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
 
             services.AddScoped<ErrorService>();
+            services.AddScoped<UserService>();
 
             services.AddAutoMapper(typeof(Startup));
 
