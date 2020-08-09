@@ -48,10 +48,17 @@ namespace CentralDeErros.API.Controllers
 
         }   
 
-
         [HttpPut("{id}")]
-        public ActionResult<UserDTO> Update(int id) => Ok(mapper.Map<UserDTO>(service.Fetch(id)));
+        public ActionResult<UserDTO> Update(User user) 
+        {
+           if(ModelState.IsValid)
+           {
+                mapper.Map<UserDTO>(service.Update(user));
+                return Ok();
+           }
 
+           return NotFound();                                       
+        } 
 
         [HttpPost]
         public ActionResult<UserDTO> Create([FromBody]User value)
