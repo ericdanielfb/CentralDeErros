@@ -28,7 +28,7 @@ namespace CentralDeErros.Services
 
             if(end.HasValue)
             {
-                response.Take(end.Value);
+                return response.Take(end.Value).ToList();
             }
 
             return response.ToList();
@@ -67,6 +67,22 @@ namespace CentralDeErros.Services
         public ICollection<Error> SearchByDate(DateTime start, DateTime end)
         {
             return List(x => x.ErrorDate >= start && x.ErrorDate <= end).ToList();
+        }
+
+        public new Error Register(Error entry)
+        {
+            
+            Context.Add(entry);
+            Context.SaveChanges();
+            
+
+            return entry;
+        }
+
+
+        public bool CheckId<T>(int id) where T : class
+        {
+            return Context.Set<T>().Find(id) != null;
         }
     }
 }
