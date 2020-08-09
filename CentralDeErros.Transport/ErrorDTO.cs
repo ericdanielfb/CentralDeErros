@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CentralDeErros.Model.Models
+namespace CentralDeErros.Transport
 {
-    public class Error
+    public class ErrorDTO
     {
-        public Error()
-        {
-            ErrorDate = DateTime.Now;
-        }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Origin { get; set; }
@@ -15,12 +13,9 @@ namespace CentralDeErros.Model.Models
         public DateTime ErrorDate { get; set; }
 
         public int MicrosserviceId { get; set; }
-        public Microsservice Microsservice { get; set; }
 
         public int EnviromentId { get; set; }
-        public Environment Environment { get; set; }
 
         public int LevelId { get; set; }
-        public Level Level { get; set; }
     }
 }
