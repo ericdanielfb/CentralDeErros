@@ -22,11 +22,6 @@ namespace CentralDeErros.API.Controllers
             this.mapper = mapper;
         }
 
-        //Construtor para os testes
-        public UserController()
-        {
-        }
-
         [HttpGet]
         public ActionResult<IEnumerable<UserDTO>> GetAll() => Ok(mapper.Map<IEnumerable<UserDTO>>(service.List()));
 
