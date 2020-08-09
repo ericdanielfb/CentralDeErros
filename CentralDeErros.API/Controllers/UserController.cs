@@ -24,8 +24,8 @@ namespace CentralDeErros.API.Controllers
 
         [HttpGet]
         public ActionResult<IEnumerable<UserDTO>> GetAll() => Ok(mapper.Map<IEnumerable<UserDTO>>(service.List()));
-        
-        
+
+
         [HttpGet("{id}")]
         public ActionResult<UserDTO> Get(int? id) 
         {
@@ -45,13 +45,19 @@ namespace CentralDeErros.API.Controllers
             }
 
             return NotFound();
-              
         }   
-          
 
         [HttpPut("{id}")]
-        public ActionResult<UserDTO> Update(int id) => Ok(mapper.Map<UserDTO>(service.Fetch(id)));
-        
+        public ActionResult<UserDTO> Update(User user) 
+        {
+           if(ModelState.IsValid)
+           {
+                mapper.Map<UserDTO>(service.Update(user));
+                return Ok();
+           }
+
+           return NotFound();                                       
+        } 
 
         [HttpPost]
         public ActionResult<UserDTO> Create([FromBody]User value)
@@ -68,4 +74,4 @@ namespace CentralDeErros.API.Controllers
         }
 
     }
-}
+} 

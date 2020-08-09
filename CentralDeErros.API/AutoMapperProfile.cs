@@ -15,6 +15,8 @@ namespace CentralDeErros.API
         public AutoMapperProfile()
         {
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<Error, ErrorEntryDTO>().ReverseMap();
+            CreateMap<Error, ErrorDTO>().ReverseMap();
         }
 
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CentralDeErros.API.Controllers;
 using CentralDeErros.Model.Models;
 using CentralDeErros.Transport;
+using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
 namespace CentralDeErros.ControllersTests
@@ -32,6 +33,7 @@ namespace CentralDeErros.ControllersTests
         };
 
         UserController controller;
+
         public UserControllerTests()
         {
             this.controller = new UserController();
@@ -40,10 +42,10 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void Create_ShouldReturnOkResult()
         {
-          
+
             //Act
 
-            var action = controller.Post(userList[0]);
+            var action = controller.Create(userList[0]);
 
             //Assert
 
@@ -53,7 +55,7 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void Delete_ShouldReturnOkResult()
         {
-            
+
             //Act
 
             var action = controller.Delete(userDTOlist[0]);
@@ -66,9 +68,9 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void Update_ShouldReturnOkResult()
         {
-            
+
             //Act
-            var action = controller.Update(userList[0].id);
+            var action = controller.Update(userList[0].Id);
 
             //Assert
             Assert.IsType<OkObjectResult>(action.Result);
@@ -77,13 +79,12 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void GetItems_ShouldReturnOkResult()
         {
-            
+
             //Act
             var action = controller.GetAll();
 
             //Assert
             Assert.IsType<OkObjectResult>(action.Result);
         }
-
     }
 }
