@@ -33,6 +33,7 @@ namespace CentralDeErros.ControllersTests
         };
 
         UserController controller;
+
         public UserControllerTests()
         {
             this.controller = new UserController();
@@ -44,7 +45,7 @@ namespace CentralDeErros.ControllersTests
 
             //Act
 
-            var action = controller.Post(userList[0]);
+            var action = controller.Create(userList[0]);
 
             //Assert
 
@@ -69,7 +70,7 @@ namespace CentralDeErros.ControllersTests
         {
 
             //Act
-            var action = controller.Update(userList[0].id);
+            var action = controller.Update(userList[0].Id);
 
             //Assert
             Assert.IsType<OkObjectResult>(action.Result);
