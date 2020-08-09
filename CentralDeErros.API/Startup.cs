@@ -27,10 +27,13 @@ namespace CentralDeErros.API
             string dbConnection = Configuration.GetConnectionString("DbConnection");
             services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
 
+           
             services.AddScoped<ErrorService>();
             services.AddScoped<EnvironmentService>();
             services.AddScoped<LevelService>();
             services.AddScoped<MicrosserviceService>();
+
+            services.AddScoped<UserService>();
 
             services.AddAutoMapper(typeof(Startup));
 
