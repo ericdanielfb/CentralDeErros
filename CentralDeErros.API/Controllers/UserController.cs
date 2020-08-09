@@ -13,7 +13,6 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-
         private readonly UserService service;
         private readonly IMapper mapper;
 
@@ -28,14 +27,25 @@ namespace CentralDeErros.API.Controllers
         
         
         [HttpGet("{id}")]
-        public ActionResult<UserDTO> Get(int id) => Ok(mapper.Map<UserDTO>(service.Fetch(id)));
-         
+        public ActionResult<UserDTO> Get(int? id) 
+        {
+            if(id == null) return NotFound();
 
+            return Ok(mapper.Map<UserDTO>(service.Fetch((int)id)));
+        } 
+          
+             
         [HttpDelete("{id}")]
         public ActionResult<UserDTO> Delete(UserDTO entry) 
         {
-            service.Delete(mapper.Map<User>(entry)); 
-            return Ok();     
+            if(ModelState.IsValid)
+            {
+                service.Delete(mapper.Map<User>(entry)); 
+                return Ok();   
+            }
+
+            return NotFound();
+              
         }   
           
 
@@ -46,12 +56,15 @@ namespace CentralDeErros.API.Controllers
         [HttpPost]
         public ActionResult<UserDTO> Create([FromBody]User value)
         {
-            var userModel = mapper.Map<User>(value);
+            if(ModelState.IsValid) 
+            {
+                var userModel = mapper.Map<User>(value);
+                service.Register(userModel);
+                return Ok(mapper.Map<UserDTO>(mapper.Map<UserDTO>(userModel)));
+            }
 
-            service.Register(userModel);
-
-            return Ok(mapper.Map<UserDTO>(mapper.Map<UserDTO>(userModel)));
-
+            return NotFound();
+          
         }
 
     }

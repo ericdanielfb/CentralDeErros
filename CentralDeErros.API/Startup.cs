@@ -31,6 +31,11 @@ namespace CentralDeErros.API
         {
             services.AddControllers();
 
+            //https://docs.microsoft.com/pt-br/aspnet/core/security/anti-request-forgery?view=aspnetcore-3.1 
+            //impede ataques de solicitação intersite (XSRF/CSRF)
+            services.AddMvc(options =>
+             options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
             string dbConnection = Configuration.GetConnectionString("DbConnection");
             services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
 
