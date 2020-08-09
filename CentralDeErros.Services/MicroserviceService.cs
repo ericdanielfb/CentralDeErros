@@ -37,6 +37,10 @@ namespace CentralDeErros.Services
 
         public Microsservice RegisterOrUpdate(Microsservice microsservice)
         {
+            //geraTokenMicroservice = name... JTW ? KeyUser
+
+            //Separar... 
+
             _ = microsservice.Id == 0
                 ? Context.Microsservices.Add(microsservice)
                 : Context.Microsservices.Update(microsservice);

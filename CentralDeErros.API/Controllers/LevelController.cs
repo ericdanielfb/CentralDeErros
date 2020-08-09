@@ -11,7 +11,7 @@ namespace CentralDeErros.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    
     public class LevelController : ControllerBase
     {
         private LevelService _service;
