@@ -1,11 +1,5 @@
-﻿using AutoMapper;
-using CentralDeErros.Model.Models;
+﻿using CentralDeErros.Model.Models;
 using CentralDeErros.Transport;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CentralDeErros.API
 {
@@ -14,9 +8,14 @@ namespace CentralDeErros.API
         
         public AutoMapperProfile()
         {
+            
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<Model.Models.Environment, EnvironmentDTO>().ReverseMap();
+            CreateMap<Level, LevelDTO>().ReverseMap();
+            CreateMap<Microsservice, MicrosserviceDTO>().ReverseMap();
             CreateMap<Error, ErrorEntryDTO>().ReverseMap();
             CreateMap<Error, ErrorDTO>().ReverseMap();
+
         }
 
     }
