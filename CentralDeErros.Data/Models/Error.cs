@@ -4,6 +4,10 @@ namespace CentralDeErros.Model.Models
 {
     public class Error
     {
+        public Error()
+        {
+            ErrorDate = DateTime.Now;
+        }
         public int Id { get; set; }
         public string Title { get; set; }
         public int Origin { get; set; }

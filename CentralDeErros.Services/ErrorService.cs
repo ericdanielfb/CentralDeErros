@@ -23,7 +23,7 @@ namespace CentralDeErros.Services
         /// <returns></returns>
         public ICollection<Error> List(int? start, int? end)
         {
-            var response = Context.Occurrences
+            var response = Context.Errors
                 .Skip(start.HasValue ? start.Value : 0);
 
             if(end.HasValue)

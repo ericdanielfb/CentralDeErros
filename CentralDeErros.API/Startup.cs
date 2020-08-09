@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CentralDeErros.Core;
+using CentralDeErros.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,8 +31,10 @@ namespace CentralDeErros.API
         {
             services.AddControllers();
 
-            string dbConnection = Configuration.GetValue<string>("MySettings:DbConnection");
+            string dbConnection = Configuration.GetConnectionString("DbConnection");
             services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
+
+            services.AddScoped<ErrorService>();
 
             services.AddAutoMapper(typeof(Startup));
 

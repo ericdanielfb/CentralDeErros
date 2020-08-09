@@ -14,7 +14,7 @@ namespace CentralDeErros.ModelsTests
         [Fact(DisplayName = "Occurrences should not be null")]
         public void OccurrenceShouldNotBeNull()
         {
-            var occurrences = context.Occurrences.ToList();
+            var occurrences = context.Errors.ToList();
 
             foreach (var occurrence in occurrences) Assert.NotNull(occurrence);
         }
