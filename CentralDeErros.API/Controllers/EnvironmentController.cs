@@ -12,7 +12,6 @@ namespace CentralDeErros.API.Controllers
 
     [Route("api/v1/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
     public class EnvironmentController : ControllerBase
     {
         private EnvironmentService _service;
@@ -28,19 +27,9 @@ namespace CentralDeErros.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<EnvironmentDTO>> GetAllEnvironments()
         {
-            var environments = _service.List();
-
-            if (environments == null)
-            {
-                return NoContent();
-            }
-            else
-            {
-                return Ok
-                    (environments.Select
-                    (x => _mapper.Map<IEnumerable<EnvironmentDTO>>(x)
-                    .ToList()));
-            }
+            return Ok
+                (_mapper.Map<IEnumerable<EnvironmentDTO>>
+                (_service.List()));  
         }
 
         // GET api/v1/environment/{id}

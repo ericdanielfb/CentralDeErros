@@ -37,7 +37,7 @@ namespace CentralDeErros.Services
         public Model.Models.Environment RegisterOrUpdate(Model.Models.Environment environment)
         {
             _ = environment.Id == 0 
-                ? Context.Environments.Add(environment) 
+                ? Context.Environments.Add(environment)
                 : Context.Environments.Update(environment);
     
             Context.SaveChanges();

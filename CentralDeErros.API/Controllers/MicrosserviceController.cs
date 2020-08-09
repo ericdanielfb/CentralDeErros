@@ -13,7 +13,7 @@ namespace CentralDeErros.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+   
     public class MicrosserviceController:ControllerBase
     {
         private MicrosserviceService _service;
@@ -29,24 +29,14 @@ namespace CentralDeErros.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<MicrosserviceDTO>> GetAllMicrosservices()
         {
-            var microsservices = _service.List();
-
-            if (microsservices == null)
-            {
-                return NoContent();
-            }
-            else
-            {
-                return Ok
-                    (microsservices.Select
-                    (x => _mapper.Map<IEnumerable<MicrosserviceDTO>>(x)
-                    .ToList()));
-            }
+            return Ok
+                 (_mapper.Map<IEnumerable<MicrosserviceDTO>>
+                 (_service.List()));
         }
 
         // GET api/v1/microsservice/{id}
         [HttpGet("{id}")]
-        public ActionResult<MicrosserviceDTO> GetEnviromentId(int? id)
+        public ActionResult<MicrosserviceDTO> GetMicrosserviceId(int? id)
         {
             if (id == null)
             {
@@ -70,7 +60,7 @@ namespace CentralDeErros.API.Controllers
 
         // PUT api/v1/microsservice/{id}
         [HttpPut("{id}")]
-        public ActionResult<MicrosserviceDTO> UpdateEnvironment(int? id, Microsservice microsservice)
+        public ActionResult<MicrosserviceDTO> UpdateMicrosservice(int? id, Microsservice microsservice)
         {
             if (id == null)
             {
@@ -88,7 +78,7 @@ namespace CentralDeErros.API.Controllers
 
         // POST api/v1/microsservice
         [HttpPost]
-        public ActionResult<MicrosserviceDTO> SaveEnvironment([FromBody] MicrosserviceDTO value)
+        public ActionResult<MicrosserviceDTO> SaveMicrosservice([FromBody] MicrosserviceDTO value)
         {
             if (!ModelState.IsValid)
             {
@@ -96,8 +86,7 @@ namespace CentralDeErros.API.Controllers
             }
             else
             {
-                return Ok
-                (_mapper.Map<MicrosserviceDTO>
+                return Ok(_mapper.Map<MicrosserviceDTO>
                 (_service.RegisterOrUpdate
                 (_mapper.Map<Microsservice>
                 ((value)))));

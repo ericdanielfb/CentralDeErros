@@ -27,19 +27,9 @@ namespace CentralDeErros.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<LevelDTO>> GetAllLevel()
         {
-            var levels = _service.List();
-
-            if (levels == null)
-            {
-                return NoContent();
-            }
-            else
-            {
-                return Ok
-                    (levels.Select
-                    (x => _mapper.Map<IEnumerable<LevelDTO>>(x)
-                    .ToList()));
-            }
+            return Ok
+                 (_mapper.Map<IEnumerable<LevelDTO>>
+                 (_service.List()));
         }
 
         // GET api/v1/level/{id}
