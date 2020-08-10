@@ -18,27 +18,53 @@ namespace CentralDeErros.API.Controllers
 
         public UserController(UserService service, IMapper mapper)
         {
-            this.service = service;
+            this.service = service; 
             this.mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<UserDTO>> GetAll() => Ok(mapper.Map<IEnumerable<UserDTO>>(service.List()));
-
-
-        [HttpGet("{id}")]
-        public ActionResult<UserDTO> Get(int? id) 
+        public ActionResult<IEnumerable<UserDTO>> GetAll()
         {
-            if(id == null) return NotFound();
+            try
+            {
+                return Ok(mapper.Map<IEnumerable<UserDTO>>(service.List()));
 
-            return Ok(mapper.Map<UserDTO>(service.Fetch((int)id)));
+            }catch(NullReferenceException e)
+            {
+                throw new NullReferenceException(nameof(e));
+            }
+            
         } 
 
+        [HttpGet("{id}")] 
+        public ActionResult<UserDTO> Get(int? id) 
+        {
+            try 
+            {      
+                if(ModelState.IsValid)
+                {
+                    User userFoundById = service.Fetch((int)id);        
+                    return Ok(mapper.Map<UserDTO>(userFoundById));
+                }
+
+                return NotFound();    
+                     
+            }catch(NullReferenceException e) when(id == null)
+            {
+                throw new NullReferenceException(nameof(e));
+            }
+                  
+        } 
+
+     
 
         [HttpDelete("{id}")]
         public ActionResult<UserDTO> Delete(UserDTO entry) 
         {
-            if(ModelState.IsValid)
+
+          try
+          {
+              if(ModelState.IsValid)
             {
                 service.Delete(mapper.Map<User>(entry)); 
                 return Ok();   
@@ -46,32 +72,55 @@ namespace CentralDeErros.API.Controllers
 
             return NotFound();
 
+          }catch(NullReferenceException e){
+
+              throw new NullReferenceException(nameof(e));
+
+          }
+            
         }   
 
         [HttpPut("{id}")]
         public ActionResult<UserDTO> Update(User user) 
         {
-           if(ModelState.IsValid)
-           {
-                mapper.Map<UserDTO>(service.Update(user));
-                return Ok();
-           }
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    return Ok(mapper.Map<UserDTO>(service.Update(user)));
+                }
 
-           return NotFound();                                       
+                return NotFound();  
+
+            }catch(NullReferenceException e)
+            {
+                throw new NullReferenceException(nameof(e));
+            }
+                                                
         } 
 
         [HttpPost]
         public ActionResult<UserDTO> Create([FromBody]User value)
         {
-            if(ModelState.IsValid) 
+
+            try
             {
-                var userModel = mapper.Map<User>(value);
-                service.Register(userModel);
-                return Ok(mapper.Map<UserDTO>(mapper.Map<UserDTO>(userModel)));
+                if(ModelState.IsValid) 
+                {
+                    var userModel = mapper.Map<User>(value);
+
+                    service.Register(userModel);
+
+                    return Ok(mapper.Map<UserDTO>(mapper.Map<UserDTO>(userModel)));
+                }
+
+                return NotFound();
+
+            }catch(NullReferenceException e)
+            {
+                throw new NullReferenceException(nameof(e));
             }
-
-            return NotFound();
-
+           
         }
 
     }
