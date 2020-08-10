@@ -18,7 +18,7 @@ namespace CentralDeErros.API.Controllers
 
         public UserController(UserService service, IMapper mapper)
         {
-            this.service = service;
+            this.service = service; 
             this.mapper = mapper;
         }
 
