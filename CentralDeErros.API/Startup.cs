@@ -31,7 +31,7 @@ namespace CentralDeErros.API
             services.AddScoped<EnvironmentService>();
             services.AddScoped<LevelService>();
             services.AddScoped<MicrosserviceService>();
-
+            services.AddScoped<ProfileService>();
             services.AddScoped<UserService>();
 
             services.AddAutoMapper(typeof(Startup));
