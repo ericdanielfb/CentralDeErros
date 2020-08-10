@@ -1,4 +1,5 @@
 using AutoMapper;
+using CentralDeErros.API.Configuration;
 using CentralDeErros.Core;
 using CentralDeErros.Services;
 using Microsoft.AspNetCore.Builder;
@@ -24,8 +25,10 @@ namespace CentralDeErros.API
         {
             services.AddControllers();
 
-            string dbConnection = Configuration.GetConnectionString("DbConnection");
-            services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
+            services.AddDbContext<CentralDeErrosDbContext>(options 
+                => options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
+
+            services.AddIdentityConfiguration(Configuration);
 
            
             services.AddScoped<ErrorService>();
