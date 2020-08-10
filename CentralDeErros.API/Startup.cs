@@ -35,6 +35,8 @@ namespace CentralDeErros.API
 
             services.AddScoped<UserService>();
 
+            services.AddSwaggerGen();
+
             services.AddAutoMapper(typeof(Startup));
 
         }
@@ -46,6 +48,12 @@ namespace CentralDeErros.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Central De Erros");
+            });
 
             app.UseHttpsRedirection();
 
