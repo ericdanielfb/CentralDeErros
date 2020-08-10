@@ -1,4 +1,6 @@
 ﻿
+using CentralDeErros.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -12,6 +14,8 @@ namespace CentralDeErros.API.Configuration
     {
         public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+           services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DbConnection")));
+
             return services;
         }
     }
