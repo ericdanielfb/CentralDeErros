@@ -10,7 +10,7 @@ namespace CentralDeErros.ModelsTests
 {
     public class ErrorModelTests : BaseModelTest
     {
-        public ErrorModelTests(CentralDeErrosDbContext context) : base(context)
+        public ErrorModelTests(FakeContext context) : base(context)
         {          
         }
 
