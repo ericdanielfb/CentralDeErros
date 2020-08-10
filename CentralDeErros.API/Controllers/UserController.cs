@@ -36,7 +36,7 @@ namespace CentralDeErros.API.Controllers
             
         } 
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] 
         public ActionResult<UserDTO> Get(int? id) 
         {
             try 
@@ -56,6 +56,7 @@ namespace CentralDeErros.API.Controllers
                   
         } 
 
+     
 
         [HttpDelete("{id}")]
         public ActionResult<UserDTO> Delete(UserDTO entry) 
@@ -86,8 +87,7 @@ namespace CentralDeErros.API.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    mapper.Map<UserDTO>(service.Update(user));
-                    return Ok();
+                    return Ok(mapper.Map<UserDTO>(service.Update(user)));
                 }
 
                 return NotFound();  
