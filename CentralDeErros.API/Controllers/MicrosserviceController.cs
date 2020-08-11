@@ -18,11 +18,13 @@ namespace CentralDeErros.API.Controllers
     {
         private MicrosserviceService _service;
         private IMapper _mapper;
+        private readonly TokenGeneratorService _tokenGeneratorService;
 
-        public MicrosserviceController(MicrosserviceService service, IMapper mapper)
+        public MicrosserviceController(MicrosserviceService service, IMapper mapper, TokenGeneratorService tokenGeneratorService)
         {
             _service = service;
             _mapper = mapper;
+            _tokenGeneratorService = tokenGeneratorService;
         }
 
         // GET api/v1/microsservice
@@ -86,10 +88,11 @@ namespace CentralDeErros.API.Controllers
             }
             else
             {
-                return Ok(_mapper.Map<MicrosserviceDTO>
+                _mapper.Map<MicrosserviceDTO>
                 (_service.RegisterOrUpdate
-                (_mapper.Map<Microsservice>
-                ((value)))));
+                (_mapper.Map < Microsservice >(value)));
+
+                return Ok();
             }
         }
 

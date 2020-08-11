@@ -44,7 +44,7 @@ namespace CentralDeErros.API.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Created(nameof(Post), _tokenGeneratorService.TokenGenerator());
+                return Created(nameof(Post), await _tokenGeneratorService.TokenGenerator(user.Email));
             }
 
             return BadRequest(value);
@@ -57,7 +57,7 @@ namespace CentralDeErros.API.Controllers
 
             var result = await _signInManager.PasswordSignInAsync(loginDTO.Email, loginDTO.Password, false, true);
 
-            if (result.Succeeded) return Ok(_tokenGeneratorService.TokenGenerator());
+            if (result.Succeeded) return Ok(await _tokenGeneratorService.TokenGenerator(loginDTO.Email));
 
             if (result.IsLockedOut) return BadRequest(loginDTO);
 
