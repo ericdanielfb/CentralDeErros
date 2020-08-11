@@ -50,10 +50,12 @@ namespace CentralDeErros.Services.Base
             Context.SaveChanges();
         }
 
-        public virtual void Update(T register)
+        public virtual T Update(T register)
         {
             Context.Set<T>().Update(register);
             Context.SaveChanges();
+
+            return register;
         }
 
         public virtual void Delete(T register)
