@@ -31,7 +31,7 @@ namespace CentralDeErros.API.Controllers
 
             }catch(NullReferenceException e)
             {
-                throw new NullReferenceException(nameof(e));
+                return NoContent();
             }
             
         } 
@@ -39,41 +39,28 @@ namespace CentralDeErros.API.Controllers
         [HttpGet("{id}")] 
         public ActionResult<ProfileDTO> Get(int? id) 
         {
-            try 
-            {      
-                if(ModelState.IsValid)
-                {
-                    var profileFoundById = service.Fetch((int)id);        
-                    return Ok(mapper.Map<ProfileDTO>(profileFoundById));
-                }
-
-                return NotFound();    
-                     
-            }catch(NullReferenceException e) when(id == null)
+   
+            if(ModelState.IsValid)
             {
-                throw new NullReferenceException(nameof(e));
+                var profileFoundById = service.Fetch((int)id);        
+                return Ok(mapper.Map<ProfileDTO>(profileFoundById));
             }
-                  
+
+            return NotContent();    
+                                    
         } 
 
         [HttpDelete("{id}")]
         public ActionResult<ProfileDTO> Delete(ProfileDTO entry) 
         {
 
-          try
-          {
-              if(ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 service.Delete(mapper.Map<Model.Models.Profile>(entry)); 
                 return Ok();   
             }
 
-            return NotFound();
-
-          }catch(NullReferenceException e){
-
-              throw new NullReferenceException(nameof(e));
-          }
+            return NoContent();
             
         }   
 
@@ -81,19 +68,13 @@ namespace CentralDeErros.API.Controllers
         [HttpPut("{id}")]
         public ActionResult<ProfileDTO> Update(Model.Models.Profile profile) 
         {
-            try
+ 
+            if(ModelState.IsValid)
             {
-                if(ModelState.IsValid)
-                {
-                    return Ok(mapper.Map<ProfileDTO>(service.Update(profile)));
-                }
-
-                return NotFound();  
-
-            }catch(NullReferenceException e)
-            {
-                throw new NullReferenceException(nameof(e));
+                return Ok(mapper.Map<ProfileDTO>(service.Update(profile)));
             }
+
+            return NoContent();  
                                                 
         } 
 
