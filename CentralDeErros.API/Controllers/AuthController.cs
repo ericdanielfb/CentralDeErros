@@ -62,6 +62,8 @@ namespace CentralDeErros.API.Controllers
             if (result.IsLockedOut) return BadRequest(loginDTO);
 
             return BadRequest(loginDTO);
+
+            
         }
 
 

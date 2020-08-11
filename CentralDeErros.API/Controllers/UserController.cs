@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace CentralDeErros.API.Controllers
 
         public UserController(UserService service, IMapper mapper)
         {
-            this.service = service;
+            this.service = service; 
             this.mapper = mapper;
         }
 
@@ -31,71 +31,50 @@ namespace CentralDeErros.API.Controllers
 
             }catch(NullReferenceException e)
             {
-                throw new NullReferenceException(nameof(e));
+                return NoContent();
             }
             
         } 
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] 
         public ActionResult<UserDTO> Get(int? id) 
-        {
-            try 
-            {      
-                if(ModelState.IsValid)
-                {
+        {   
+            if(ModelState.IsValid)
+            {
                     User userFoundById = service.Fetch((int)id);        
                     return Ok(mapper.Map<UserDTO>(userFoundById));
-                }
-
-                return NotFound();    
-                     
-            }catch(NullReferenceException e) when(id == null)
-            {
-                throw new NullReferenceException(nameof(e));
             }
-                  
+
+            return NoContent();   
+                                    
         } 
 
+     
 
         [HttpDelete("{id}")]
         public ActionResult<UserDTO> Delete(UserDTO entry) 
         {
 
-          try
-          {
-              if(ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 service.Delete(mapper.Map<User>(entry)); 
                 return Ok();   
             }
 
-            return NotFound();
-
-          }catch(NullReferenceException e){
-
-              throw new NullReferenceException(nameof(e));
-
-          }
+            return NoContent();
             
         }   
 
         [HttpPut("{id}")]
         public ActionResult<UserDTO> Update(User user) 
         {
-            try
-            {
+
                 if(ModelState.IsValid)
                 {
-                    mapper.Map<UserDTO>(service.Update(user));
-                    return Ok();
+                    return Ok(mapper.Map<UserDTO>(service.Update(user)));
                 }
 
-                return NotFound();  
-
-            }catch(NullReferenceException e)
-            {
-                throw new NullReferenceException(nameof(e));
-            }
+                return NoContent();  
                                                 
         } 
 
@@ -103,8 +82,6 @@ namespace CentralDeErros.API.Controllers
         public ActionResult<UserDTO> Create([FromBody]User value)
         {
 
-            try
-            {
                 if(ModelState.IsValid) 
                 {
                     var userModel = mapper.Map<User>(value);
@@ -114,12 +91,8 @@ namespace CentralDeErros.API.Controllers
                     return Ok(mapper.Map<UserDTO>(mapper.Map<UserDTO>(userModel)));
                 }
 
-                return NotFound();
+                return NoContent();
 
-            }catch(NullReferenceException e)
-            {
-                throw new NullReferenceException(nameof(e));
-            }
            
         }
 
