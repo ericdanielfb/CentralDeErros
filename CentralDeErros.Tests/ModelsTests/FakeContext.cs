@@ -43,11 +43,11 @@ namespace CentralDeErros.ModelsTests
 
          public List<Microsservice> Microsservices = new List<Microsservice>()
         {
-            new Microsservice () { Id = -1,Name = "Teste", Token = "Teste@email.com"},
-            new Microsservice () { Id = 2, Name = "T",     Token = "Teste@email.com" },
-            new Microsservice () { Id = 3, Name = "Teste", Token = "Teste" }, 
-            new Microsservice () { Id = 4, Name = "Teste", Token = "Teste@email.com" },
-            new Microsservice () { Id = 5, Name = "Teste", Token = "Teste@email.com" }
+            new Microsservice () { Id = -1,Name = "Teste", Token = ""},
+            new Microsservice () { Id = 2, Name = "T",     Token = "" },
+            new Microsservice () { Id = 3, Name = "Teste", Token = "" }, 
+            new Microsservice () { Id = 4, Name = "Teste", Token = "" },
+            new Microsservice () { Id = 5, Name = "Teste", Token = "" }
         };
 
     }
