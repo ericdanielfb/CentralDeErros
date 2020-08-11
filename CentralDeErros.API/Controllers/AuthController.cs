@@ -41,12 +41,23 @@ namespace CentralDeErros.API.Controllers
                 return Created(nameof(Post), value);
             }
 
-            return Ok(value);
-
-            
-
+            return BadRequest(value);
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult> Login(LoginDTO loginDTO)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
+            var result = await _signInManager.PasswordSignInAsync(loginDTO.Email, loginDTO.Password, false, true);
+
+            if (result.Succeeded) return Ok(loginDTO);
+
+            if (result.IsLockedOut) return BadRequest(loginDTO);
+
+            return BadRequest(loginDTO);
+
+
+        }
     }
 }

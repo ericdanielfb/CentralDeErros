@@ -17,6 +17,7 @@ namespace CentralDeErros.API
             CreateMap<Error, ErrorEntryDTO>().ReverseMap();
             CreateMap<Error, ErrorDTO>().ReverseMap();
             CreateMap<IdentityUser, RegisterUserDTO>().ReverseMap();
+            CreateMap<IdentityUser, LoginDTO>().ReverseMap();
         }
 
     }
