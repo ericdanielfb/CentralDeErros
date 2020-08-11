@@ -16,13 +16,19 @@ namespace CentralDeErros.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly UserService _service;
         private readonly IMapper _mapper;
+        private readonly TokenGeneratorService _tokenGeneratorService;
 
-        public AuthController(UserService service, IMapper mapper, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public AuthController(UserService service, IMapper mapper, 
+                              SignInManager<IdentityUser> signInManager, 
+                              UserManager<IdentityUser> userManager, 
+                              TokenGeneratorService tokenGeneratorService)
+
         {
             _service = service;
             _mapper = mapper;
             _signInManager = signInManager;
             _userManager = userManager;
+            _tokenGeneratorService = tokenGeneratorService;
         }
 
         // POST api/v1/signin
@@ -38,7 +44,7 @@ namespace CentralDeErros.API.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Created(nameof(Post), value);
+                return Created(nameof(Post), _tokenGeneratorService.TokenGenerator());
             }
 
             return BadRequest(value);
@@ -51,13 +57,13 @@ namespace CentralDeErros.API.Controllers
 
             var result = await _signInManager.PasswordSignInAsync(loginDTO.Email, loginDTO.Password, false, true);
 
-            if (result.Succeeded) return Ok(loginDTO);
+            if (result.Succeeded) return Ok(_tokenGeneratorService.TokenGenerator());
 
             if (result.IsLockedOut) return BadRequest(loginDTO);
 
             return BadRequest(loginDTO);
-
-
         }
+
+
     }
 }

@@ -36,6 +36,7 @@ namespace CentralDeErros.API
             services.AddScoped<EnvironmentService>();
             services.AddScoped<LevelService>();
             services.AddScoped<MicrosserviceService>();
+            services.AddScoped<TokenGeneratorService>();
 
             services.AddScoped<UserService>();
 
