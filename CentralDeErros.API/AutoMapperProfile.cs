@@ -1,5 +1,6 @@
 ﻿using CentralDeErros.Model.Models;
 using CentralDeErros.Transport;
+using Microsoft.AspNetCore.Identity;
 
 namespace CentralDeErros.API
 {
@@ -15,7 +16,7 @@ namespace CentralDeErros.API
             CreateMap<Microsservice, MicrosserviceDTO>().ReverseMap();
             CreateMap<Error, ErrorEntryDTO>().ReverseMap();
             CreateMap<Error, ErrorDTO>().ReverseMap();
-
+            CreateMap<IdentityUser, RegisterUserDTO>().ReverseMap();
         }
 
     }

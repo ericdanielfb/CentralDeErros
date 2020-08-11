@@ -1,5 +1,6 @@
 ﻿
 using CentralDeErros.Core;
+using CentralDeErros.Model.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
