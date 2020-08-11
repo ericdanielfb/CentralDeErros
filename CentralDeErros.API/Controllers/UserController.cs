@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -41,11 +41,12 @@ namespace CentralDeErros.API.Controllers
         {   
             if(ModelState.IsValid)
             {
-                User userFoundById = service.Fetch((int)id);        
-                return Ok(mapper.Map<UserDTO>(userFoundById));
+                    User userFoundById = service.Fetch((int)id);        
+                    return Ok(mapper.Map<UserDTO>(userFoundById));
             }
 
-            return NotContent();                                        
+            return NoContent();   
+
         } 
 
      
@@ -59,22 +60,20 @@ namespace CentralDeErros.API.Controllers
                 service.Delete(mapper.Map<User>(entry)); 
                 return Ok();   
             }
-
-            return NotContent();
             
+            return NoContent();
+  
         }   
 
         [HttpPut("{id}")]
         public ActionResult<UserDTO> Update(User user) 
         {
-          
-            if(ModelState.IsValid)
-            {
-                return Ok(mapper.Map<UserDTO>(service.Update(user)));
-            }
+                if(ModelState.IsValid)
+                {
+                    return Ok(mapper.Map<UserDTO>(service.Update(user)));
+                }
 
-            return NotContent();  
-                                                
+                return NoContent();                                      
         } 
 
         [HttpPost]
@@ -84,14 +83,12 @@ namespace CentralDeErros.API.Controllers
             if(ModelState.IsValid) 
             {
                 var userModel = mapper.Map<User>(value);
-
                 service.Register(userModel);
-
                 return Ok(mapper.Map<UserDTO>(mapper.Map<UserDTO>(userModel)));
             }
-
-            return NotContent();
-           
+            
+                return NoContent();
+                
         }
 
     }
