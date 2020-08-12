@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CentralDeErros.Core.Extensions;
 using CentralDeErros.Model.Models;
 using CentralDeErros.Services;
 using CentralDeErros.Transport;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.API.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class ErrorController : ControllerBase
@@ -53,6 +56,7 @@ namespace CentralDeErros.API.Controllers
             return Ok(_mapper.Map<ErrorDTO>(newEntry));
         }
 
+        [ClaimsAuthotize("Admin","Update")]
         [HttpPut]
         public IActionResult Put(ErrorEntryDTO entry)
         {
@@ -66,6 +70,7 @@ namespace CentralDeErros.API.Controllers
             return NotFound();
         }
 
+        [ClaimsAuthotize("Admin","Delete")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -74,6 +79,7 @@ namespace CentralDeErros.API.Controllers
             return Ok();
         }
 
+        [ClaimsAuthotize("Admin", "Delete")]
         [HttpDelete]
         public IActionResult Delete(ErrorEntryDTO entry)
         {

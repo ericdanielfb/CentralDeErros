@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using CentralDeErros.Model.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using CentralDeErros.Core.Extensions;
 
 namespace CentralDeErros.API.Controllers
 {
@@ -31,8 +32,7 @@ namespace CentralDeErros.API.Controllers
             _tokenGeneratorService = tokenGeneratorService;
         }
 
-        // POST api/v1/signin
-        [HttpPost]
+        [HttpPost("createaccount")]
         public async Task<ActionResult> Post([FromBody] RegisterUserDTO value)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -46,7 +46,6 @@ namespace CentralDeErros.API.Controllers
                 await _signInManager.SignInAsync(user, false);
                 return Created(nameof(Post), await _tokenGeneratorService.TokenGenerator(user.Email));
             }
-
             return BadRequest(value);
         }
 
@@ -62,10 +61,6 @@ namespace CentralDeErros.API.Controllers
             if (result.IsLockedOut) return BadRequest(loginDTO);
 
             return BadRequest(loginDTO);
-
-            
         }
-
-
     }
 }
