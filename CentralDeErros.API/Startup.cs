@@ -1,8 +1,10 @@
 using AutoMapper;
+using CentralDeErros.API.Configuration;
 using CentralDeErros.Core;
 using CentralDeErros.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,14 +26,19 @@ namespace CentralDeErros.API
         {
             services.AddControllers();
 
-            string dbConnection = Configuration.GetConnectionString("DbConnection");
-            services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
-      
+            services.AddDbContext<CentralDeErrosDbContext>(options 
+                => options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
+
+            services.AddIdentityConfiguration(Configuration);
+
+           
             services.AddScoped<ErrorService>();
             services.AddScoped<EnvironmentService>();
             services.AddScoped<LevelService>();
             services.AddScoped<MicrosserviceService>();
             services.AddScoped<ProfileService>();
+            services.AddScoped<TokenGeneratorService>();
+
             services.AddScoped<UserService>();
 
             services.AddSwaggerGen();
@@ -59,6 +66,8 @@ namespace CentralDeErros.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
