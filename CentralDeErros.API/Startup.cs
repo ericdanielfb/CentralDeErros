@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
 
 namespace CentralDeErros.API
 {
@@ -41,7 +43,34 @@ namespace CentralDeErros.API
 
             services.AddScoped<UserService>();
 
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(x => {
+                x.AddSecurityDefinition("Bearer",
+                new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                x.AddSecurityRequirement(
+                    new OpenApiSecurityRequirement()
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Description = "Adds token to header",
+                                Name = "Authorization",
+                                Type = SecuritySchemeType.Http,
+                                In = ParameterLocation.Header,
+                                Scheme = "bearer",
+                                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                            },
+                            new List<string>()
+                        }
+                    }
+                );
+                
+            });
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -65,9 +94,9 @@ namespace CentralDeErros.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
