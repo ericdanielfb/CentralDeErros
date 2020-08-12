@@ -44,16 +44,16 @@ namespace CentralDeErros.API.Controllers
         public IActionResult Post([FromBody]ErrorEntryDTO entry)
         {
 
-            //check if foreign keys exist
-            var fkValidation = ValidateFK(entry);
+            try
+            {
+                var newEntry = _service.Register(_mapper.Map<Error>(entry));
+                return Ok(_mapper.Map<ErrorDTO>(newEntry));
+            }
+            catch (Exception exc)
+            {
 
-            if (fkValidation.Count > 0)
-                return BadRequest(fkValidation);
-            
-
-
-            var newEntry = _service.Register(_mapper.Map<Error>(entry));
-            return Ok(_mapper.Map<ErrorDTO>(newEntry));
+                return BadRequest(exc.Message);
+            }
         }
 
         [ClaimsAuthotize("Admin","Update")]
@@ -87,23 +87,6 @@ namespace CentralDeErros.API.Controllers
 
             return Ok();
         }
-
-        private ICollection<string> ValidateFK(ErrorEntryDTO entry)
-        {
-            List<string> messages = new List<string>();
-
-            if (!_service.CheckId<Level>(entry.LevelId))
-                messages.Add("LevelId not found");
-
-            if (!_service.CheckId<Microsservice>(entry.MicrosserviceId))
-                messages.Add("MicrosserviceId not found");
-
-            if (!_service.CheckId<Model.Models.Environment>(entry.EnviromentId))
-                messages.Add("EnviromentId not found");
-
-            return messages;
-        }
-        
         
     }
 }
