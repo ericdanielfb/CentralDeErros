@@ -28,6 +28,7 @@ namespace CentralDeErros.API.Controllers
             _tokenGeneratorService = tokenGeneratorService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<IEnumerable<MicrosserviceDTO>> GetAllMicrosservices()
         {
