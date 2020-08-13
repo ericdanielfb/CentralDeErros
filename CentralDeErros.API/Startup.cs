@@ -33,44 +33,15 @@ namespace CentralDeErros.API
 
             services.AddIdentityConfiguration(Configuration);
 
-           
             services.AddScoped<ErrorService>();
             services.AddScoped<EnvironmentService>();
             services.AddScoped<LevelService>();
             services.AddScoped<MicrosserviceService>();
             services.AddScoped<ProfileService>();
             services.AddScoped<TokenGeneratorService>();
-
             services.AddScoped<UserService>();
 
-            services.AddSwaggerGen(x => {
-                x.AddSecurityDefinition("Bearer",
-                new OpenApiSecurityScheme
-                {
-                    In = ParameterLocation.Header,
-                    Description = "Please enter into field the word 'Bearer' following by space and JWT",
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey
-                });
-                x.AddSecurityRequirement(
-                    new OpenApiSecurityRequirement()
-                    {
-                        {
-                            new OpenApiSecurityScheme
-                            {
-                                Description = "Adds token to header",
-                                Name = "Authorization",
-                                Type = SecuritySchemeType.Http,
-                                In = ParameterLocation.Header,
-                                Scheme = "bearer",
-                                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
-                            },
-                            new List<string>()
-                        }
-                    }
-                );
-                
-            });
+            services.AddSwaggerConfig();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -84,11 +55,7 @@ namespace CentralDeErros.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Central De Erros");
-            });
+            app.UseSwaggerConfig();
 
             app.UseHttpsRedirection();
 
