@@ -33,6 +33,8 @@ namespace CentralDeErros.API
 
             services.AddIdentityConfiguration(Configuration);
 
+            services.AddJwtConfig(Configuration);
+
             services.AddScoped<ErrorService>();
             services.AddScoped<EnvironmentService>();
             services.AddScoped<LevelService>();
