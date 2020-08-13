@@ -1,18 +1,8 @@
-﻿
-using CentralDeErros.API.Extensions;
-using CentralDeErros.Core;
-using CentralDeErros.Model.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using CentralDeErros.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CentralDeErros.API.Configuration
 {

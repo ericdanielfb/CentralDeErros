@@ -35,13 +35,7 @@ namespace CentralDeErros.API
 
             services.AddJwtConfig(Configuration);
 
-            services.AddScoped<ErrorService>();
-            services.AddScoped<EnvironmentService>();
-            services.AddScoped<LevelService>();
-            services.AddScoped<MicrosserviceService>();
-            services.AddScoped<ProfileService>();
-            services.AddScoped<TokenGeneratorService>();
-            services.AddScoped<UserService>();
+            services.AddDependencyInjectionConfig();
 
             services.AddSwaggerConfig();
 
