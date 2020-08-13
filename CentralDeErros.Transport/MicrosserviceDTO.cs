@@ -16,7 +16,5 @@ namespace CentralDeErros.Transport
                 _name = value.ToLower();
             }
         }
-
-        public string Token { get; set; }
     }
 }

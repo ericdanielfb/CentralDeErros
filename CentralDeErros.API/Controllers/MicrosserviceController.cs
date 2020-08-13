@@ -62,14 +62,17 @@ namespace CentralDeErros.API.Controllers
         [HttpPut("{id}")]
         public ActionResult<MicrosserviceDTO> UpdateMicrosservice(int? id, Microsservice microsservice)
         {
-            if (id == null)
+            if (id.HasValue)
             {
-                return NoContent();
+                var token = _tokenGeneratorService.TokenGeneratorMicrosservice(_mapper.Map<Microsservice>(microsservice));
+
+                _mapper.Map<MicrosserviceDTO>(_service.RegisterOrUpdate(microsservice, token));
+
+
+                return Ok(token);
             }
-                return Ok
-                    (_mapper.Map<MicrosserviceDTO>
-                    (_service.RegisterOrUpdate
-                    ((microsservice))));
+
+            return NoContent();
         }
 
         [ClaimsAuthotize("Admin", "Create")]
@@ -78,11 +81,11 @@ namespace CentralDeErros.API.Controllers
         {
             if (!ModelState.IsValid){ return BadRequest(ModelState); }
 
-                _mapper.Map<MicrosserviceDTO>
-                (_service.RegisterOrUpdate
-                (_mapper.Map < Microsservice >(value)));
+            var token = _tokenGeneratorService.TokenGeneratorMicrosservice(_mapper.Map<Microsservice>(value)); 
 
-                return Ok();
+            _mapper.Map<MicrosserviceDTO>(_service.RegisterOrUpdate(_mapper.Map <Microsservice>(value), token));
+
+            return Ok(token) ;
         }
     }
 }
