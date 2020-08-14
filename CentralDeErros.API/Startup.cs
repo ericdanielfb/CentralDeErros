@@ -1,12 +1,16 @@
 using AutoMapper;
+using CentralDeErros.API.Configuration;
 using CentralDeErros.Core;
 using CentralDeErros.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
 
 namespace CentralDeErros.API
 {
@@ -24,17 +28,16 @@ namespace CentralDeErros.API
         {
             services.AddControllers();
 
-            string dbConnection = Configuration.GetConnectionString("DbConnection");
-            services.AddDbContext<CentralDeErrosDbContext>(options => options.UseSqlServer(dbConnection));
-      
-            services.AddScoped<ErrorService>();
-            services.AddScoped<EnvironmentService>();
-            services.AddScoped<LevelService>();
-            services.AddScoped<MicrosserviceService>();
-            services.AddScoped<ProfileService>();
-            services.AddScoped<UserService>();
+            services.AddDbContext<CentralDeErrosDbContext>(options 
+                => options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
 
-            services.AddSwaggerGen();
+            services.AddIdentityConfiguration(Configuration);
+
+            services.AddJwtConfig(Configuration);
+
+            services.AddDependencyInjectionConfig();
+
+            services.AddSwaggerConfig();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -48,17 +51,15 @@ namespace CentralDeErros.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Central De Erros");
-            });
+            app.UseSwaggerConfig();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
