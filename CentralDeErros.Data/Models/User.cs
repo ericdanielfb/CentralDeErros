@@ -20,6 +20,5 @@ namespace CentralDeErros.Model.Models
         public int ProfileId { get; set; }
         
         public Profile Profile { get; set; }
-
     }
 }

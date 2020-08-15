@@ -44,7 +44,10 @@ namespace CentralDeErros.API.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Created(nameof(Post), await _tokenGeneratorService.TokenGenerator(user.Email));
+                return Created(
+                    nameof(Post),
+                    new { token = await _tokenGeneratorService.TokenGenerator(user.Email) }
+                );
             }
             return BadRequest(result.Errors);
         }
@@ -56,7 +59,7 @@ namespace CentralDeErros.API.Controllers
 
             var result = await _signInManager.PasswordSignInAsync(loginDTO.Email, loginDTO.Password, false, true);
 
-            if (result.Succeeded) return Ok(await _tokenGeneratorService.TokenGenerator(loginDTO.Email));
+            if (result.Succeeded) return Ok(new { token = await _tokenGeneratorService.TokenGenerator(loginDTO.Email) });
 
             if (result.IsLockedOut) return BadRequest(new { Message = "Limite de tentativas excedido! Tente novamente mais tarde." });
 

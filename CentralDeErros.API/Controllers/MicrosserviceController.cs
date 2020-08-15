@@ -28,7 +28,7 @@ namespace CentralDeErros.API.Controllers
             _tokenGeneratorService = tokenGeneratorService;
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthotize("Admin", "Read")]
         [HttpGet]
         public ActionResult<IEnumerable<MicrosserviceDTO>> GetAllMicrosservices()
         {
@@ -37,55 +37,80 @@ namespace CentralDeErros.API.Controllers
                  (_service.List()));
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<MicrosserviceDTO> GetMicrosserviceId(int? id)
+        [HttpGet("{clientId}")]
+        public ActionResult<MicrosserviceDTO> GetMicrosserviceById(Guid? clientId)
         {
-            if (id == null)
+            if (clientId == null)
             {
                 return NoContent();
             }
-                return Ok
-                    (_mapper.Map<MicrosserviceDTO>
-                    (_service.Fetch
-                    ((int)id)));
-
+            return Ok
+                (
+                    _mapper.Map<MicrosserviceDTO>
+                    (
+                        _service.Fetch((Guid)clientId)
+                    )
+                );
         }
 
         [ClaimsAuthotize("Admin", "Delete")]
-        [HttpDelete("{id}")]
-        public void DeleteEnvironmentId(int? id)
+        [HttpDelete("{clientId}")]
+        public void DeleteMicrosserviceById(Guid? clientId)
         {
-            _service.Delete((int)id);
-        }
-
-        [ClaimsAuthotize("Admin", "Update")]
-        [HttpPut("{id}")]
-        public ActionResult<MicrosserviceDTO> UpdateMicrosservice(int? id, Microsservice microsservice)
-        {
-            if (id.HasValue)
-            {
-                var token = _tokenGeneratorService.TokenGeneratorMicrosservice(_mapper.Map<Microsservice>(microsservice));
-
-                _mapper.Map<MicrosserviceDTO>(_service.RegisterOrUpdate(microsservice, token));
-
-
-                return Ok(token);
-            }
-
-            return NoContent();
+            _service.Delete((Guid)clientId);
         }
 
         [ClaimsAuthotize("Admin", "Create")]
         [HttpPost]
-        public ActionResult<MicrosserviceDTO> SaveMicrosservice([FromBody] MicrosserviceDTO value)
+        public ActionResult<MicrosserviceRegisterDTO> SaveMicrosservice([FromBody] string microsserviceName)
         {
-            if (!ModelState.IsValid){ return BadRequest(ModelState); }
+            if (microsserviceName is null)
+            {
+                return BadRequest();
+            }
 
-            var token = _tokenGeneratorService.TokenGeneratorMicrosservice(_mapper.Map<Microsservice>(value)); 
+            return Created(
+                nameof(SaveMicrosservice),
+                _mapper.Map<MicrosserviceRegisterDTO>(_service.Register(microsserviceName)));
+        }
 
-            _mapper.Map<MicrosserviceDTO>(_service.RegisterOrUpdate(_mapper.Map <Microsservice>(value), token));
+        [ClaimsAuthotize("Admin", "Update")]
+        [HttpPut("{id}")]
+        public ActionResult<MicrosserviceDTO> UpdateMicrosserviceName(Guid? clientId, string microsserviceName)
+        {
+            Microsservice microsservice;
+            if (clientId.HasValue && microsserviceName != null)
+            {
+                microsservice = _service.Fetch((Guid)clientId);
+                if (microsservice is null)
+                {
+                    return NoContent();
+                } else
+                {
+                    return Ok(_mapper.Map<MicrosserviceDTO>(_service.Update(microsservice, microsserviceName)));
+                }
+            }
+            return BadRequest();
+        }
 
-            return Ok(token) ;
+        [ClaimsAuthotize("Admin", "Update")]
+        [HttpPost("regenerateSecret")]
+        public ActionResult<MicrosserviceRegisterDTO> RegenerateClientSecret([FromBody]Guid? clientId)
+        {
+            Microsservice microsservice;
+            if (clientId.HasValue)
+            {
+                microsservice = _service.Fetch((Guid)clientId);
+                if (microsservice is null)
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    return Ok(_mapper.Map<MicrosserviceDTO>(_service.GenerateClientSecret(microsservice)));
+                }
+            }
+            return BadRequest();
         }
     }
 }
