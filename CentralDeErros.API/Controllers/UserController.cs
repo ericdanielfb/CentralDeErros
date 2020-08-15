@@ -42,7 +42,6 @@ namespace CentralDeErros.API.Controllers
             {
                 return Ok(_mapper.Map<UserGetDTO>(await _userManager.FindByIdAsync(id)));
             }
-
             return NoContent();
 
         }
@@ -65,6 +64,7 @@ namespace CentralDeErros.API.Controllers
             }
             return NoContent();
         }
+
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateAsync(string id, IdentityUser identityUser)
