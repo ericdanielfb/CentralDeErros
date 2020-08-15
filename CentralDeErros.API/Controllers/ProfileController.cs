@@ -46,7 +46,7 @@ namespace CentralDeErros.API.Controllers
                 return Ok(mapper.Map<ProfileDTO>(profileFoundById));
             }
 
-            return NotContent();    
+            return NoContent();    
                                       
         } 
 
