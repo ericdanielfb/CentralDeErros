@@ -39,16 +39,15 @@ namespace CentralDeErros.API.Controllers
         [HttpGet("{id}")] 
         public ActionResult<ProfileDTO> Get(int? id) 
         {
-   
-                if(ModelState.IsValid)
-                {
-                    var profileFoundById = service.Fetch((int)id);        
-                    return Ok(mapper.Map<ProfileDTO>(profileFoundById));
-                }
+ 
+            if(ModelState.IsValid)
+            {
+                var profileFoundById = service.Fetch((int)id);        
+                return Ok(mapper.Map<ProfileDTO>(profileFoundById));
+            }
 
-                return NoContent();    
-
-                  
+            return NoContent();    
+                                      
         } 
 
         [HttpDelete("{id}")]
@@ -62,20 +61,19 @@ namespace CentralDeErros.API.Controllers
             }
 
             return NoContent();
-
             
         }   
 
 
         [HttpPut("{id}")]
         public ActionResult<ProfileDTO> Update(Model.Models.Profile profile) 
-        {
-                if(ModelState.IsValid)
-                {
-                    return Ok(mapper.Map<ProfileDTO>(service.Update(profile)));
-                }
+        { 
+            if(ModelState.IsValid)
+            {
+                return Ok(mapper.Map<ProfileDTO>(service.Update(profile)));
+            }
 
-                return NoContent();  
+            return NoContent();  
                                                 
         } 
 

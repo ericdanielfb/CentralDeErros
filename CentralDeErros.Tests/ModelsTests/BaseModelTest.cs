@@ -5,9 +5,9 @@ namespace CentralDeErros.ModelsTests
 {
     public class BaseModelTest
     {
-        public readonly CentralDeErrosDbContext context;
+        public readonly FakeContext context;
 
-        public BaseModelTest(CentralDeErrosDbContext context)
+        public BaseModelTest(FakeContext context)
         {
             this.context = context;
         }

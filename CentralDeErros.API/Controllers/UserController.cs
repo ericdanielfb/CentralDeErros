@@ -46,7 +46,7 @@ namespace CentralDeErros.API.Controllers
             }
 
             return NoContent();   
-                                    
+
         } 
 
      
@@ -60,40 +60,35 @@ namespace CentralDeErros.API.Controllers
                 service.Delete(mapper.Map<User>(entry)); 
                 return Ok();   
             }
-
-            return NoContent();
             
+            return NoContent();
+  
         }   
 
         [HttpPut("{id}")]
         public ActionResult<UserDTO> Update(User user) 
         {
-
                 if(ModelState.IsValid)
                 {
                     return Ok(mapper.Map<UserDTO>(service.Update(user)));
                 }
 
-                return NoContent();  
-                                                
+                return NoContent();                                      
         } 
 
         [HttpPost]
         public ActionResult<UserDTO> Create([FromBody]User value)
         {
 
-                if(ModelState.IsValid) 
-                {
-                    var userModel = mapper.Map<User>(value);
-
-                    service.Register(userModel);
-
-                    return Ok(mapper.Map<UserDTO>(mapper.Map<UserDTO>(userModel)));
-                }
-
+            if(ModelState.IsValid) 
+            {
+                var userModel = mapper.Map<User>(value);
+                service.Register(userModel);
+                return Ok(mapper.Map<UserDTO>(mapper.Map<UserDTO>(userModel)));
+            }
+            
                 return NoContent();
-
-           
+                
         }
 
     }

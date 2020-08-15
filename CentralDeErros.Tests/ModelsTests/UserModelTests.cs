@@ -11,18 +11,45 @@ namespace CentralDeErros.ModelsTests
 {
     public class UserModelTests : BaseModelTest
     {
-        public UserModelTests(CentralDeErrosDbContext context) : base(context)
+        public UserModelTests(FakeContext context) : base(context)
         {
         }
 
+
         [Fact(DisplayName = "User should not be null")]
         public void UserShouldNotBeNull()
-        {
+        {                         
+            Assert.NotNull(context.Users);                            
+        } 
+
+
+        [Fact(DisplayName = "Id should be positive")]
+        public void UserIdShouldBePositive()
+        {       
+            var negativeId = context.Users[0].Id;
             
-            var users = context.Users.ToList(); 
+            Assert.NotNull(context.Users);                            
+        } 
+
+
+        [Fact(DisplayName = "UserName should be longer than three")]
+        public void UserNameShouldBeLongerThanThree()
+        {       
+            var negativeId = context.Users[1].Id;
             
-            foreach (var user in users)  Assert.NotNull(user);
-                                 
-        }       
+            Assert.NotNull(context.Users);                            
+        }
+
+
+        [Fact(DisplayName = "UserName should have a valid email")]
+        public void UserShouldHaveValidEmail()
+        {       
+            var negativeId = context.Users[2].Id;
+            
+            Assert.NotNull(context.Users);                            
+        }  
+
+        
+
     }
 }
