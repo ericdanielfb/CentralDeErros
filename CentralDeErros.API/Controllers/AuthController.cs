@@ -38,7 +38,7 @@ namespace CentralDeErros.API.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var user = _mapper.Map<IdentityUser>((value));
-
+            user.UserName = user.Email;
             var result = await _userManager.CreateAsync(user, value.Password);
 
             if (result.Succeeded)
