@@ -34,14 +34,14 @@ namespace CentralDeErros.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult List(int? start, int? end)
+        public IActionResult List(int? start, int? end, bool archived = false)
         {
-            return Ok(_mapper.Map<IEnumerable<ErrorDTO>>(_service.List(start, end)));
+            return Ok(_mapper.Map<IEnumerable<ErrorDTO>>(_service.List(start, end, archived)));
         }
 
 
         [HttpPost]
-        public IActionResult Post([FromBody]ErrorEntryDTO entry)
+        public IActionResult Post([FromBody] ErrorEntryDTO entry)
         {
 
             try
@@ -56,7 +56,7 @@ namespace CentralDeErros.API.Controllers
             }
         }
 
-        [ClaimsAuthotize("Admin","Update")]
+        [ClaimsAuthotize("Admin", "Update")]
         [HttpPut]
         public IActionResult Put(ErrorEntryDTO entry)
         {
@@ -70,12 +70,30 @@ namespace CentralDeErros.API.Controllers
             return NotFound();
         }
 
-        [ClaimsAuthotize("Admin","Delete")]
+        [HttpPut("archive")]
+        public IActionResult Archive([FromBody] List<int> errorIdList)
+        {
+            var failed = new List<int>();
+
+            if (errorIdList != null)
+            {
+                failed =  _service.ArchiveById(errorIdList);
+            }
+
+            if (failed != null)
+            {
+                return NotFound(new { failedList = failed });
+            }
+
+            return Ok();
+        }
+
+        [ClaimsAuthotize("Admin", "Delete")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _service.Delete(id);
-            
+
             return Ok();
         }
 
@@ -87,6 +105,6 @@ namespace CentralDeErros.API.Controllers
 
             return Ok();
         }
-        
+
     }
 }

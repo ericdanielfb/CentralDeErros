@@ -17,5 +17,6 @@ namespace CentralDeErros.Transport
         public int EnviromentId { get; set; }
 
         public int LevelId { get; set; }
+        public bool IsArchived { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CentralDeErros.API.Migrations
 {
     [DbContext(typeof(CentralDeErrosDbContext))]
-    [Migration("20200815020530_feature_archive")]
+    [Migration("20200815022843_feature_archive")]
     partial class feature_archive
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,10 @@ namespace CentralDeErros.API.Migrations
                         .HasColumnName("error_date")
                         .HasColumnType("datetime");
 
+                    b.Property<bool>("IsArchived")
+                        .HasColumnName("is_archived")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LevelId")
                         .HasColumnType("int");
 
@@ -78,10 +82,6 @@ namespace CentralDeErros.API.Migrations
                         .HasColumnName("title")
                         .HasColumnType("varchar(45)")
                         .HasMaxLength(45);
-
-                    b.Property<bool>("isArchived")
-                        .HasColumnName("is_archived")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

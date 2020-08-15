@@ -23,10 +23,12 @@ namespace CentralDeErros.Services
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public ICollection<Error> List(int? start, int? end)
+        public ICollection<Error> List(int? start, int? end, bool archived)
         {
-            var response = Context.Errors
-                .Skip(start.HasValue ? start.Value : 0);
+            var response = Context
+                                .Errors
+                                .Where(x => x.IsArchived == archived)
+                                .Skip(start.HasValue ? start.Value : 0);
 
             if(end.HasValue)
             {
@@ -81,14 +83,33 @@ namespace CentralDeErros.Services
 
             if (!CheckId<Model.Models.Environment>(entry.EnviromentId))
                 throw new Exception("EnviromentId not found");
-
+            
+            entry.IsArchived = false;
+            
             Context.Add(entry);
             Context.SaveChanges();
-            
 
             return entry;
         }
 
+        public List<int> ArchiveById(List<int> errorIdList)
+        {
+            var failed = new List<int>();
+            foreach (var errorId in errorIdList)
+            {
+                if (!CheckId<Error>(errorId))
+                {
+                    failed.Add(errorId);
+                }
+                else
+                {
+                    var error = Fetch(errorId);
+                    error.IsArchived = true;
+                    Update(error);
+                }
+            }
+            return failed;
+        }
 
         public bool CheckId<T>(int id) where T : class
         {

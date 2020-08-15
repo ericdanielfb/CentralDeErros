@@ -59,6 +59,10 @@ namespace CentralDeErros.API.Migrations
                         .HasColumnName("error_date")
                         .HasColumnType("datetime");
 
+                    b.Property<bool>("IsArchived")
+                        .HasColumnName("is_archived")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LevelId")
                         .HasColumnType("int");
 
@@ -76,10 +80,6 @@ namespace CentralDeErros.API.Migrations
                         .HasColumnName("title")
                         .HasColumnType("varchar(45)")
                         .HasMaxLength(45);
-
-                    b.Property<bool>("isArchived")
-                        .HasColumnName("is_archived")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

@@ -49,7 +49,7 @@ namespace CentralDeErros.Model.Maps
                 .IsRequired();
 
             builder
-                .Property(k => k.isArchived)
+                .Property(k => k.IsArchived)
                 .HasColumnName("is_archived")
                 .HasColumnType("bit")
                 .IsRequired();

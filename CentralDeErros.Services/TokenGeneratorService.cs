@@ -27,7 +27,7 @@ namespace CentralDeErros.Services
 
         public async Task<string>TokenGenerator(string email)
         {
-            var user = await _userManager.FindByNameAsync(email);
+            var user = await _userManager.FindByEmailAsync(email);
             var claims = await _userManager.GetClaimsAsync(user);
             var userRoles = await _userManager.GetRolesAsync(user);
 

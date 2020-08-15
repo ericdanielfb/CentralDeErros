@@ -13,7 +13,7 @@ namespace CentralDeErros.Model.Models
         public string Origin { get; set; }
         public string Details { get; set; }
         public DateTime ErrorDate { get; set; }
-        public bool isArchived { get; set; }
+        public bool IsArchived { get; set; }
 
         public int MicrosserviceId { get; set; }
         public Microsservice Microsservice { get; set; }
