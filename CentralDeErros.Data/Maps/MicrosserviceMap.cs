@@ -31,8 +31,8 @@ namespace CentralDeErros.Model.Maps
             builder
                 .Property(k => k.Token)
                 .HasColumnName("token")
-                .HasColumnType("varchar(50)")
-                .HasMaxLength(50)
+                .HasColumnType("varchar(500)")
+                .HasMaxLength(500)
                 .IsRequired();
 
             builder

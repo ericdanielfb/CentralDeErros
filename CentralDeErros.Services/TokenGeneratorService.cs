@@ -27,7 +27,7 @@ namespace CentralDeErros.Services
 
         public async Task<string>TokenGenerator(string email)
         {
-            var user = await _userManager.FindByNameAsync(email);
+            var user = await _userManager.FindByEmailAsync(email);
             var claims = await _userManager.GetClaimsAsync(user);
             var userRoles = await _userManager.GetRolesAsync(user);
 
@@ -56,6 +56,25 @@ namespace CentralDeErros.Services
 
             return tokenHandler.WriteToken(token);
 
+        }
+
+        public string TokenGeneratorMicrosservice(Microsservice microsservice)
+        {
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettingsJWT.Secret);
+            var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, microsservice.Name.ToString())
+                }),
+                Issuer = _appSettingsJWT.Issuer,
+                Expires = DateTime.UtcNow.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            }) ;
+
+            return tokenHandler.WriteToken(token);
         }
 
         private static long ToUnixEpochDate(DateTime date)
