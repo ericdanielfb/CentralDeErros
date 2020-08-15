@@ -4,14 +4,16 @@ using CentralDeErros.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CentralDeErros.API.Migrations
 {
     [DbContext(typeof(CentralDeErrosDbContext))]
-    partial class CentralDeErrosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200815022843_feature_archive")]
+    partial class feature_archive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,8 +130,8 @@ namespace CentralDeErros.API.Migrations
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnName("token")
-                        .HasColumnType("varchar(500)")
-                        .HasMaxLength(500);
+                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
