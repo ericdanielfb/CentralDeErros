@@ -14,12 +14,12 @@ namespace CentralDeErros.ModelsTests
         {          
         }
 
-        [Fact(DisplayName = "Error should not be null")]
-        public void ErrorsShouldNotBeNull()
-        {
-            var errors = context.Errors.ToList();
+        //[Fact(DisplayName = "Error should not be null")]
+        //public void ErrorsShouldNotBeNull()
+        //{
+        //    var errors = context.Errors.ToList();
 
-            foreach (var error in errors) Assert.NotNull(error);
-        }
+        //    foreach (var error in errors) Assert.NotNull(error);
+        //}
     }
 }
