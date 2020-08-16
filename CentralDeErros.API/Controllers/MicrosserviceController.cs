@@ -2,20 +2,18 @@
 using CentralDeErros.Core.Extensions;
 using CentralDeErros.Model.Models;
 using CentralDeErros.Services;
-using CentralDeErros.Transport;
+using CentralDeErros.Transport.MicrosserviceDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CentralDeErros.API.Controllers
 {
     [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class MicrosserviceController:ControllerBase
+    public class MicrosserviceController : ControllerBase
     {
         private MicrosserviceService _service;
         private IMapper _mapper;
@@ -37,80 +35,114 @@ namespace CentralDeErros.API.Controllers
                  (_service.List()));
         }
 
-        [HttpGet("{clientId}")]
-        public ActionResult<MicrosserviceDTO> GetMicrosserviceById(Guid? clientId)
+        [HttpGet("GetByClientId")]
+        public ActionResult<MicrosserviceDTO> GetMicrosserviceById([FromBody] MicrosserviceClientIdOnlyDTO microsserviceClientId)
         {
-            if (clientId == null)
+            if (!ModelState.IsValid)
             {
-                return NoContent();
+                return BadRequest(ModelState);
             }
-            return Ok
-                (
-                    _mapper.Map<MicrosserviceDTO>
-                    (
-                        _service.Fetch((Guid)clientId)
-                    )
-                );
-        }
-
-        [ClaimsAuthorize("Admin", "Delete")]
-        [HttpDelete("{clientId}")]
-        public void DeleteMicrosserviceById(Guid? clientId)
-        {
-            _service.Delete((Guid)clientId);
-        }
-
-        [ClaimsAuthorize("Admin", "Create")]
-        [HttpPost]
-        public ActionResult<MicrosserviceRegisterDTO> SaveMicrosservice([FromBody] string microsserviceName)
-        {
-            if (microsserviceName is null)
+            else
             {
-                return BadRequest();
-            }
-
-            return Created(
-                nameof(SaveMicrosservice),
-                _mapper.Map<MicrosserviceRegisterDTO>(_service.Register(microsserviceName)));
-        }
-
-        [ClaimsAuthorize("Admin", "Update")]
-        [HttpPut("{clientId}")]
-        public ActionResult<MicrosserviceDTO> UpdateMicrosserviceName(Guid? clientId, string microsserviceName)
-        {
-            Microsservice microsservice;
-            if (clientId.HasValue && microsserviceName != null)
-            {
-                microsservice = _service.Fetch((Guid)clientId);
-                if (microsservice is null)
-                {
-                    return NoContent();
-                } else
-                {
-                    return Ok(_mapper.Map<MicrosserviceDTO>(_service.Update(microsservice, microsserviceName)));
-                }
-            }
-            return BadRequest();
-        }
-
-        [ClaimsAuthorize("Admin", "Update")]
-        [HttpPost("regenerateSecret")]
-        public ActionResult<MicrosserviceRegisterDTO> RegenerateClientSecret([FromBody]Guid? clientId)
-        {
-            Microsservice microsservice;
-            if (clientId.HasValue)
-            {
-                microsservice = _service.Fetch((Guid)clientId);
+                Microsservice microsservice = _service.Fetch(_mapper.Map<Microsservice>(microsserviceClientId).ClientId);
                 if (microsservice is null)
                 {
                     return NoContent();
                 }
                 else
                 {
-                    return Ok(_mapper.Map<MicrosserviceDTO>(_service.GenerateClientSecret(microsservice)));
+                    return Ok(_mapper.Map<MicrosserviceDTO>(microsservice));
                 }
             }
-            return BadRequest();
+        }
+
+        [ClaimsAuthorize("Admin", "Delete")]
+        [HttpDelete("DeleteByClientId")]
+        public ActionResult DeleteMicrosserviceById([FromBody] MicrosserviceClientIdOnlyDTO microsserviceClientId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                Microsservice microsservice = _service.Fetch(_mapper.Map<Microsservice>(microsserviceClientId).ClientId);
+                if (microsservice is null)
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    _service.Delete(microsservice.ClientId);
+                    return Ok();
+                }
+            }
+        }
+
+        [ClaimsAuthorize("Admin", "Create")]
+        [HttpPost]
+        public ActionResult<MicrosserviceRegisterDTO> SaveMicrosservice([FromBody] MicrosserviceNameOnlyDTO microsserviceName)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                return Created(
+                    nameof(SaveMicrosservice),
+                    _mapper.Map<MicrosserviceRegisterDTO>(
+                        _service.Register(microsserviceName.Name))
+                    );
+            }
+        }
+
+        [ClaimsAuthorize("Admin", "Update")]
+        [HttpPut("UpdateName")]
+        public ActionResult<MicrosserviceDTO> UpdateMicrosserviceName([FromBody] MicrosserviceDTO microsservice)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                Microsservice response = _service.Fetch(microsservice.ClientId);
+                if (response is null)
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    return Ok(
+                        _mapper.Map<MicrosserviceDTO>(
+                            _service.Update(_mapper.Map<Microsservice>(microsservice))
+                        )
+                    );
+                }
+            }
+        }
+
+        [ClaimsAuthorize("Admin", "Update")]
+        [HttpPost("RegenerateSecret")]
+        public ActionResult<MicrosserviceRegisterDTO> RegenerateClientSecret([FromBody] MicrosserviceClientIdOnlyDTO microsserviceClientId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            { 
+                Microsservice response = _service.Fetch(microsserviceClientId.ClientId);
+                if (response is null)
+                {
+                    return NoContent();
+                }
+                else
+                {
+                    return Ok(_mapper.Map<MicrosserviceDTO>(_service.GenerateClientSecret(response)));
+                }
+            }
         }
     }
 }

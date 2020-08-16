@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CentralDeErros.Transport
+namespace CentralDeErros.Transport.MicrosserviceDTOs
 {
     public class MicrosserviceRegisterDTO
     {

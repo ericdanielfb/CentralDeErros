@@ -48,8 +48,7 @@ namespace CentralDeErros.API.Controllers
             }
         }
 
-        [
-            ("Admin", "Delete")]
+        [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
         public void DeleteLevelId(int? id)
         {

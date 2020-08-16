@@ -53,9 +53,10 @@ namespace CentralDeErros.Services
             return microsservice;
         }
 
-        public Microsservice Update(Microsservice microsservice, string microsserviceName)
+        
+        public override Microsservice Update(Microsservice microsservice)
         {
-            microsservice.Name = microsserviceName.ToLower();
+            microsservice.Name = microsservice.Name.ToLower();
 
             Context.Update(microsservice);
             Context.SaveChanges();
