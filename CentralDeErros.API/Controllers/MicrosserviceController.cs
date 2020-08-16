@@ -28,7 +28,7 @@ namespace CentralDeErros.API.Controllers
             _tokenGeneratorService = tokenGeneratorService;
         }
 
-        [ClaimsAuthotize("Admin", "Read")]
+        [ClaimsAuthorize("Admin", "Read")]
         [HttpGet]
         public ActionResult<IEnumerable<MicrosserviceDTO>> GetAllMicrosservices()
         {
@@ -53,14 +53,14 @@ namespace CentralDeErros.API.Controllers
                 );
         }
 
-        [ClaimsAuthotize("Admin", "Delete")]
+        [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{clientId}")]
         public void DeleteMicrosserviceById(Guid? clientId)
         {
             _service.Delete((Guid)clientId);
         }
 
-        [ClaimsAuthotize("Admin", "Create")]
+        [ClaimsAuthorize("Admin", "Create")]
         [HttpPost]
         public ActionResult<MicrosserviceRegisterDTO> SaveMicrosservice([FromBody] string microsserviceName)
         {
@@ -74,8 +74,8 @@ namespace CentralDeErros.API.Controllers
                 _mapper.Map<MicrosserviceRegisterDTO>(_service.Register(microsserviceName)));
         }
 
-        [ClaimsAuthotize("Admin", "Update")]
-        [HttpPut("{id}")]
+        [ClaimsAuthorize("Admin", "Update")]
+        [HttpPut("{clientId}")]
         public ActionResult<MicrosserviceDTO> UpdateMicrosserviceName(Guid? clientId, string microsserviceName)
         {
             Microsservice microsservice;
@@ -93,7 +93,7 @@ namespace CentralDeErros.API.Controllers
             return BadRequest();
         }
 
-        [ClaimsAuthotize("Admin", "Update")]
+        [ClaimsAuthorize("Admin", "Update")]
         [HttpPost("regenerateSecret")]
         public ActionResult<MicrosserviceRegisterDTO> RegenerateClientSecret([FromBody]Guid? clientId)
         {
