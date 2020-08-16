@@ -17,6 +17,7 @@ namespace CentralDeErros.API
             CreateMap<Microsservice, MicrosserviceNameOnlyDTO>().ReverseMap();
             CreateMap<Microsservice, MicrosserviceClientIdOnlyDTO>().ReverseMap();
             CreateMap<Microsservice, MicrosserviceRegisterDTO>().ReverseMap();
+            CreateMap<Microsservice, MicrosserviceLoginDTO>().ReverseMap();
             CreateMap<Error, ErrorEntryDTO>().ReverseMap();
             CreateMap<Error, ErrorDTO>().ReverseMap();
             CreateMap<IdentityUser, RegisterUserDTO>().ReverseMap();

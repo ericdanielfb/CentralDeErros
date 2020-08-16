@@ -53,7 +53,6 @@ namespace CentralDeErros.Services
             return microsservice;
         }
 
-        
         public override Microsservice Update(Microsservice microsservice)
         {
             microsservice.Name = microsservice.Name.ToLower();
@@ -102,6 +101,19 @@ namespace CentralDeErros.Services
 
             // Return the hexadecimal string.
             return sBuilder.ToString();
+        }
+
+        public bool ValidateMicrosserviceCredentials(Microsservice microsservice)
+        {
+            Microsservice ms = Fetch(microsservice.ClientId);
+            if (ms != null)
+            {
+                if (microsservice.ClientSecret.Equals(ms.ClientSecret))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
