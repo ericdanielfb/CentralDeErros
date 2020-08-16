@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CentralDeErros.Core.Extensions;
 using CentralDeErros.Model.Models;
-using CentralDeErros.Services;
+using CentralDeErros.Services.Interfaces;
 using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,30 +18,30 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class ErrorController : ControllerBase
     {
-        private readonly ErrorService _service;
+        private readonly IErrorService _service;
         private readonly IMapper _mapper;
 
-        public ErrorController(ErrorService service, IMapper mapper)
+        public ErrorController(IErrorService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<ErrorDTO> Get(int id)
         {
             return Ok(_mapper.Map<ErrorDTO>(_service.Fetch(id)));
         }
 
         [HttpGet]
-        public IActionResult List(int? start, int? end, bool archived = false)
+        public ActionResult<IEnumerable<ErrorDTO>> List(int? start, int? end, bool archived = false)
         {
             return Ok(_mapper.Map<IEnumerable<ErrorDTO>>(_service.List(start, end, archived)));
         }
 
 
         [HttpPost]
-        public IActionResult Post([FromBody] ErrorEntryDTO entry)
+        public ActionResult Post([FromBody] ErrorEntryDTO entry)
         {
 
             try

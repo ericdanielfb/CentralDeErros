@@ -1,4 +1,5 @@
 ﻿using CentralDeErros.Services;
+using CentralDeErros.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CentralDeErros.API.Configuration
@@ -8,7 +9,7 @@ namespace CentralDeErros.API.Configuration
         public static IServiceCollection AddDependencyInjectionConfig(this IServiceCollection services)
         {
 
-            services.AddScoped<ErrorService>();
+            services.AddScoped<IErrorService, ErrorService>();
             services.AddScoped<EnvironmentService>();
             services.AddScoped<LevelService>();
             services.AddScoped<MicrosserviceService>();

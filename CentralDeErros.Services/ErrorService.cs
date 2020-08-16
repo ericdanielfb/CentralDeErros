@@ -1,16 +1,14 @@
 ﻿using CentralDeErros.Core;
 using CentralDeErros.Model.Models;
 using CentralDeErros.Services.Base;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.IIS;
+using CentralDeErros.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CentralDeErros.Services
 {
-    public class ErrorService : ServiceBase<Error>
+    public class ErrorService : ServiceBase<Error>, IErrorService
     {
         public ErrorService(CentralDeErrosDbContext context) : base(context)
         {
