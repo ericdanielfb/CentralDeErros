@@ -11,7 +11,7 @@ namespace CentralDeErros.ModelsTests
 {
     public class UserModelTests : BaseModelTest
     {
-        public UserModelTests(FakeContext context) : base(context)
+        public UserModelTests()
         {
         }
 

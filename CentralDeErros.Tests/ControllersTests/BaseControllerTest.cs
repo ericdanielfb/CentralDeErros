@@ -1,13 +1,13 @@
 ﻿using CentralDeErros.Core;
 
 
-namespace CentralDeErros.ModelsTests
+namespace CentralDeErros.ControllerTest
 {
-    public class BaseModelTest
+    public class BaseControllerTest
     {
         public readonly FakeContext context;
 
-        public BaseModelTest()
+        public BaseControllerTest()
         {
             context = new FakeContext();
         }

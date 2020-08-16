@@ -48,14 +48,14 @@ namespace CentralDeErros.API.Controllers
             }
         }
 
-        [ClaimsAuthotize("Admin","Delete")]
+        [ClaimsAuthorize("Admin","Delete")]
         [HttpDelete("{id}")]
         public void DeleteEnvironmentId(int? id)
         {
             _service.Delete((int)id);
         }
 
-        [ClaimsAuthotize("Admin","Update")]
+        [ClaimsAuthorize("Admin","Update")]
         [HttpPut("{id}")]
         public ActionResult<EnvironmentDTO> UpdateEnvironment(int? id, Model.Models.Environment environment)
         {
@@ -73,7 +73,7 @@ namespace CentralDeErros.API.Controllers
 
         }
 
-        [ClaimsAuthotize("Admin","Create")]
+        [ClaimsAuthorize("Admin","Create")]
         [HttpPost]
         public ActionResult<EnvironmentDTO> SaveEnvironment([FromBody] EnvironmentDTO value)
         {

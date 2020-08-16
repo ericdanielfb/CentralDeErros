@@ -51,14 +51,14 @@ namespace CentralDeErros.API.Controllers
 
         }
 
-        [ClaimsAuthotize("Admin", "Delete")]
+        [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
         public void DeleteEnvironmentId(int? id)
         {
             _service.Delete((int)id);
         }
 
-        [ClaimsAuthotize("Admin", "Update")]
+        [ClaimsAuthorize("Admin", "Update")]
         [HttpPut("{id}")]
         public ActionResult<MicrosserviceDTO> UpdateMicrosservice(int? id, Microsservice microsservice)
         {
@@ -75,7 +75,7 @@ namespace CentralDeErros.API.Controllers
             return NoContent();
         }
 
-        [ClaimsAuthotize("Admin", "Create")]
+        [ClaimsAuthorize("Admin", "Create")]
         [HttpPost]
         public ActionResult<MicrosserviceDTO> SaveMicrosservice([FromBody] MicrosserviceDTO value)
         {

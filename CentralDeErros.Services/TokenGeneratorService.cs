@@ -1,4 +1,4 @@
-﻿using CentralDeErros.API.Extensions;
+﻿using CentralDeErros.Core.Extensions;
 
 using CentralDeErros.Model.Models;
 using Microsoft.AspNetCore.Identity;
