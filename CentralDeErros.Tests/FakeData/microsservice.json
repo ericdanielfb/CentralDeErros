@@ -1,0 +1,28 @@
+[
+  {
+    "Id": 1,
+    "Name": "microsservice1",
+    "Token": "0415d52cf900deeac968261f8a69d7da"
+  },
+  {
+    "Id": 2,
+    "Name": "microsservice2",
+    "Token": "228e4b7d45493aaacb0093cb1978b03f"
+  },
+  {
+    "Id": 3,
+    "Name": "microsservice3",
+    "Token": "ad99c7654edf277750ab014e494363c4"
+  },
+  {
+    "Id": 4,
+    "Name": "microsservice4",
+    "Token": "0e8a28487646fb6083136ee10477a8eb"
+  },
+  {
+    "Id": 5,
+    "Name": "microsservice5",
+    "Token": "c1578bd044d30d8e116f376864d5d1b8"
+  }
+
+]
