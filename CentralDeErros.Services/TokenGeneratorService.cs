@@ -58,23 +58,23 @@ namespace CentralDeErros.Services
 
         }
 
-        public string TokenGeneratorMicrosservice(Microsservice microsservice)
+        public Object TokenGeneratorMicrosservice(string clientId)
         {
-
+            var expiration = DateTime.UtcNow.AddDays(1);
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettingsJWT.Secret);
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, microsservice.Name.ToString())
+                    new Claim(ClaimTypes.Name, clientId)
                 }),
                 Issuer = _appSettingsJWT.Issuer,
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = expiration,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             }) ;
 
-            return tokenHandler.WriteToken(token);
+            return new { token = tokenHandler.WriteToken(token), expirationDate = expiration };
         }
 
         private static long ToUnixEpochDate(DateTime date)

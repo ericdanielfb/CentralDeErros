@@ -11,15 +11,7 @@ namespace CentralDeErros.ModelsTests
     public class ErrorModelTests : BaseModelTest
     {
         public ErrorModelTests()
-        {          
-        }
-
-        [Fact(DisplayName = "Error should not be null")]
-        public void ErrorsShouldNotBeNull()
         {
-            var errors = context.Errors.ToList();
-
-            foreach (var error in errors) Assert.NotNull(error);
         }
     }
 }

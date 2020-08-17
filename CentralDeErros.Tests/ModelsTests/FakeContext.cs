@@ -14,15 +14,6 @@ namespace CentralDeErros.ModelsTests
             new User () { Id = 5, UserName = "Teste", Email = "Teste@email.com", Password = "123456789", ProfileId = -1},
         };
 
-        public List<Error> Errors = new List<Error>()
-        {
-            new Error () { Id = -1,Title  = "Teste", Origin  = "Teste@email.com", Details = "123456789", MicrosserviceId = 1, EnviromentId = 1},
-            new Error () { Id = 2, Title = "T",      Origin  = "Teste@email.com", Details = "123456789", MicrosserviceId = 1, EnviromentId = 1},
-            new Error () { Id = 3, Title = "Teste",  Origin  = "Teste",           Details = "123456789", MicrosserviceId = 1, EnviromentId = 1},
-            new Error () { Id = 4, Title = "Teste",  Origin  = "Teste@email.com", Details = "12",        MicrosserviceId = 1, EnviromentId = 1},
-            new Error () { Id = 5, Title = "Teste",  Origin  = "Teste@email.com", Details = "123456789", MicrosserviceId = -1, EnviromentId = 1},
-        };
-
         public List<Level> Environments = new List<Level>()
         {
             new Level () { Id = -1, Name = "Teste" },
@@ -40,16 +31,6 @@ namespace CentralDeErros.ModelsTests
             new Profile () { Id = -1, Type = "Teste" },
             new Profile () { Id = 2, Type = "T" }
         };
-
-         public List<Microsservice> Microsservices = new List<Microsservice>()
-        {
-            new Microsservice () { Id = -1,Name = "Teste", Token = ""},
-            new Microsservice () { Id = 2, Name = "T",     Token = "" },
-            new Microsservice () { Id = 3, Name = "Teste", Token = "" }, 
-            new Microsservice () { Id = 4, Name = "Teste", Token = "" },
-            new Microsservice () { Id = 5, Name = "Teste", Token = "" }
-        };
-
     }
 }
 

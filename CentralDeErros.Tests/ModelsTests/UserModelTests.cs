@@ -48,8 +48,5 @@ namespace CentralDeErros.ModelsTests
             
             Assert.NotNull(context.Users);                            
         }  
-
-        
-
     }
 }
