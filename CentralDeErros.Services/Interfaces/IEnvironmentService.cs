@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CentralDeErros.Services.Base;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
