@@ -4,14 +4,16 @@ using CentralDeErros.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CentralDeErros.API.Migrations
 {
     [DbContext(typeof(CentralDeErrosDbContext))]
-    partial class CentralDeErrosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200817190805_removed-user-profile")]
+    partial class removeduserprofile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
