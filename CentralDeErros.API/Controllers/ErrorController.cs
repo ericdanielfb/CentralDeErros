@@ -28,20 +28,20 @@ namespace CentralDeErros.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ActionResult<ErrorDTO> Get(int id)
         {
             return Ok(_mapper.Map<ErrorDTO>(_service.Fetch(id)));
         }
 
         [HttpGet]
-        public IActionResult List(int? start, int? end, bool archived = false)
+        public ActionResult<IEnumerable<ErrorDTO>> List(int? start, int? end, bool archived = false)
         {
             return Ok(_mapper.Map<IEnumerable<ErrorDTO>>(_service.List(start, end, archived)));
         }
 
 
         [HttpPost]
-        public IActionResult Post([FromBody] ErrorEntryDTO entry)
+        public ActionResult<ErrorEntryDTO> Post([FromBody] ErrorEntryDTO entry)
         {
 
             try
@@ -51,14 +51,13 @@ namespace CentralDeErros.API.Controllers
             }
             catch (Exception exc)
             {
-
                 return BadRequest(exc.Message);
             }
         }
 
         [ClaimsAuthorize("Admin", "Update")]
         [HttpPut]
-        public IActionResult Put(ErrorEntryDTO entry)
+        public ActionResult<ErrorDTO> Put([FromBody]ErrorEntryDTO entry)
         {
             if (entry.Id.HasValue && _service.CheckId<Error>(entry.Id.Value))
             {
@@ -70,8 +69,8 @@ namespace CentralDeErros.API.Controllers
             return NotFound();
         }
 
-        [HttpPut("archive")]
-        public IActionResult Archive([FromBody] List<int> errorIdList)
+        [HttpPut("Archive")]
+        public ActionResult Archive([FromBody] List<int> errorIdList)
         {
             var failed = new List<int>();
 
@@ -90,7 +89,7 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             _service.Delete(id);
 
@@ -99,12 +98,11 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete]
-        public IActionResult Delete(ErrorEntryDTO entry)
+        public ActionResult Delete([FromBody]ErrorEntryDTO entry)
         {
             _service.Delete(_mapper.Map<Error>(entry));
 
             return Ok();
         }
-
     }
 }

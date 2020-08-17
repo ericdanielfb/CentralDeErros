@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using CentralDeErros.Model.Models;
-using CentralDeErros.Services;
 using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using CentralDeErros.Core;
 
 namespace CentralDeErros.API.Controllers
 {
@@ -18,13 +15,11 @@ namespace CentralDeErros.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly UserService _service;
 
-        public UserController(UserManager<IdentityUser> userManager, IMapper mapper, UserService service)
+        public UserController(UserManager<IdentityUser> userManager, IMapper mapper)
         {
             _mapper = mapper;
             _userManager = userManager;
-            _service = service;
         }
 
         [HttpGet]
@@ -32,7 +27,6 @@ namespace CentralDeErros.API.Controllers
         {
 
             return Ok(_mapper.Map<IEnumerable<UserGetDTO>>(_userManager.Users.ToList()));
-
         }
 
         [HttpGet("{id}")]
@@ -43,7 +37,6 @@ namespace CentralDeErros.API.Controllers
                 return Ok(_mapper.Map<UserGetDTO>(await _userManager.FindByIdAsync(id)));
             }
             return NoContent();
-
         }
 
         [HttpDelete("{id}")]
@@ -86,8 +79,5 @@ namespace CentralDeErros.API.Controllers
             }
             return BadRequest();
         }
-
-
-
     }
 }
