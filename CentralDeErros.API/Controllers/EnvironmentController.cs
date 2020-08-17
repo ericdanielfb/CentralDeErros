@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CentralDeErros.Core.Extensions;
 using CentralDeErros.Services;
+using CentralDeErros.Services.Interfaces;
 using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,10 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class EnvironmentController : ControllerBase
     {
-        private EnvironmentService _service;
+        private IEnvironmentService _service;
         private IMapper _mapper;
 
-        public EnvironmentController(EnvironmentService service, IMapper mapper)
+        public EnvironmentController(IEnvironmentService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -50,9 +51,16 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin","Delete")]
         [HttpDelete("{id}")]
-        public void DeleteEnvironmentId(int? id)
+        public ActionResult DeleteEnvironmentId(int? id)
         {
+            if(id == null)
+            {
+                return NoContent();
+            }
+
             _service.Delete((int)id);
+
+            return Ok();
         }
 
         [ClaimsAuthorize("Admin","Update")]

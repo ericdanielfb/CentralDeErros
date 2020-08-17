@@ -79,6 +79,7 @@ namespace CentralDeErros.API.Controllers
             }
         }
 
+
         [ClaimsAuthorize("Admin", "Create")]
         [HttpPost]
         public ActionResult<MicrosserviceRegisterDTO> SaveMicrosservice([FromBody] MicrosserviceNameOnlyDTO microsserviceName)
@@ -96,10 +97,10 @@ namespace CentralDeErros.API.Controllers
                     );
             }
         }
-
         [ClaimsAuthorize("Admin", "Update")]
         [HttpPut("UpdateName")]
         public ActionResult<MicrosserviceDTO> UpdateMicrosserviceName([FromBody] MicrosserviceDTO microsservice)
+
         {
             if (!ModelState.IsValid)
             {
