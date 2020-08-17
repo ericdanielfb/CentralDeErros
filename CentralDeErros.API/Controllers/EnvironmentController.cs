@@ -57,7 +57,7 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin","Update")]
         [HttpPut("{id}")]
-        public ActionResult<EnvironmentDTO> UpdateEnvironment(int? id, Model.Models.Environment environment)
+        public ActionResult<EnvironmentDTO> UpdateEnvironment(int? id, EnvironmentDTO environment)
         {
             if (id == null)
             {
@@ -68,7 +68,7 @@ namespace CentralDeErros.API.Controllers
                 return Ok
                     (_mapper.Map<EnvironmentDTO>
                     (_service.RegisterOrUpdate
-                    ((environment))));
+                    (_mapper.Map<Model.Models.Environment>(environment))));
             }
 
         }
