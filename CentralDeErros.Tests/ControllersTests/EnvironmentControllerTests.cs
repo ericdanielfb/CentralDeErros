@@ -13,69 +13,70 @@ using System.Linq;
 using Xunit;
 using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
+
 namespace CentralDeErros.ControllersTests
 {
-    public class LevelControllerTestes : BaseControllerTest
+    public class EnvironmentControllerTest : BaseControllerTest
     {
-        Mock<ILevelService> _serviceMock;
-        LevelController _controller;
+        Mock<IEnvironmentService> _serviceMock;
+        EnvironmentController _controller;
         private readonly IMapper _mapper;
 
-        public LevelControllerTestes()
+        public EnvironmentControllerTest()
         {
             var configuration = new MapperConfiguration(x => x.AddProfile(new AutoMapperProfile()));
             _mapper = new Mapper(configuration);
 
-            _serviceMock = new Mock<ILevelService>();
-            _controller = new LevelController(_serviceMock.Object, _mapper);
+            _serviceMock = new Mock<IEnvironmentService>();
+            _controller = new EnvironmentController(_serviceMock.Object, _mapper);
         }
 
         [Fact]
-        public void GetAllLevel_ShouldCallService_AndReturn200WithDtos()
+        public void GetAllEnvironments_ShouldCallService_AndReturn200WithDtos()
         {
-            var expectedReturnFromService = new List<Level>()
+            var expectedReturnFromService = new List<Environment>()
             {
-                new Level () { Id = 1, Name = "Teste" },
-                new Level () { Id = 2, Name = "T" }
+                new Environment () { Id = 1, Phase = "Teste" },
+                new Environment () { Id = 2, Phase = "T" }
             }.AsQueryable();
 
             _serviceMock.Setup(x => x.List()).Returns(expectedReturnFromService);
 
-            var result = _controller.GetAllLevel();
+            var result = _controller.GetAllEnvironments();
 
             _serviceMock.Verify(x => x.List(), Times.Once);
 
             var objectResult = Assert.IsType<OkObjectResult>(result.Result);
             Assert.Equal(200, objectResult.StatusCode);
 
-            var dtos = Assert.IsType<List<LevelDTO>>(objectResult.Value);
+            var dtos = Assert.IsType<List<EnvironmentDTO>>(objectResult.Value);
             Assert.NotEmpty(dtos);
             Assert.Equal(expectedReturnFromService.Count(), dtos.Count());
 
         }
 
         [Fact]
-        public void GetLevelId_ShouldCallService_AndReturn200WithDtos_WhenLevelFound()
+        public void GetEnviromentId_ShouldCallService_AndReturn200WithDtos_WhenLevelFound()
         {
-            var expectedReturnFromService = new Level() { Id = 1, Name = "Teste" };
+            var expectedReturnFromService = new Environment() { Id = 1, Phase = "Teste" };
 
             _serviceMock.Setup(x => x.Fetch(1)).Returns(expectedReturnFromService);
 
-            var result = _controller.GetLevelId(1);
+            var result = _controller.GetEnviromentId(1);
 
             _serviceMock.Verify(x => x.Fetch(1), Times.Once);
 
             var objectResult = Assert.IsType<OkObjectResult>(result.Result);
             Assert.Equal(200, objectResult.StatusCode);
 
-            var dto = Assert.IsType<LevelDTO>(objectResult.Value);
-            Assert.Equal(expectedReturnFromService.Name.ToLower(), dto.Name);
+            var dto = Assert.IsType<EnvironmentDTO>(objectResult.Value);
+            Assert.Equal(expectedReturnFromService.Phase.ToLower(), dto.Phase);
         }
 
         [Fact]
-        public void GetLevelId_ShouldCallService_AndReturn204_WhenLevelNoContent()
+        public void GetEnviromentId_ShouldCallService_AndReturn204_WhenLevelNoContent()
         {
-            var result = _controller.GetLevelId(null);
+            var result = _controller.GetEnviromentId(null);
 
             _serviceMock.Verify(x => x.Fetch(null), Times.Never);
 
@@ -84,18 +85,18 @@ namespace CentralDeErros.ControllersTests
         }
 
         [Fact]
-        public void SaveLevel_ShouldCallService_AndReturn200_WhenEverythingGoesRight()
+        public void SaveEnvironment_ShouldCallService_AndReturn200_WhenEverythingGoesRight()
         {
-            var dto = new LevelDTO { Name = "Teste"};
+            var dto = new EnvironmentDTO { Phase = "Teste" };
 
-            var level = new Level { Id = 1, Name = "Teste" };
+            var level = new Environment { Id = 1, Phase = "Teste" };
 
-            _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Level>())).Returns(level);
-            
-            var result = _controller.SaveLevel(dto);
+            _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Environment>())).Returns(level);
+
+            var result = _controller.SaveEnvironment(dto);
             var validation = _controller.ModelState.IsValid;
 
-            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Level>()), Times.Once);
+            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Environment>()), Times.Once);
 
             var objectResult = Assert.IsType<OkObjectResult>(result.Result);
             Assert.Equal(200, objectResult.StatusCode);
@@ -104,11 +105,11 @@ namespace CentralDeErros.ControllersTests
         }
 
         [Fact]
-        public void SaveLevel_ShouldCallService_AndReturn400WithError()
+        public void SaveEnvironment_ShouldCallService_AndReturn400WithError()
         {
             _controller.ModelState.AddModelError("test", "test");
 
-            var result = _controller.SaveLevel(new LevelDTO());
+            var result = _controller.SaveEnvironment(new EnvironmentDTO());
             var objectResult = Assert.IsType<BadRequestObjectResult>(result.Result);
             Assert.Equal(400, objectResult.StatusCode);
         }
@@ -116,7 +117,7 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void Validation_ModelState_False()
         {
-            var dto = new LevelDTO();
+            var dto = new EnvironmentDTO();
 
             var context = new ValidationContext(dto, null, null);
             var results = new List<ValidationResult>();
@@ -128,7 +129,7 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void Validation_ModelState_True()
         {
-            var dto = new LevelDTO { Id = 1, Name = "Teste" };
+            var dto = new EnvironmentDTO { Id = 1, Phase = "Teste" };
 
             var context = new ValidationContext(dto, null, null);
             var results = new List<ValidationResult>();
@@ -139,31 +140,31 @@ namespace CentralDeErros.ControllersTests
 
 
         [Fact]
-        public void UpdateLevel_ShouldCallService_AndReturn200WithDtos_WhenLevelFound()
+        public void UpdateEnvironment_ShouldCallService_AndReturn200WithDtos_WhenEnvironmentFound()
         {
-            var expectedReturnFromService = new Level() { Id = 1, Name = "Teste" };
+            var expectedReturnFromService = new Environment() { Id = 1, Phase = "Teste" };
 
-            _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Level>())).Returns(expectedReturnFromService);
+            _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Environment>())).Returns(expectedReturnFromService);
 
-            var result = _controller.UpdateLevel(1, expectedReturnFromService);
+            var result = _controller.UpdateEnvironment(1, expectedReturnFromService);
 
-            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Level>()), Times.Once);
+            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Environment>()), Times.Once);
 
             var objectResult = Assert.IsType<OkObjectResult>(result.Result);
             Assert.Equal(200, objectResult.StatusCode);
 
-            var dto = Assert.IsType<LevelDTO>(objectResult.Value);
-            Assert.Equal(expectedReturnFromService.Name.ToLower(), dto.Name);
+            var dto = Assert.IsType<EnvironmentDTO>(objectResult.Value);
+            Assert.Equal(expectedReturnFromService.Phase.ToLower(), dto.Phase);
         }
 
         [Fact]
-        public void UpdateLevel_ShouldCallService_AndReturn204_WhenLevelNoContent()
+        public void UpdateEnvironment_ShouldCallService_AndReturn204_WhenEnvironmentNoContent()
         {
-            var expectedReturnFromService = new Level();
+            var expectedReturnFromService = new Environment();
 
-            var result = _controller.UpdateLevel(null, expectedReturnFromService);
+            var result = _controller.UpdateEnvironment(null, expectedReturnFromService);
 
-            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Level>()), Times.Never);
+            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Environment>()), Times.Never);
 
             var objectResult = Assert.IsType<NoContentResult>(result.Result);
             Assert.Equal(204, objectResult.StatusCode);
@@ -172,12 +173,12 @@ namespace CentralDeErros.ControllersTests
 
 
         [Fact]
-        public void DeleteLevelId_ShouldCallService_AndReturn200()
+        public void DeleteEnvironmentId_ShouldCallService_AndReturn200()
         {
 
             _serviceMock.Setup(x => x.Delete(1));
 
-            var result = _controller.DeleteLevelId(1);
+            var result = _controller.DeleteEnvironmentId(1);
 
             _serviceMock.Verify(x => x.Delete(1), Times.Once);
 
@@ -186,9 +187,9 @@ namespace CentralDeErros.ControllersTests
         }
 
         [Fact]
-        public void DeleteLevelId_Shouldcallservice_Andreturn204()
+        public void DeleteEnvironmentId_ShouldCallService_AndReturn204()
         {
-            var result = _controller.DeleteLevelId(null);
+            var result = _controller.DeleteEnvironmentId(null);
 
             _serviceMock.Verify(x => x.Delete(null), Times.Never);
 

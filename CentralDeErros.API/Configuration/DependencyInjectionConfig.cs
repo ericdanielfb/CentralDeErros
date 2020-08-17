@@ -10,7 +10,7 @@ namespace CentralDeErros.API.Configuration
         {
 
             services.AddScoped<ErrorService>();
-            services.AddScoped<EnvironmentService>();
+            services.AddScoped<IEnvironmentService, EnvironmentService>();
             services.AddScoped<ILevelService, LevelService>();
             services.AddScoped<MicrosserviceService>();
             services.AddScoped<ProfileService>();
