@@ -56,7 +56,7 @@ namespace CentralDeErros.API.Controllers
             }
         }
 
-        [ClaimsAuthotize("Admin", "Update")]
+        [ClaimsAuthorize("Admin", "Update")]
         [HttpPut]
         public IActionResult Put(ErrorEntryDTO entry)
         {
@@ -88,7 +88,7 @@ namespace CentralDeErros.API.Controllers
             return Ok();
         }
 
-        [ClaimsAuthotize("Admin", "Delete")]
+        [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -97,7 +97,7 @@ namespace CentralDeErros.API.Controllers
             return Ok();
         }
 
-        [ClaimsAuthotize("Admin", "Delete")]
+        [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete]
         public IActionResult Delete(ErrorEntryDTO entry)
         {

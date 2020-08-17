@@ -48,14 +48,14 @@ namespace CentralDeErros.API.Controllers
             }
         }
 
-        [ClaimsAuthotize("Admin", "Delete")]
+        [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
         public void DeleteLevelId(int? id)
         {
             _service.Delete((int)id);
         }
 
-        [ClaimsAuthotize("Admin", "Update")]
+        [ClaimsAuthorize("Admin", "Update")]
         [HttpPut("{id}")]
         public ActionResult<LevelDTO> UpdateLevel(int? id, Level level)
         {
@@ -73,7 +73,7 @@ namespace CentralDeErros.API.Controllers
 
         }
 
-        [ClaimsAuthotize("Admin", "Create")]
+        [ClaimsAuthorize("Admin", "Create")]
         [HttpPost]
         public ActionResult<LevelDTO> SaveEnvironment([FromBody] LevelDTO value)
         {
