@@ -115,7 +115,7 @@ namespace CentralDeErros.ServicesTests
         [InlineData("2020-05-01 21:15:33", "2020-05-05 21:15:33")]
         [InlineData("2020-05-01 21:15:33", "2020-12-05 21:15:33")]
         [InlineData("2020-06-01 21:15:33", "2020-12-01 21:15:33")]
-        public void SearchByDate_StateUnderTest_ExpectedBehavior(DateTime start, DateTime end)
+        public void SearchByDate_Should_Return_Right_Value(DateTime start, DateTime end)
         {
             // Arrange
             var context = GenerateContext("SearchByDate");
@@ -151,7 +151,7 @@ namespace CentralDeErros.ServicesTests
                 Origin = "1.0.0.1",
                 Details = "Detail1",
                 ErrorDate = DateTime.Today,
-                MicrosserviceId = 1,
+                MicrosserviceClientId = new Guid("031c156c-c072-4793-a542-4d20840b8031"),
                 EnviromentId = 1,
                 LevelId = 1,
                 IsArchived = false
@@ -166,11 +166,11 @@ namespace CentralDeErros.ServicesTests
         }
 
         [Theory]
-        [InlineData(20, 1, 1)]
-        [InlineData(1, 20, 1)]
-        [InlineData(1, 1, 20)]
+        [InlineData("00000000-0000-0000-0000-000000000000", 1, 1)]
+        [InlineData("031c156c-c072-4793-a542-4d20840b8031", 20, 1)]
+        [InlineData("031c156c-c072-4793-a542-4d20840b8031", 1, 20)]
         public void Register_Should_Throw_When_Add_Non_Existent_FK(
-            int microsserviceId,
+            Guid microsserviceId,
             int LevelId,
             int environmentId)
         {
@@ -185,7 +185,7 @@ namespace CentralDeErros.ServicesTests
                 Origin = "1.0.0.1",
                 Details = "Detail1",
                 ErrorDate = DateTime.Today,
-                MicrosserviceId = microsserviceId,
+                MicrosserviceClientId = microsserviceId,
                 EnviromentId = environmentId,
                 LevelId = LevelId,
                 IsArchived = false
@@ -197,7 +197,7 @@ namespace CentralDeErros.ServicesTests
         }
 
         [Fact]
-        public void ArchiveById_StateUnderTest_ExpectedBehavior()
+        public void ArchiveById_Should_Archive_The_Correct_Amount()
         {
             // Arrange
             List<int> errors = new List<int> { 1, 2, 3, 20 };
@@ -216,7 +216,7 @@ namespace CentralDeErros.ServicesTests
         [Theory]
         [InlineData(1)]
         [InlineData(50)]
-        public void CheckId_StateUnderTest_ExpectedBehavior(int id)
+        public void CheckId_Should_Return_Right_Value(int id)
         {
             // Arrange
             var context = GenerateContext("CheckIdError");

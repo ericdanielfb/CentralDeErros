@@ -44,7 +44,7 @@ namespace CentralDeErros.ControllersTests
                 Origin = "1.0.0.1",
                 EnviromentId = 1,
                 LevelId = 1,
-                MicrosserviceId = 1
+                MicrosserviceClientId = new Guid("031c156c-c072-4793-a542-4d20840b8031")
             });
             //Assert
             Assert.IsType<OkObjectResult>(contentResult);
@@ -68,7 +68,7 @@ namespace CentralDeErros.ControllersTests
                 Origin = "1.0.0.1",
                 EnviromentId = 1,
                 LevelId = 1,
-                MicrosserviceId = 1
+                MicrosserviceClientId = new Guid("031c156c-c072-4793-a542-4d20840b8031")
             });
             //Assert
             Assert.IsType<OkResult>(contentResult);
@@ -88,7 +88,7 @@ namespace CentralDeErros.ControllersTests
                 ErrorDate = dateTime,
                 EnviromentId = 1,
                 LevelId = 1,
-                MicrosserviceId = 1
+                MicrosserviceClientId = new Guid("031c156c-c072-4793-a542-4d20840b8031")
             };
 
 
@@ -110,7 +110,7 @@ namespace CentralDeErros.ControllersTests
                 Origin = "1.0.0.1",
                 EnviromentId = 1,
                 LevelId = 1,
-                MicrosserviceId = 1
+                MicrosserviceClientId = new Guid("031c156c-c072-4793-a542-4d20840b8031")
             });
             //Assert
             Assert.IsType<OkResult>(contentResult);
