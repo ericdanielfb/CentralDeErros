@@ -10,7 +10,7 @@ namespace CentralDeErros.ModelsTests
 {
     public class ProfileModelTests : BaseModelTest
     {
-        public ProfileModelTests(FakeContext context) : base(context)
+        public ProfileModelTests()
         {
         }
 

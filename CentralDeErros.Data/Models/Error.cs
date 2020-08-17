@@ -15,7 +15,7 @@ namespace CentralDeErros.Model.Models
         public DateTime ErrorDate { get; set; }
         public bool IsArchived { get; set; }
 
-        public int MicrosserviceId { get; set; }
+        public Guid MicrosserviceClientId { get; set; }
         public Microsservice Microsservice { get; set; }
 
         public int EnviromentId { get; set; }

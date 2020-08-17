@@ -76,7 +76,7 @@ namespace CentralDeErros.Services
             if (!CheckId<Level>(entry.LevelId))
                 throw new Exception("LevelId not found");
 
-            if (!CheckId<Microsservice>(entry.MicrosserviceId))
+            if (!CheckId<Microsservice>(entry.MicrosserviceClientId))
                 throw new Exception("MicrosserviceId not found");
 
             if (!CheckId<Model.Models.Environment>(entry.EnviromentId))
@@ -112,6 +112,11 @@ namespace CentralDeErros.Services
         public bool CheckId<T>(int id) where T : class
         {
             return Context.Set<T>().Find(id) != null;
+        }
+
+        public bool CheckId<T>(Guid clientId) where T : class
+        {
+            return Context.Set<T>().Find(clientId) != null;
         }
     }
 }
