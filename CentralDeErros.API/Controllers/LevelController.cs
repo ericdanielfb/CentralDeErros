@@ -6,6 +6,7 @@ using CentralDeErros.Services.Interfaces;
 using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,9 +52,16 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
-        public void DeleteLevelId(int? id)
+        public ActionResult DeleteLevelId(int? id)
         {
+            if (id == null)
+            {
+                return NoContent();
+            }
+
             _service.Delete((int)id);
+
+            return Ok();
         }
 
         [ClaimsAuthorize("Admin", "Update")]
@@ -76,19 +84,19 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin", "Create")]
         [HttpPost]
-        public ActionResult<LevelDTO> SaveEnvironment([FromBody] LevelDTO value)
+        public ActionResult<LevelDTO> SaveLevel([FromBody] LevelDTO value)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            else
+            if (ModelState.IsValid)
             {
                 return Ok
                     (_mapper.Map<LevelDTO>
                     (_service.RegisterOrUpdate
                     (_mapper.Map<Level>
                     ((value)))));
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
         }
     }

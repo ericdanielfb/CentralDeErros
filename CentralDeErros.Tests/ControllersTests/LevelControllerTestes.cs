@@ -8,12 +8,15 @@ using CentralDeErros.Services.Interfaces;
 using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop.Infrastructure;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using Xunit;
+using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
 namespace CentralDeErros.ControllersTests
 {
@@ -52,6 +55,7 @@ namespace CentralDeErros.ControllersTests
 
             var dtos = Assert.IsType<List<LevelDTO>>(objectResult.Value);
             Assert.NotEmpty(dtos);
+            Assert.Equal(expectedReturnFromService.Count(), dtos.Count());
 
         }
 
@@ -73,7 +77,128 @@ namespace CentralDeErros.ControllersTests
             Assert.Equal(expectedReturnFromService.Name.ToLower(), dto.Name);
         }
 
+        [Fact]
+        public void GetLevelId_ShouldCallService_AndReturn204_WhenLevelNoContent()
+        {
+            var result = _controller.GetLevelId(null);
+
+            _serviceMock.Verify(x => x.Fetch(null), Times.Never);
+
+            var objectResult = Assert.IsType<NoContentResult>(result.Result);
+            Assert.Equal(204, objectResult.StatusCode);
+        }
+
+        [Fact]
+        public void SaveLevel_ShouldCallService_AndReturn200_WhenEverythingGoesRight()
+        {
+            var dto = new LevelDTO { Name = "Teste"};
+
+            var level = new Level { Id = 1, Name = "Teste" };
+
+            _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Level>())).Returns(level);
+            
+            var result = _controller.SaveLevel(dto);
+            var validation = _controller.ModelState.IsValid;
+
+            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Level>()), Times.Once);
+
+            var objectResult = Assert.IsType<OkObjectResult>(result.Result);
+            Assert.Equal(200, objectResult.StatusCode);
+            Assert.True(validation);
+
+        }
+
+        [Fact]
+        public void SaveLevel_ShouldCallService_AndReturn400WithError()
+        {
+            _controller.ModelState.AddModelError("test", "test");
+
+            var result = _controller.SaveLevel(new LevelDTO());
+            var objectResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.Equal(400, objectResult.StatusCode);
+        }
+
+        [Fact]
+        public void Validation_ModelState_False()
+        {
+            var dto = new LevelDTO();
+
+            var context = new ValidationContext(dto, null, null);
+            var results = new List<ValidationResult>();
+            var isModelStateValid = Validator.TryValidateObject(dto, context, results, true);
+
+            Assert.False(isModelStateValid);
+        }
+
+        [Fact]
+        public void Validation_ModelState_True()
+        {
+            var dto = new LevelDTO { Id = 1, Name = "Teste" };
+
+            var context = new ValidationContext(dto, null, null);
+            var results = new List<ValidationResult>();
+            var isModelStateValid = Validator.TryValidateObject(dto, context, results, true);
+
+            Assert.True(isModelStateValid);
+        }
 
 
+        [Fact]
+        public void UpdateLevel_ShouldCallService_AndReturn200WithDtos_WhenLevelFound()
+        {
+            var expectedReturnFromService = new Level() { Id = 1, Name = "Teste" };
+
+            _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Level>())).Returns(expectedReturnFromService);
+
+            var result = _controller.UpdateLevel(1, expectedReturnFromService);
+
+            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Level>()), Times.Once);
+
+            var objectResult = Assert.IsType<OkObjectResult>(result.Result);
+            Assert.Equal(200, objectResult.StatusCode);
+
+            var dto = Assert.IsType<LevelDTO>(objectResult.Value);
+            Assert.Equal(expectedReturnFromService.Name.ToLower(), dto.Name);
+        }
+
+        [Fact]
+        public void UpdateLevel_ShouldCallService_AndReturn204_WhenLevelNoContent()
+        {
+            var expectedReturnFromService = new Level();
+
+            var result = _controller.UpdateLevel(null, expectedReturnFromService);
+
+            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Level>()), Times.Never);
+
+            var objectResult = Assert.IsType<NoContentResult>(result.Result);
+            Assert.Equal(204, objectResult.StatusCode);
+        }
+
+
+
+        [Fact]
+        public void DeleteLevelId_ShouldCallService_AndReturn200()
+        {
+
+            _serviceMock.Setup(x => x.Delete(1));
+
+            var result = _controller.DeleteLevelId(1);
+
+            _serviceMock.Verify(x => x.Delete(1), Times.Once);
+
+            var objectResult = Assert.IsType<OkResult>(result);
+            Assert.Equal(200, objectResult.StatusCode);
+        }
+
+        [Fact]
+        public void DeleteLevelId_Shouldcallservice_Andreturn204()
+        {
+            var result = _controller.DeleteLevelId(null);
+
+            _serviceMock.Verify(x => x.Delete(null), Times.Never);
+
+            var objectresult = Assert.IsType<NoContentResult>(result);
+            Assert.Equal(204, objectresult.StatusCode);
+        }
     }
 }
