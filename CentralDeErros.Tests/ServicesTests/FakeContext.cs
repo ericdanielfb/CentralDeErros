@@ -32,8 +32,6 @@ namespace CentralDeErros.ServicesTests
             DataFileNames.Add(typeof(Error), $"FakeData{Path.DirectorySeparatorChar}error.json");
             DataFileNames.Add(typeof(Level), $"FakeData{Path.DirectorySeparatorChar}level.json");
             DataFileNames.Add(typeof(Microsservice), $"FakeData{Path.DirectorySeparatorChar}microsservice.json");
-            //DataFileNames.Add(typeof(Profile), $"FakeData{Path.DirectorySeparatorChar}profile.json");
-            //DataFileNames.Add(typeof(User), $"FakeData{Path.DirectorySeparatorChar}user.json");
 
         }
         
@@ -44,8 +42,6 @@ namespace CentralDeErros.ServicesTests
             FillWith<Error>();
             FillWith<Level>();
             FillWith<Microsservice>();
-            //FillWith<Profile>();
-            //FillWith<User>();
         }
 
         public void FillWith<T>() where T : class
@@ -82,7 +78,6 @@ namespace CentralDeErros.ServicesTests
 
         public void Dispose()
         {
-            //Debug.WriteLine($"Fake disposed!!!!!!!!!!!!{}");
             context?.Database.EnsureDeleted();
             context?.Dispose();
         }
