@@ -26,7 +26,7 @@ namespace CentralDeErros.Services
             var response = Context
                                 .Errors
                                 .Where(x => x.IsArchived == archived)
-                                .Skip(start.HasValue ? start.Value : 0);
+                                .Skip(start ?? 0);
 
             if(end.HasValue)
             {
@@ -77,7 +77,7 @@ namespace CentralDeErros.Services
                 throw new Exception("LevelId not found");
 
             if (!CheckId<Microsservice>(entry.MicrosserviceClientId))
-                throw new Exception("MicrosserviceId not found");
+                throw new Exception("MicrosserviceClientId not found");
 
             if (!CheckId<Model.Models.Environment>(entry.EnviromentId))
                 throw new Exception("EnviromentId not found");
