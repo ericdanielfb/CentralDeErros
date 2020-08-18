@@ -16,8 +16,8 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class EnvironmentController : ControllerBase
     {
-        private IEnvironmentService _service;
-        private IMapper _mapper;
+        private readonly IEnvironmentService _service;
+        private readonly IMapper _mapper;
 
         public EnvironmentController(IEnvironmentService service, IMapper mapper)
         {

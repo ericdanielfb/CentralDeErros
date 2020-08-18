@@ -1,6 +1,7 @@
 ﻿using CentralDeErros.Core.Extensions;
 
 using CentralDeErros.Model.Models;
+using CentralDeErros.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace CentralDeErros.Services
 {
-    public class TokenGeneratorService
+    public class TokenGeneratorService : ITokenGeneratorService
     {
         private readonly AppSettings _appSettingsJWT;
         private readonly UserManager<IdentityUser> _userManager;

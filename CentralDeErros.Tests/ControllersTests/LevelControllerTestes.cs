@@ -33,6 +33,7 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void GetAllLevel_ShouldCallService_AndReturn200WithDtos()
         {
+            //Arrange
             var expectedReturnFromService = new List<Level>()
             {
                 new Level () { Id = 1, Name = "Teste" },
@@ -41,13 +42,14 @@ namespace CentralDeErros.ControllersTests
 
             _serviceMock.Setup(x => x.List()).Returns(expectedReturnFromService);
 
+            //Act
             var result = _controller.GetAllLevel();
 
             _serviceMock.Verify(x => x.List(), Times.Once);
 
+            //Assert
             var objectResult = Assert.IsType<OkObjectResult>(result.Result);
             Assert.Equal(200, objectResult.StatusCode);
-
             var dtos = Assert.IsType<List<LevelDTO>>(objectResult.Value);
             Assert.NotEmpty(dtos);
             Assert.Equal(expectedReturnFromService.Count(), dtos.Count());

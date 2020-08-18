@@ -8,6 +8,7 @@ using CentralDeErros.Transport.MicrosserviceDTOs;
 using CentralDeErros.Core.Extensions;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using CentralDeErros.Model.Models;
+using CentralDeErros.Services.Interfaces;
 
 namespace CentralDeErros.API.Controllers
 {
@@ -18,16 +19,16 @@ namespace CentralDeErros.API.Controllers
         private readonly SignInManager<IdentityUser> _signInUserManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly UserService _userService;
-        private readonly MicrosserviceService _microsserviceService;
+        private readonly IMicrosserviceService _microsserviceService;
         private readonly IMapper _mapper;
-        private readonly TokenGeneratorService _tokenGeneratorService;
+        private readonly ITokenGeneratorService _tokenGeneratorService;
 
         public AuthController(UserService userService,
-                              MicrosserviceService microsserviceService,
+                              IMicrosserviceService microsserviceService,
                               IMapper mapper,
                               SignInManager<IdentityUser> signInUserManager,
                               UserManager<IdentityUser> userManager,
-                              TokenGeneratorService tokenGeneratorService)
+                              ITokenGeneratorService tokenGeneratorService)
 
         {
             _userService = userService;

@@ -12,9 +12,9 @@ namespace CentralDeErros.API.Configuration
             services.AddScoped<IErrorService, ErrorService>();
             services.AddScoped<IEnvironmentService, EnvironmentService>();
             services.AddScoped<ILevelService, LevelService>();
-            services.AddScoped<MicrosserviceService>();
+            services.AddScoped<IMicrosserviceService, MicrosserviceService>();
             services.AddScoped<ProfileService>();
-            services.AddScoped<TokenGeneratorService>();
+            services.AddScoped<ITokenGeneratorService,TokenGeneratorService>();
             services.AddScoped<UserService>();
 
             return services;
