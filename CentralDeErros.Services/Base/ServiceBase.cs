@@ -1,4 +1,5 @@
 ﻿using CentralDeErros.Core;
+using CentralDeErros.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace CentralDeErros.Services.Base
 {
-    public class ServiceBase<T> : IDisposable where T : class
+    public class ServiceBase<T> : IServiceBase<T>, IDisposable where T : class
     {
         public CentralDeErrosDbContext Context { get; private set; }
 

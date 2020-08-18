@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CentralDeErros.Core.Extensions;
 using CentralDeErros.Model.Models;
-using CentralDeErros.Services;
+using CentralDeErros.Services.Interfaces;
 using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,10 +18,10 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class ErrorController : ControllerBase
     {
-        private readonly ErrorService _service;
+        private readonly IErrorService _service;
         private readonly IMapper _mapper;
 
-        public ErrorController(ErrorService service, IMapper mapper)
+        public ErrorController(IErrorService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -94,8 +94,6 @@ namespace CentralDeErros.API.Controllers
             _service.Delete(id);
 
             return Ok();
-        }
-
         //[ClaimsAuthorize("Admin", "Delete")]
         //[HttpDelete]
         //public ActionResult Delete([FromBody]ErrorEntryDTO entry)

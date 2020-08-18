@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using CentralDeErros.Core.Extensions;
 using CentralDeErros.Services;
+using CentralDeErros.Services.Interfaces;
 using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace CentralDeErros.API.Controllers
@@ -14,10 +16,10 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class EnvironmentController : ControllerBase
     {
-        private EnvironmentService _service;
+        private IEnvironmentService _service;
         private IMapper _mapper;
 
-        public EnvironmentController(EnvironmentService service, IMapper mapper)
+        public EnvironmentController(IEnvironmentService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -32,7 +34,7 @@ namespace CentralDeErros.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<EnvironmentDTO> GetEnviromentById(int? id)
+        public ActionResult<EnvironmentDTO> GetEnviromentId(int? id)
         {
             if (id == null)
             {
@@ -49,14 +51,21 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin","Delete")]
         [HttpDelete("{id}")]
-        public void DeleteEnvironmentById(int? id)
+        public ActionResult DeleteEnvironmentId(int? id)
         {
+            if(id == null)
+            {
+                return NoContent();
+            }
+
             _service.Delete((int)id);
+
+            return Ok();
         }
 
         [ClaimsAuthorize("Admin","Update")]
         [HttpPut("{id}")]
-        public ActionResult<EnvironmentDTO> UpdateEnvironment(int? id, [FromBody] EnvironmentDTO environment)
+        public ActionResult<EnvironmentDTO> UpdateEnvironment(int? id, Model.Models.Environment environment)
         {
             if (id == null)
             {
@@ -67,8 +76,9 @@ namespace CentralDeErros.API.Controllers
                 return Ok
                     (_mapper.Map<EnvironmentDTO>
                     (_service.RegisterOrUpdate
-                    (_mapper.Map<Model.Models.Environment>(environment))));
+                    ((environment))));
             }
+
         }
 
         [ClaimsAuthorize("Admin","Create")]
@@ -88,6 +98,10 @@ namespace CentralDeErros.API.Controllers
                 ((value)))));
             }
         }
+
+
+
     }
 
 }
+
