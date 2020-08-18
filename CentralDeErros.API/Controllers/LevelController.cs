@@ -16,8 +16,8 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class LevelController : ControllerBase
     {
-        private ILevelService _service;
-        private IMapper _mapper;
+        private readonly ILevelService _service;
+        private readonly IMapper _mapper;
 
         public LevelController(ILevelService service, IMapper mapper)
         {
@@ -51,7 +51,7 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
-        public void DeleteLevelById(int? id)
+        public ActionResult DeleteLevelById(int? id)
         {
             if (id == null)
             {
@@ -64,19 +64,19 @@ namespace CentralDeErros.API.Controllers
         }
 
         [ClaimsAuthorize("Admin", "Update")]
-        [HttpPut("{id}")]
-        public ActionResult<LevelDTO> UpdateLevel(int? id, [FromBody] LevelDTO level)
+        [HttpPut]
+        public ActionResult<LevelDTO> UpdateLevel([FromBody] LevelDTO level)
         {
-            if (id == null)
-            {
-                return NoContent();
-            }
-            else
+            if (ModelState.IsValid)
             {
                 return Ok
                     (_mapper.Map<LevelDTO>
                     (_service.RegisterOrUpdate
                     (_mapper.Map<Level>(level))));
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
         }
 

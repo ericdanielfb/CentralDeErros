@@ -15,8 +15,8 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class MicrosserviceController : ControllerBase
     {
-        private MicrosserviceService _service;
-        private IMapper _mapper;
+        private readonly MicrosserviceService _service;
+        private readonly IMapper _mapper;
         private readonly TokenGeneratorService _tokenGeneratorService;
 
         public MicrosserviceController(MicrosserviceService service, IMapper mapper, TokenGeneratorService tokenGeneratorService)
@@ -35,16 +35,16 @@ namespace CentralDeErros.API.Controllers
                  (_service.List()));
         }
 
-        [HttpGet("GetByClientId")]
-        public ActionResult<MicrosserviceDTO> GetMicrosserviceById([FromBody] MicrosserviceClientIdOnlyDTO microsserviceClientId)
+        [HttpGet("{clientId}")]
+        public ActionResult<MicrosserviceDTO> GetMicrosserviceById(Guid? microsserviceClientId)
         {
-            if (!ModelState.IsValid)
+            if (microsserviceClientId is null)
             {
                 return BadRequest(ModelState);
             }
             else
             {
-                Microsservice microsservice = _service.Fetch(_mapper.Map<Microsservice>(microsserviceClientId).ClientId);
+                Microsservice microsservice = _service.Fetch((Guid)microsserviceClientId);
                 if (microsservice is null)
                 {
                     return NoContent();
@@ -57,16 +57,16 @@ namespace CentralDeErros.API.Controllers
         }
 
         [ClaimsAuthorize("Admin", "Delete")]
-        [HttpDelete("DeleteByClientId")]
-        public ActionResult DeleteMicrosserviceById([FromBody] MicrosserviceClientIdOnlyDTO microsserviceClientId)
+        [HttpDelete("{clientId}")]
+        public ActionResult DeleteMicrosserviceById(Guid? microsserviceClientId)
         {
-            if (!ModelState.IsValid)
+            if (microsserviceClientId is null)
             {
                 return BadRequest(ModelState);
             }
             else
             {
-                Microsservice microsservice = _service.Fetch(_mapper.Map<Microsservice>(microsserviceClientId).ClientId);
+                Microsservice microsservice = _service.Fetch((Guid)microsserviceClientId);
                 if (microsservice is null)
                 {
                     return NoContent();
@@ -98,7 +98,7 @@ namespace CentralDeErros.API.Controllers
             }
         }
         [ClaimsAuthorize("Admin", "Update")]
-        [HttpPut("UpdateName")]
+        [HttpPut]
         public ActionResult<MicrosserviceDTO> UpdateMicrosserviceName([FromBody] MicrosserviceDTO microsservice)
 
         {

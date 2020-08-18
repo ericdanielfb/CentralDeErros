@@ -57,7 +57,7 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin", "Update")]
         [HttpPut]
-        public ActionResult<ErrorDTO> Put([FromBody]ErrorEntryDTO entry)
+        public ActionResult<ErrorDTO> Put([FromBody] ErrorEntryDTO entry)
         {
             if (entry.Id.HasValue && _service.CheckId<Error>(entry.Id.Value))
             {
@@ -94,12 +94,6 @@ namespace CentralDeErros.API.Controllers
             _service.Delete(id);
 
             return Ok();
-        //[ClaimsAuthorize("Admin", "Delete")]
-        //[HttpDelete]
-        //public ActionResult Delete([FromBody]ErrorEntryDTO entry)
-        //{
-        //    _service.Delete(_mapper.Map<Error>(entry));
-        //    return Ok();
-        //}
+        }
     }
 }

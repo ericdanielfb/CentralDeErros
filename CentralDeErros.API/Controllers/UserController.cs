@@ -59,12 +59,12 @@ namespace CentralDeErros.API.Controllers
         }
 
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAsync(string id, IdentityUser identityUser)
+        [HttpPut()]
+        public async Task<ActionResult> UpdateAsync([FromBody] IdentityUser identityUser)
         {
             if (ModelState.IsValid)
             {
-                var findBy = await _userManager.FindByIdAsync(id);
+                var findBy = await _userManager.FindByIdAsync(identityUser.Id);
 
                 findBy.UserName = identityUser.UserName;     
 

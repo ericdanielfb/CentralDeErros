@@ -60,16 +60,7 @@ namespace CentralDeErros.ControllersTests
             var controller = new ErrorController(mockService.Object, mapper);
 
             //Act
-            var contentResult = controller.Delete(new ErrorEntryDTO
-            {
-                Id = 1,
-                Details = "detail",
-                Title = "title",
-                Origin = "1.0.0.1",
-                EnviromentId = 1,
-                LevelId = 1,
-                MicrosserviceClientId = new Guid("031c156c-c072-4793-a542-4d20840b8031")
-            });
+            var contentResult = controller.Delete(1);
             //Assert
             Assert.IsType<OkResult>(contentResult);
         }

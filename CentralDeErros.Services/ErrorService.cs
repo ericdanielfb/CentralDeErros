@@ -26,7 +26,7 @@ namespace CentralDeErros.Services
             var response = Context
                                 .Errors
                                 .Where(x => x.IsArchived == archived)
-                                .Skip(start.HasValue ? start.Value : 0);
+                                .Skip(start ?? 0);
 
             if(end.HasValue)
             {
