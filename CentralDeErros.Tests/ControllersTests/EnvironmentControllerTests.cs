@@ -142,11 +142,12 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void UpdateEnvironment_ShouldCallService_AndReturn200WithDtos_WhenEnvironmentFound()
         {
+            var environmentDTO = new EnvironmentDTO() { Id = 1, Phase = "Teste" };
             var expectedReturnFromService = new Environment() { Id = 1, Phase = "Teste" };
 
             _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Environment>())).Returns(expectedReturnFromService);
 
-            var result = _controller.UpdateEnvironment(1, expectedReturnFromService);
+            var result = _controller.UpdateEnvironment(environmentDTO);
 
             _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Environment>()), Times.Once);
 
@@ -160,9 +161,9 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void UpdateEnvironment_ShouldCallService_AndReturn204_WhenEnvironmentNoContent()
         {
-            var expectedReturnFromService = new Environment();
+            var expectedReturnFromService = new EnvironmentDTO();
 
-            var result = _controller.UpdateEnvironment(null, expectedReturnFromService);
+            var result = _controller.UpdateEnvironment(expectedReturnFromService);
 
             _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Environment>()), Times.Never);
 

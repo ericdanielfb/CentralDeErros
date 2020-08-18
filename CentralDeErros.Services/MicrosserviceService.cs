@@ -1,6 +1,7 @@
 ﻿using CentralDeErros.Core;
 using CentralDeErros.Model.Models;
 using CentralDeErros.Services.Base;
+using CentralDeErros.Services.Interfaces;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace CentralDeErros.Services
 {
-    public class MicrosserviceService : ServiceBase<Microsservice>
+    public class MicrosserviceService : ServiceBase<Microsservice>, IMicrosserviceService
     {
         public MicrosserviceService(CentralDeErrosDbContext context) : base(context) 
         {
