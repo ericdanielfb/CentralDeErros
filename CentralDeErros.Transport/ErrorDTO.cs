@@ -12,7 +12,7 @@ namespace CentralDeErros.Transport
         public string Details { get; set; }
         public DateTime ErrorDate { get; set; }
 
-        public int MicrosserviceId { get; set; }
+        public Guid MicrosserviceClientId { get; set; }
 
         public int EnviromentId { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using CentralDeErros.Core;
+﻿using CentralDeErros.ControllersTests;
+using CentralDeErros.Core;
 
 
 namespace CentralDeErros.ControllerTest

@@ -9,7 +9,7 @@ namespace CentralDeErros.API.Configuration
         public static IServiceCollection AddDependencyInjectionConfig(this IServiceCollection services)
         {
 
-            services.AddScoped<ErrorService>();
+            services.AddScoped<IErrorService, ErrorService>();
             services.AddScoped<IEnvironmentService, EnvironmentService>();
             services.AddScoped<ILevelService, LevelService>();
             services.AddScoped<MicrosserviceService>();
