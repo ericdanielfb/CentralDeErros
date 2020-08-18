@@ -16,8 +16,8 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class EnvironmentController : ControllerBase
     {
-        private IEnvironmentService _service;
-        private IMapper _mapper;
+        private readonly IEnvironmentService _service;
+        private readonly IMapper _mapper;
 
         public EnvironmentController(IEnvironmentService service, IMapper mapper)
         {
@@ -64,21 +64,20 @@ namespace CentralDeErros.API.Controllers
         }
 
         [ClaimsAuthorize("Admin","Update")]
-        [HttpPut("{id}")]
-        public ActionResult<EnvironmentDTO> UpdateEnvironment(int? id, Model.Models.Environment environment)
+        [HttpPut]
+        public ActionResult<EnvironmentDTO> UpdateEnvironment([FromBody] EnvironmentDTO environment)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return NoContent();
+                return BadRequest(ModelState);
             }
             else
             {
                 return Ok
-                    (_mapper.Map<EnvironmentDTO>
-                    (_service.RegisterOrUpdate
-                    ((environment))));
+                (_mapper.Map<EnvironmentDTO>
+                (_service.RegisterOrUpdate
+                (_mapper.Map<Model.Models.Environment>(environment))));
             }
-
         }
 
         [ClaimsAuthorize("Admin","Create")]
@@ -94,14 +93,8 @@ namespace CentralDeErros.API.Controllers
                 return Ok
                 (_mapper.Map<EnvironmentDTO>
                 (_service.RegisterOrUpdate
-                (_mapper.Map<Model.Models.Environment>
-                ((value)))));
+                (_mapper.Map<Model.Models.Environment>(value))));
             }
         }
-
-
-
     }
-
 }
-

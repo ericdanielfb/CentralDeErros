@@ -7,7 +7,6 @@ namespace CentralDeErros.Transport.MicrosserviceDTOs
     {
         public Guid ClientId { get; set; }
         public string ClientSecret { get; set; }
-        private string Name { get; set; }
-        
+        public string Name { get; set; }
     }
 }
