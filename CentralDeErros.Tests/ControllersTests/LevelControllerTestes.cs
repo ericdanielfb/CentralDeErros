@@ -143,12 +143,12 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void UpdateLevel_ShouldCallService_AndReturn200WithDtos_WhenLevelFound()
         {
-            var expectedLevelDTOReturn = new LevelDTO() { Id = 1, Name = "Teste" };
+            var LevelDTO = new LevelDTO() { Id = 1, Name = "Teste" };
             var expectedLevelReturn = new Level() { Id = 1, Name = "Teste" };
 
             _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Level>())).Returns(expectedLevelReturn);
 
-            var result = _controller.UpdateLevel(1, expectedReturnFromService);
+            var result = _controller.UpdateLevel(LevelDTO);
 
             _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Level>()), Times.Once);
 
@@ -156,15 +156,15 @@ namespace CentralDeErros.ControllersTests
             Assert.Equal(200, objectResult.StatusCode);
 
             var dto = Assert.IsType<LevelDTO>(objectResult.Value);
-            Assert.Equal(expectedReturnFromService.Name.ToLower(), dto.Name);
+            Assert.Equal(expectedLevelReturn.Name.ToLower(), dto.Name);
         }
 
         [Fact]
         public void UpdateLevel_ShouldCallService_AndReturn204_WhenLevelNoContent()
         {
-            var expectedReturnFromService = new Level();
+            var expectedReturnFromService = new LevelDTO();
 
-            var result = _controller.UpdateLevel(null, expectedReturnFromService);
+            var result = _controller.UpdateLevel(expectedReturnFromService);
 
             _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Level>()), Times.Never);
 

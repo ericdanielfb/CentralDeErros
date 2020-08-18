@@ -79,7 +79,7 @@ namespace CentralDeErros.ControllersTests
 
             var validation = _controller.ModelState.IsValid;
 
-            var result = _controller.GetMicrosserviceById(microsserviceClientOnlyDTO);
+            var result = _controller.GetMicrosserviceById(microsserviceClientOnlyDTO.ClientId);
                      
             _serviceMock.Verify(x => x.Fetch(microsserviceClientOnlyDTO.ClientId), Times.Once);
 
@@ -104,7 +104,7 @@ namespace CentralDeErros.ControllersTests
 
             var validation = _controller.ModelState.IsValid;
 
-            var result = _controller.GetMicrosserviceById(microsserviceClientOnlyDTO);
+            var result = _controller.GetMicrosserviceById(microsserviceClientOnlyDTO.ClientId);
 
             _serviceMock.Verify(x => x.Fetch(microsserviceClientOnlyDTO.ClientId), Times.Once);
 
@@ -121,7 +121,7 @@ namespace CentralDeErros.ControllersTests
             _controller.ModelState.AddModelError("test", "test");
 
             //Act
-            var result = _controller.GetMicrosserviceById(new MicrosserviceClientIdOnlyDTO());
+            var result = _controller.GetMicrosserviceById(null);
 
             //Assert
             var objectResult = Assert.IsType<BadRequestObjectResult>(result.Result);
@@ -146,7 +146,7 @@ namespace CentralDeErros.ControllersTests
 
             var validation = _controller.ModelState.IsValid;
 
-            var result = _controller.DeleteMicrosserviceById(microsserviceClientOnlyDTO);
+            var result = _controller.DeleteMicrosserviceById(microsserviceClientOnlyDTO.ClientId);
 
             _serviceMock.Verify(x => x.Fetch(microsserviceClientOnlyDTO.ClientId), Times.Once);
             _serviceMock.Verify(x => x.Delete(microsserviceClientOnlyDTO.ClientId), Times.Once);
@@ -168,7 +168,7 @@ namespace CentralDeErros.ControllersTests
 
             var validation = _controller.ModelState.IsValid;
 
-            var result = _controller.DeleteMicrosserviceById(microsserviceClientOnlyDTO);
+            var result = _controller.DeleteMicrosserviceById(microsserviceClientOnlyDTO.ClientId);
 
             _serviceMock.Verify(x => x.Fetch(microsserviceClientOnlyDTO.ClientId), Times.Once);
             _serviceMock.Verify(x => x.Delete(new Microsservice()), Times.Never);
@@ -186,7 +186,7 @@ namespace CentralDeErros.ControllersTests
             _controller.ModelState.AddModelError("test", "test");
 
             //Act
-            var result = _controller.DeleteMicrosserviceById(new MicrosserviceClientIdOnlyDTO());
+            var result = _controller.DeleteMicrosserviceById(null);
 
             //Assert
             var objectResult = Assert.IsType<BadRequestObjectResult>(result);
