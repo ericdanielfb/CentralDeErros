@@ -79,7 +79,7 @@ namespace CentralDeErros.Services
                 throw new Exception("LevelId not found");
 
             if (!CheckId<Microsservice>(entry.MicrosserviceClientId))
-                throw new Exception("MicrosserviceId not found");
+                throw new Exception("MicrosserviceClientId not found");
 
             if (!CheckId<Model.Models.Environment>(entry.EnviromentId))
                 throw new Exception("EnviromentId not found");

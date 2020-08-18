@@ -5,7 +5,6 @@ using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 
 
 namespace CentralDeErros.API.Controllers
@@ -33,7 +32,7 @@ namespace CentralDeErros.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<EnvironmentDTO> GetEnviromentId(int? id)
+        public ActionResult<EnvironmentDTO> GetEnviromentById(int? id)
         {
             if (id == null)
             {
@@ -50,14 +49,14 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin","Delete")]
         [HttpDelete("{id}")]
-        public void DeleteEnvironmentId(int? id)
+        public void DeleteEnvironmentById(int? id)
         {
             _service.Delete((int)id);
         }
 
         [ClaimsAuthorize("Admin","Update")]
         [HttpPut("{id}")]
-        public ActionResult<EnvironmentDTO> UpdateEnvironment(int? id, EnvironmentDTO environment)
+        public ActionResult<EnvironmentDTO> UpdateEnvironment(int? id, [FromBody] EnvironmentDTO environment)
         {
             if (id == null)
             {
@@ -70,7 +69,6 @@ namespace CentralDeErros.API.Controllers
                     (_service.RegisterOrUpdate
                     (_mapper.Map<Model.Models.Environment>(environment))));
             }
-
         }
 
         [ClaimsAuthorize("Admin","Create")]
@@ -90,10 +88,6 @@ namespace CentralDeErros.API.Controllers
                 ((value)))));
             }
         }
-
-
-
     }
 
 }
-

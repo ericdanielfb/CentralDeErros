@@ -6,7 +6,6 @@ using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CentralDeErros.API.Controllers
 {
@@ -33,7 +32,7 @@ namespace CentralDeErros.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<LevelDTO> GetEnviromentId(int? id)
+        public ActionResult<LevelDTO> GetLevelById(int? id)
         {
             if (id == null)
             {
@@ -50,14 +49,14 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
-        public void DeleteLevelId(int? id)
+        public void DeleteLevelById(int? id)
         {
             _service.Delete((int)id);
         }
 
         [ClaimsAuthorize("Admin", "Update")]
         [HttpPut("{id}")]
-        public ActionResult<LevelDTO> UpdateLevel(int? id, Level level)
+        public ActionResult<LevelDTO> UpdateLevel(int? id, [FromBody] LevelDTO level)
         {
             if (id == null)
             {
@@ -68,9 +67,8 @@ namespace CentralDeErros.API.Controllers
                 return Ok
                     (_mapper.Map<LevelDTO>
                     (_service.RegisterOrUpdate
-                    ((level))));
+                    (_mapper.Map<Level>(level))));
             }
-
         }
 
         [ClaimsAuthorize("Admin", "Create")]

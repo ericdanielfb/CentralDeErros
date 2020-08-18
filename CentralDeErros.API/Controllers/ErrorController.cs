@@ -79,7 +79,7 @@ namespace CentralDeErros.API.Controllers
                 failed =  _service.ArchiveById(errorIdList);
             }
 
-            if (failed != null)
+            if (failed.Count > 0)
             {
                 return NotFound(new { failedList = failed });
             }
@@ -96,13 +96,12 @@ namespace CentralDeErros.API.Controllers
             return Ok();
         }
 
-        [ClaimsAuthorize("Admin", "Delete")]
-        [HttpDelete]
-        public ActionResult Delete([FromBody]ErrorEntryDTO entry)
-        {
-            _service.Delete(_mapper.Map<Error>(entry));
-
-            return Ok();
-        }
+        //[ClaimsAuthorize("Admin", "Delete")]
+        //[HttpDelete]
+        //public ActionResult Delete([FromBody]ErrorEntryDTO entry)
+        //{
+        //    _service.Delete(_mapper.Map<Error>(entry));
+        //    return Ok();
+        //}
     }
 }
