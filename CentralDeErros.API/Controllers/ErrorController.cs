@@ -41,7 +41,7 @@ namespace CentralDeErros.API.Controllers
 
 
         [HttpPost]
-        public ActionResult Post([FromBody] ErrorEntryDTO entry)
+        public ActionResult<ErrorEntryDTO> Post([FromBody] ErrorEntryDTO entry)
         {
 
             try
@@ -51,14 +51,13 @@ namespace CentralDeErros.API.Controllers
             }
             catch (Exception exc)
             {
-
                 return BadRequest(exc.Message);
             }
         }
 
         [ClaimsAuthorize("Admin", "Update")]
         [HttpPut]
-        public IActionResult Put(ErrorEntryDTO entry)
+        public ActionResult<ErrorDTO> Put([FromBody] ErrorEntryDTO entry)
         {
             if (entry.Id.HasValue && _service.CheckId<Error>(entry.Id.Value))
             {
@@ -70,8 +69,8 @@ namespace CentralDeErros.API.Controllers
             return NotFound();
         }
 
-        [HttpPut("archive")]
-        public IActionResult Archive([FromBody] List<int> errorIdList)
+        [HttpPut("Archive")]
+        public ActionResult Archive([FromBody] List<int> errorIdList)
         {
             var failed = new List<int>();
 
@@ -80,7 +79,7 @@ namespace CentralDeErros.API.Controllers
                 failed =  _service.ArchiveById(errorIdList);
             }
 
-            if (failed != null)
+            if (failed.Count > 0)
             {
                 return NotFound(new { failedList = failed });
             }
@@ -90,21 +89,11 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             _service.Delete(id);
 
             return Ok();
         }
-
-        [ClaimsAuthorize("Admin", "Delete")]
-        [HttpDelete]
-        public IActionResult Delete(ErrorEntryDTO entry)
-        {
-            _service.Delete(_mapper.Map<Error>(entry));
-
-            return Ok();
-        }
-
     }
 }

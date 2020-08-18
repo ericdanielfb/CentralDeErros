@@ -6,15 +6,6 @@ namespace CentralDeErros.ControllersTests
 {
     public class FakeContext 
     {
-        public static List<User> Users = new List<User>()
-        {
-            new User () { Id = 1, UserName = "Teste", Email = "Teste@email.com", Password = "123456789", ProfileId = 1},
-            new User () { Id = 2, UserName = "T", Email = "Teste@email.com", Password = "123456789", ProfileId = 1},
-            new User () { Id = 3, UserName = "Teste", Email = "Teste", Password = "123456789", ProfileId = 1},
-            new User () { Id = 4, UserName = "Teste", Email = "Teste@email.com", Password = "12", ProfileId = 1},
-            new User () { Id = 5, UserName = "Teste", Email = "Teste@email.com", Password = "123456789", ProfileId = 1},
-        };
-
         public static List<Error> Errors = new List<Error>()
         {
             new Error () { 
@@ -79,12 +70,6 @@ namespace CentralDeErros.ControllersTests
         {
             new Model.Models.Environment () { Id = 1, Phase = "Teste" }, 
             new Model.Models.Environment () { Id = 2, Phase = "T" }
-        };
-
-        public static List<Profile> Profiles = new List<Profile>()
-        {
-            new Profile () { Id = 1, Type = "Teste" },
-            new Profile () { Id = 2, Type = "T" }
         };
 
          public static List<Microsservice> Microsservices = new List<Microsservice>()

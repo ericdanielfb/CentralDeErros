@@ -2,7 +2,6 @@
 using CentralDeErros.Core.Extensions;
 using CentralDeErros.Model.Models;
 using CentralDeErros.Services;
-using CentralDeErros.Services.Interfaces;
 using CentralDeErros.Transport.MicrosserviceDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +15,11 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class MicrosserviceController : ControllerBase
     {
-        private readonly IMicrosserviceService _service;
+        private readonly MicrosserviceService _service;
         private readonly IMapper _mapper;
-        private readonly ITokenGeneratorService _tokenGeneratorService;
+        private readonly TokenGeneratorService _tokenGeneratorService;
 
-        public MicrosserviceController(IMicrosserviceService service, IMapper mapper, ITokenGeneratorService tokenGeneratorService)
+        public MicrosserviceController(MicrosserviceService service, IMapper mapper, TokenGeneratorService tokenGeneratorService)
         {
             _service = service;
             _mapper = mapper;
@@ -36,16 +35,16 @@ namespace CentralDeErros.API.Controllers
                  (_service.List()));
         }
 
-        [HttpGet("GetByClientId")]
-        public ActionResult<MicrosserviceDTO> GetMicrosserviceById([FromBody] MicrosserviceClientIdOnlyDTO microsserviceClientId)
+        [HttpGet("{clientId}")]
+        public ActionResult<MicrosserviceDTO> GetMicrosserviceById(Guid? microsserviceClientId)
         {
-            if (!ModelState.IsValid)
+            if (microsserviceClientId is null)
             {
                 return BadRequest(ModelState);
             }
             else
             {
-                Microsservice microsservice = _service.Fetch(_mapper.Map<Microsservice>(microsserviceClientId).ClientId);
+                Microsservice microsservice = _service.Fetch((Guid)microsserviceClientId);
                 if (microsservice is null)
                 {
                     return NoContent();
@@ -58,16 +57,16 @@ namespace CentralDeErros.API.Controllers
         }
 
         [ClaimsAuthorize("Admin", "Delete")]
-        [HttpDelete("DeleteByClientId")]
-        public ActionResult DeleteMicrosserviceById([FromBody] MicrosserviceClientIdOnlyDTO microsserviceClientId)
+        [HttpDelete("{clientId}")]
+        public ActionResult DeleteMicrosserviceById(Guid? microsserviceClientId)
         {
-            if (!ModelState.IsValid)
+            if (microsserviceClientId is null)
             {
                 return BadRequest(ModelState);
             }
             else
             {
-                Microsservice microsservice = _service.Fetch(_mapper.Map<Microsservice>(microsserviceClientId).ClientId);
+                Microsservice microsservice = _service.Fetch((Guid)microsserviceClientId);
                 if (microsservice is null)
                 {
                     return NoContent();
@@ -99,7 +98,7 @@ namespace CentralDeErros.API.Controllers
             }
         }
         [ClaimsAuthorize("Admin", "Update")]
-        [HttpPut("UpdateName")]
+        [HttpPut]
         public ActionResult<MicrosserviceDTO> UpdateMicrosserviceName([FromBody] MicrosserviceDTO microsservice)
 
         {
@@ -142,7 +141,7 @@ namespace CentralDeErros.API.Controllers
                 }
                 else
                 {
-                    return Ok(_mapper.Map<MicrosserviceRegisterDTO>(_service.GenerateClientSecret(response)));
+                    return Ok(_mapper.Map<MicrosserviceDTO>(_service.GenerateClientSecret(response)));
                 }
             }
         }

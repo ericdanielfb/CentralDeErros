@@ -63,7 +63,7 @@ namespace CentralDeErros.ControllersTests
 
             _serviceMock.Setup(x => x.Fetch(1)).Returns(expectedReturnFromService);
 
-            var result = _controller.GetLevelId(1);
+            var result = _controller.GetLevelById(1);
 
             _serviceMock.Verify(x => x.Fetch(1), Times.Once);
 
@@ -77,7 +77,7 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void GetLevelId_ShouldCallService_AndReturn204_WhenLevelNoContent()
         {
-            var result = _controller.GetLevelId(null);
+            var result = _controller.GetLevelById(null);
 
             _serviceMock.Verify(x => x.Fetch(null), Times.Never);
 
@@ -143,9 +143,10 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void UpdateLevel_ShouldCallService_AndReturn200WithDtos_WhenLevelFound()
         {
-            var expectedReturnFromService = new Level() { Id = 1, Name = "Teste" };
+            var expectedLevelDTOReturn = new LevelDTO() { Id = 1, Name = "Teste" };
+            var expectedLevelReturn = new Level() { Id = 1, Name = "Teste" };
 
-            _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Level>())).Returns(expectedReturnFromService);
+            _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Level>())).Returns(expectedLevelReturn);
 
             var result = _controller.UpdateLevel(1, expectedReturnFromService);
 
@@ -179,7 +180,7 @@ namespace CentralDeErros.ControllersTests
 
             _serviceMock.Setup(x => x.Delete(1));
 
-            var result = _controller.DeleteLevelId(1);
+            var result = _controller.DeleteLevelById(1);
 
             _serviceMock.Verify(x => x.Delete(1), Times.Once);
 
@@ -190,7 +191,7 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void DeleteLevelId_Shouldcallservice_Andreturn204()
         {
-            var result = _controller.DeleteLevelId(null);
+            var result = _controller.DeleteLevelById(null);
 
             _serviceMock.Verify(x => x.Delete(null), Times.Never);
 
