@@ -59,14 +59,14 @@ namespace CentralDeErros.API.Controllers
         [HttpPut]
         public ActionResult<ErrorDTO> Put([FromBody] ErrorEntryDTO entry)
         {
-            if (entry.Id.HasValue && _service.CheckId<Error>(entry.Id.Value))
+            if (entry.Id.HasValue && _service.CheckError(entry.Id.Value))
             {
                 _service.Update(_mapper.Map<Error>(entry));
                 return Ok();
             }
 
 
-            return NotFound();
+            return BadRequest("Error not found");
         }
 
         [HttpPut("Archive")]
