@@ -6,6 +6,7 @@ using CentralDeErros.Transport;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using CentralDeErros.Core.Extensions;
 
 namespace CentralDeErros.API.Controllers
 {
@@ -22,13 +23,14 @@ namespace CentralDeErros.API.Controllers
             _userManager = userManager;
         }
 
+        [ClaimsAuthorize("Admin", "Read")]
         [HttpGet]
         public ActionResult<IEnumerable<UserGetDTO>> GetAll()
         {
-
             return Ok(_mapper.Map<IEnumerable<UserGetDTO>>(_userManager.Users.ToList()));
         }
 
+        [ClaimsAuthorize("Admin", "Read")]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserGetDTO>> GetAsync(string id)
         {
@@ -39,6 +41,7 @@ namespace CentralDeErros.API.Controllers
             return NoContent();
         }
 
+        [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAsync(string entry)
         {
@@ -57,7 +60,6 @@ namespace CentralDeErros.API.Controllers
             }
             return NoContent();
         }
-
 
         [HttpPut()]
         public async Task<ActionResult> UpdateAsync([FromBody] IdentityUser identityUser)

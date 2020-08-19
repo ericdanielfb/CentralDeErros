@@ -56,12 +56,14 @@ namespace CentralDeErros.Services
 
         public override Microsservice Update(Microsservice microsservice)
         {
-            microsservice.Name = microsservice.Name.ToLower();
 
-            Context.Update(microsservice);
+            var fullData = Fetch(microsservice.ClientId);
+            fullData.Name = microsservice.Name.ToLower();
+
+            Context.Update(fullData);
             Context.SaveChanges();
 
-            return microsservice;
+            return fullData;
         }
 
         public Microsservice Fetch(Guid id)
