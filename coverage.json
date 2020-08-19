@@ -1017,19 +1017,19 @@
       "CentralDeErros.API.Controllers.UserController": {
         "Microsoft.AspNetCore.Mvc.ActionResult`1<System.Collections.Generic.IEnumerable`1<CentralDeErros.Transport.UserGetDTO>> CentralDeErros.API.Controllers.UserController::GetAll()": {
           "Lines": {
-            "27": 0,
             "29": 0,
-            "30": 0
+            "30": 0,
+            "31": 0
           },
           "Branches": []
         },
         "System.Void CentralDeErros.API.Controllers.UserController::.ctor(Microsoft.AspNetCore.Identity.UserManager`1<Microsoft.AspNetCore.Identity.IdentityUser>,AutoMapper.IMapper)": {
           "Lines": {
-            "19": 0,
             "20": 0,
             "21": 0,
             "22": 0,
-            "23": 0
+            "23": 0,
+            "24": 0
           },
           "Branches": []
         }
@@ -1037,16 +1037,16 @@
       "CentralDeErros.API.Controllers.UserController/<GetAsync>d__4": {
         "System.Void CentralDeErros.API.Controllers.UserController/<GetAsync>d__4::MoveNext()": {
           "Lines": {
-            "34": 0,
-            "35": 0,
             "36": 0,
             "37": 0,
+            "38": 0,
             "39": 0,
-            "40": 0
+            "41": 0,
+            "42": 0
           },
           "Branches": [
             {
-              "Line": 35,
+              "Line": 37,
               "Offset": 33,
               "EndOffset": 38,
               "Path": 0,
@@ -1054,7 +1054,7 @@
               "Hits": 0
             },
             {
-              "Line": 35,
+              "Line": 37,
               "Offset": 33,
               "EndOffset": 210,
               "Path": 1,
@@ -1067,21 +1067,21 @@
       "CentralDeErros.API.Controllers.UserController/<DeleteAsync>d__5": {
         "System.Void CentralDeErros.API.Controllers.UserController/<DeleteAsync>d__5::MoveNext()": {
           "Lines": {
-            "44": 0,
-            "46": 0,
             "47": 0,
-            "48": 0,
+            "49": 0,
             "50": 0,
-            "52": 0,
+            "51": 0,
             "53": 0,
-            "54": 0,
+            "55": 0,
             "56": 0,
-            "58": 0,
-            "59": 0
+            "57": 0,
+            "59": 0,
+            "61": 0,
+            "62": 0
           },
           "Branches": [
             {
-              "Line": 46,
+              "Line": 49,
               "Offset": 44,
               "EndOffset": 49,
               "Path": 0,
@@ -1089,7 +1089,7 @@
               "Hits": 0
             },
             {
-              "Line": 52,
+              "Line": 55,
               "Offset": 345,
               "EndOffset": 347,
               "Path": 0,
@@ -1097,7 +1097,7 @@
               "Hits": 0
             },
             {
-              "Line": 52,
+              "Line": 55,
               "Offset": 345,
               "EndOffset": 373,
               "Path": 1,
@@ -1105,7 +1105,7 @@
               "Hits": 0
             },
             {
-              "Line": 46,
+              "Line": 49,
               "Offset": 44,
               "EndOffset": 393,
               "Path": 1,
@@ -1118,22 +1118,22 @@
       "CentralDeErros.API.Controllers.UserController/<UpdateAsync>d__6": {
         "System.Void CentralDeErros.API.Controllers.UserController/<UpdateAsync>d__6::MoveNext()": {
           "Lines": {
-            "64": 0,
-            "65": 0,
             "66": 0,
             "67": 0,
+            "68": 0,
             "69": 0,
             "71": 0,
             "73": 0,
-            "74": 0,
             "75": 0,
-            "78": 0,
+            "76": 0,
+            "77": 0,
             "80": 0,
-            "81": 0
+            "82": 0,
+            "83": 0
           },
           "Branches": [
             {
-              "Line": 65,
+              "Line": 67,
               "Offset": 44,
               "EndOffset": 49,
               "Path": 0,
@@ -1141,7 +1141,7 @@
               "Hits": 0
             },
             {
-              "Line": 73,
+              "Line": 75,
               "Offset": 373,
               "EndOffset": 375,
               "Path": 0,
@@ -1149,7 +1149,7 @@
               "Hits": 0
             },
             {
-              "Line": 73,
+              "Line": 75,
               "Offset": 373,
               "EndOffset": 401,
               "Path": 1,
@@ -1157,7 +1157,7 @@
               "Hits": 0
             },
             {
-              "Line": 65,
+              "Line": 67,
               "Offset": 44,
               "EndOffset": 415,
               "Path": 1,
@@ -4229,7 +4229,7 @@
         },
         "System.DateTime CentralDeErros.Model.Models.Error::get_ErrorDate()": {
           "Lines": {
-            "15": 518
+            "15": 567
           },
           "Branches": []
         },
@@ -4277,10 +4277,10 @@
         },
         "System.Void CentralDeErros.Model.Models.Error::.ctor()": {
           "Lines": {
-            "7": 286,
-            "8": 286,
-            "9": 286,
-            "10": 286
+            "7": 335,
+            "8": 335,
+            "9": 335,
+            "10": 335
           },
           "Branches": []
         }
@@ -4985,27 +4985,26 @@
         "CentralDeErros.Model.Models.Microsservice CentralDeErros.Services.MicrosserviceService::Update(CentralDeErros.Model.Models.Microsservice)": {
           "Lines": {
             "58": 0,
-            "59": 0,
+            "60": 0,
             "61": 0,
-            "62": 0,
+            "63": 0,
             "64": 0,
-            "65": 0
+            "66": 0,
+            "67": 0
           },
           "Branches": []
         },
         "CentralDeErros.Model.Models.Microsservice CentralDeErros.Services.MicrosserviceService::Fetch(System.Guid)": {
           "Lines": {
-            "68": 0,
-            "69": 0,
+            "70": 0,
             "71": 0,
-            "72": 0
+            "73": 0,
+            "74": 0
           },
           "Branches": []
         },
         "CentralDeErros.Model.Models.Microsservice CentralDeErros.Services.MicrosserviceService::GenerateClientSecret(CentralDeErros.Model.Models.Microsservice)": {
           "Lines": {
-            "75": 0,
-            "76": 0,
             "77": 0,
             "78": 0,
             "79": 0,
@@ -5013,25 +5012,27 @@
             "81": 0,
             "82": 0,
             "83": 0,
-            "84": 0
+            "84": 0,
+            "85": 0,
+            "86": 0
           },
           "Branches": []
         },
         "System.String CentralDeErros.Services.MicrosserviceService::GetMd5Hash(System.Security.Cryptography.MD5,System.String)": {
           "Lines": {
-            "87": 0,
-            "90": 0,
-            "94": 0,
-            "98": 0,
-            "99": 0,
+            "89": 0,
+            "92": 0,
+            "96": 0,
             "100": 0,
             "101": 0,
-            "104": 0,
-            "105": 0
+            "102": 0,
+            "103": 0,
+            "106": 0,
+            "107": 0
           },
           "Branches": [
             {
-              "Line": 98,
+              "Line": 100,
               "Offset": 67,
               "EndOffset": 29,
               "Path": 1,
@@ -5039,7 +5040,7 @@
               "Hits": 0
             },
             {
-              "Line": 98,
+              "Line": 100,
               "Offset": 67,
               "EndOffset": 69,
               "Path": 0,
@@ -5050,20 +5051,20 @@
         },
         "System.Boolean CentralDeErros.Services.MicrosserviceService::ValidateMicrosserviceCredentials(CentralDeErros.Model.Models.Microsservice)": {
           "Lines": {
-            "108": 0,
-            "109": 0,
             "110": 0,
             "111": 0,
             "112": 0,
             "113": 0,
             "114": 0,
+            "115": 0,
             "116": 0,
-            "117": 0,
-            "118": 0
+            "118": 0,
+            "119": 0,
+            "120": 0
           },
           "Branches": [
             {
-              "Line": 110,
+              "Line": 112,
               "Offset": 20,
               "EndOffset": 22,
               "Path": 0,
@@ -5071,7 +5072,7 @@
               "Hits": 0
             },
             {
-              "Line": 112,
+              "Line": 114,
               "Offset": 42,
               "EndOffset": 44,
               "Path": 0,
@@ -5079,7 +5080,7 @@
               "Hits": 0
             },
             {
-              "Line": 112,
+              "Line": 114,
               "Offset": 42,
               "EndOffset": 49,
               "Path": 1,
@@ -5087,7 +5088,7 @@
               "Hits": 0
             },
             {
-              "Line": 110,
+              "Line": 112,
               "Offset": 20,
               "EndOffset": 50,
               "Path": 1,
@@ -5098,19 +5099,19 @@
         },
         "System.Boolean CentralDeErros.Services.MicrosserviceService::VerifyMd5Hash(System.Security.Cryptography.MD5,System.String,System.String)": {
           "Lines": {
-            "121": 0,
             "123": 0,
-            "126": 0,
+            "125": 0,
             "128": 0,
-            "129": 0,
             "130": 0,
-            "133": 0,
-            "134": 0,
-            "136": 0
+            "131": 0,
+            "132": 0,
+            "135": 0,
+            "136": 0,
+            "138": 0
           },
           "Branches": [
             {
-              "Line": 128,
+              "Line": 130,
               "Offset": 28,
               "EndOffset": 30,
               "Path": 0,
@@ -5118,7 +5119,7 @@
               "Hits": 0
             },
             {
-              "Line": 128,
+              "Line": 130,
               "Offset": 28,
               "EndOffset": 35,
               "Path": 1,
@@ -5233,87 +5234,87 @@
       "CentralDeErros.Services.Base.ServiceBase`1": {
         "CentralDeErros.Core.CentralDeErrosDbContext CentralDeErros.Services.Base.ServiceBase`1::get_Context()": {
           "Lines": {
-            "13": 94
+            "13": 126
           },
           "Branches": []
         },
         "System.Linq.IQueryable`1<T> CentralDeErros.Services.Base.ServiceBase`1::List()": {
           "Lines": {
-            "21": 1,
             "22": 1,
-            "24": 1,
-            "25": 1
+            "23": 1,
+            "25": 1,
+            "26": 1
           },
           "Branches": []
         },
         "System.Linq.IQueryable`1<T> CentralDeErros.Services.Base.ServiceBase`1::List(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)": {
           "Lines": {
-            "28": 10,
             "29": 10,
-            "31": 10,
-            "32": 10
+            "30": 10,
+            "32": 10,
+            "33": 10
           },
           "Branches": []
         },
         "T CentralDeErros.Services.Base.ServiceBase`1::Fetch(System.Int32)": {
           "Lines": {
-            "35": 5,
             "36": 5,
-            "38": 5,
-            "39": 5
+            "37": 5,
+            "39": 5,
+            "40": 5
           },
           "Branches": []
         },
         "T CentralDeErros.Services.Base.ServiceBase`1::Fetch(System.Linq.Expressions.Expression`1<System.Func`2<T,System.Boolean>>)": {
           "Lines": {
-            "42": 1,
             "43": 1,
-            "45": 1,
-            "46": 1
+            "44": 1,
+            "46": 1,
+            "47": 1
           },
           "Branches": []
         },
         "System.Void CentralDeErros.Services.Base.ServiceBase`1::Register(T)": {
           "Lines": {
-            "49": 1,
             "50": 1,
             "51": 1,
-            "52": 1
+            "52": 1,
+            "53": 1
           },
           "Branches": []
         },
         "T CentralDeErros.Services.Base.ServiceBase`1::Update(T)": {
           "Lines": {
-            "55": 4,
             "56": 4,
             "57": 4,
-            "59": 4,
-            "60": 4
+            "58": 4,
+            "60": 4,
+            "61": 4
           },
           "Branches": []
         },
         "System.Void CentralDeErros.Services.Base.ServiceBase`1::Delete(T)": {
           "Lines": {
-            "63": 2,
             "64": 2,
             "65": 2,
-            "66": 2
+            "66": 2,
+            "67": 2
           },
           "Branches": []
         },
         "System.Void CentralDeErros.Services.Base.ServiceBase`1::Delete(System.Int32)": {
           "Lines": {
-            "69": 1,
             "70": 1,
-            "72": 1,
-            "73": 0,
+            "71": 1,
+            "73": 1,
             "74": 0,
-            "77": 1,
-            "78": 1
+            "75": 0,
+            "78": 1,
+            "79": 1
           },
           "Branches": [
             {
-              "Line": 72,
+              "Line": 73,
               "Offset": 20,
               "EndOffset": 22,
               "Path": 0,
@@ -5321,7 +5322,7 @@
               "Hits": 0
             },
             {
-              "Line": 72,
+              "Line": 73,
               "Offset": 20,
               "EndOffset": 34,
               "Path": 1,
@@ -5332,16 +5333,16 @@
         },
         "System.Void CentralDeErros.Services.Base.ServiceBase`1::Dispose()": {
           "Lines": {
-            "81": 1,
             "82": 1,
             "83": 1,
             "84": 1,
             "85": 1,
+            "86": 1,
             "87": 1
           },
           "Branches": [
             {
-              "Line": 82,
+              "Line": 83,
               "Offset": 12,
               "EndOffset": 14,
               "Path": 0,
@@ -5349,7 +5350,7 @@
               "Hits": 1
             },
             {
-              "Line": 82,
+              "Line": 83,
               "Offset": 12,
               "EndOffset": 24,
               "Path": 1,
@@ -5363,7 +5364,8 @@
             "15": 32,
             "16": 32,
             "17": 32,
-            "18": 32
+            "18": 32,
+            "19": 32
           },
           "Branches": []
         }
@@ -5561,7 +5563,7 @@
         }
       }
     },
-    "C:\\Users\\Eric Daniel\\source\\repos\\CentralDeErros\\CentralDeErros.Transport\\UserDTO.cs": {
+    "C:\\Users\\Eric Daniel\\source\\repos\\CentralDeErros\\CentralDeErros.Transport\\UserGetDTO.cs": {
       "CentralDeErros.Transport.UserGetDTO": {
         "System.String CentralDeErros.Transport.UserGetDTO::get_Id()": {
           "Lines": {

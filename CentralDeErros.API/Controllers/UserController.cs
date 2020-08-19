@@ -43,12 +43,12 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAsync(string entry)
+        public async Task<ActionResult> DeleteAsync(string id)
         {
 
             if (ModelState.IsValid)
             {
-                var findById = await _userManager.FindByIdAsync(entry);
+                var findById = await _userManager.FindByIdAsync(id);
 
                 var result = await _userManager.DeleteAsync(findById);
 
