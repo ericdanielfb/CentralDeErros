@@ -37,15 +37,15 @@ namespace CentralDeErros.API.Controllers
         }
 
         [HttpGet("{clientId}")]
-        public ActionResult<MicrosserviceDTO> GetMicrosserviceById(Guid? microsserviceClientId)
+        public ActionResult<MicrosserviceDTO> GetMicrosserviceById(Guid? clientId)
         {
-            if (microsserviceClientId is null)
+            if (clientId is null)
             {
                 return BadRequest(ModelState);
             }
             else
             {
-                Microsservice microsservice = _service.Fetch((Guid)microsserviceClientId);
+                Microsservice microsservice = _service.Fetch((Guid)clientId);
                 if (microsservice is null)
                 {
                     return NoContent();
@@ -59,15 +59,15 @@ namespace CentralDeErros.API.Controllers
 
         [ClaimsAuthorize("Admin", "Delete")]
         [HttpDelete("{clientId}")]
-        public ActionResult DeleteMicrosserviceById(Guid? microsserviceClientId)
+        public ActionResult DeleteMicrosserviceById(Guid? clientId)
         {
-            if (microsserviceClientId is null)
+            if (clientId is null)
             {
                 return BadRequest(ModelState);
             }
             else
             {
-                Microsservice microsservice = _service.Fetch((Guid)microsserviceClientId);
+                Microsservice microsservice = _service.Fetch((Guid) clientId);
                 if (microsservice is null)
                 {
                     return NoContent();
