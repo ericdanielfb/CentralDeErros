@@ -21,8 +21,8 @@ namespace CentralDeErros.ControllersTests
     public class MicrosserviceControllerTests : BaseControllerTest
     {
 
-        Mock<IMicrosserviceService> _serviceMock;
-        MicrosserviceController _controller;
+        readonly Mock<IMicrosserviceService> _serviceMock;
+        readonly MicrosserviceController _controller;
         private readonly IMapper _mapper;
         private readonly ITokenGeneratorService _token;
 
