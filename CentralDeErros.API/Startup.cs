@@ -1,15 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
+using CentralDeErros.API.Configuration;
+using CentralDeErros.Core;
+using CentralDeErros.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
 
 namespace CentralDeErros.API
 {
@@ -26,6 +27,20 @@ namespace CentralDeErros.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<CentralDeErrosDbContext>(options 
+                => options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
+
+            services.AddIdentityConfiguration(Configuration);
+
+            services.AddJwtConfig(Configuration);
+
+            services.AddDependencyInjectionConfig();
+
+            services.AddSwaggerConfig();
+
+            services.AddAutoMapper(typeof(Startup));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,11 +51,15 @@ namespace CentralDeErros.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwaggerConfig();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
