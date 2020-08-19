@@ -4,13 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace CentralDeErros.ServicesTests
 {
-    public class FakeContext
+    public class FakeContext : IDisposable
     {
         public DbContextOptions<CentralDeErrosDbContext> FakeOptions { get; }
 
@@ -18,18 +19,19 @@ namespace CentralDeErros.ServicesTests
             new Dictionary<Type, string>();
         private string FileName<T>() { return DataFileNames[typeof(T)]; }
 
+        public CentralDeErrosDbContext context;
         public FakeContext(string testName)
         {
             FakeOptions = new DbContextOptionsBuilder<CentralDeErrosDbContext>()
                 .UseInMemoryDatabase(databaseName: $"CentralDeErrors_{testName}")
                 .Options;
+            
+            context = new CentralDeErrosDbContext(FakeOptions);
 
             DataFileNames.Add(typeof(Model.Models.Environment), $"FakeData{Path.DirectorySeparatorChar}environment.json");
             DataFileNames.Add(typeof(Error), $"FakeData{Path.DirectorySeparatorChar}error.json");
             DataFileNames.Add(typeof(Level), $"FakeData{Path.DirectorySeparatorChar}level.json");
             DataFileNames.Add(typeof(Microsservice), $"FakeData{Path.DirectorySeparatorChar}microsservice.json");
-            //DataFileNames.Add(typeof(Profile), $"FakeData{Path.DirectorySeparatorChar}profile.json");
-            //DataFileNames.Add(typeof(User), $"FakeData{Path.DirectorySeparatorChar}user.json");
 
         }
         
@@ -40,8 +42,6 @@ namespace CentralDeErros.ServicesTests
             FillWith<Error>();
             FillWith<Level>();
             FillWith<Microsservice>();
-            //FillWith<Profile>();
-            //FillWith<User>();
         }
 
         public void FillWith<T>() where T : class
@@ -63,5 +63,23 @@ namespace CentralDeErros.ServicesTests
             return JsonConvert.DeserializeObject<List<T>>(content);
         }
 
+
+        public CentralDeErrosDbContext GenerateContext()
+        {
+            FillWithAll();
+            context = new CentralDeErrosDbContext(FakeOptions);
+            return context;
+        }
+        public CentralDeErrosDbContext GenerateEmptyContext()
+        {
+            context = new CentralDeErrosDbContext(FakeOptions);
+            return context;
+        }
+
+        public void Dispose()
+        {
+            context?.Database.EnsureDeleted();
+            context?.Dispose();
+        }
     }
 }

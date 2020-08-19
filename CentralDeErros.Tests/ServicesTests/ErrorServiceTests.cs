@@ -213,24 +213,5 @@ namespace CentralDeErros.ServicesTests
             Assert.True(result.Count == 1); // should return one error
         }
 
-        [Theory]
-        [InlineData(1)]
-        [InlineData(50)]
-        public void CheckId_Should_Return_Right_Value(int id)
-        {
-            // Arrange
-            var context = GenerateContext("CheckIdError");
-            var service = new ErrorService(context);
-            
-            // Act
-            var result = service.CheckId<Error>(id);
-
-            // Assert
-            if (context.Errors.Any(x => x.Id == id))
-                Assert.True(result);
-            else
-                Assert.False(result);
-
-        }
     }
 }

@@ -20,6 +20,6 @@ namespace CentralDeErros.Services.Interfaces
 
         List<int> ArchiveById(List<int> errorIdList);
 
-        bool CheckId<T>(int id) where T : class;
+        bool CheckError(int id);
     }
 }

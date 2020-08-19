@@ -47,7 +47,7 @@ namespace CentralDeErros.ControllersTests
                 MicrosserviceClientId = new Guid("031c156c-c072-4793-a542-4d20840b8031")
             });
             //Assert
-            Assert.IsType<OkObjectResult>(contentResult);
+            Assert.IsType<OkObjectResult>(contentResult.Result);
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace CentralDeErros.ControllersTests
             var mockService = new Mock<IErrorService>();
             mockService.Setup(x => x.Update(It.IsAny<Error>()))
                 .Returns(updatedError);
-            mockService.Setup(x => x.CheckId<Error>(It.IsAny<int>()))
+            mockService.Setup(x => x.CheckError(It.IsAny<int>()))
                 .Returns((int id) => errors.Any(x => x.Id == id));
 
 
@@ -104,7 +104,7 @@ namespace CentralDeErros.ControllersTests
                 MicrosserviceClientId = new Guid("031c156c-c072-4793-a542-4d20840b8031")
             });
             //Assert
-            Assert.IsType<OkResult>(contentResult);
+            Assert.IsType<OkResult>(contentResult.Result);
         }
 
         [Fact]

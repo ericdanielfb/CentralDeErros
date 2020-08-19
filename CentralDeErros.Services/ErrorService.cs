@@ -26,7 +26,7 @@ namespace CentralDeErros.Services
             var response = Context
                                 .Errors
                                 .Where(x => x.IsArchived == archived)
-                                .Skip(start ?? 0);
+                                .Skip(start.HasValue?start.Value : 0);
 
             if(end.HasValue)
             {
@@ -73,15 +73,15 @@ namespace CentralDeErros.Services
 
         public new Error Register(Error entry)
         {
-            if (!CheckId<Level>(entry.LevelId))
+            if (!Context.Levels.Any(x => x.Id == entry.LevelId))
                 throw new Exception("LevelId not found");
 
-            if (!CheckId<Microsservice>(entry.MicrosserviceClientId))
+            if (!Context.Microsservices.Any(x => x.ClientId == entry.MicrosserviceClientId))
                 throw new Exception("MicrosserviceClientId not found");
 
-            if (!CheckId<Model.Models.Environment>(entry.EnviromentId))
+            if (!Context.Environments.Any(x => x.Id == entry.EnviromentId))
                 throw new Exception("EnviromentId not found");
-            
+
             entry.IsArchived = false;
             
             Context.Add(entry);
@@ -95,7 +95,7 @@ namespace CentralDeErros.Services
             var failed = new List<int>();
             foreach (var errorId in errorIdList)
             {
-                if (!CheckId<Error>(errorId))
+                if (!Context.Errors.Any(x => x.Id == errorId))
                 {
                     failed.Add(errorId);
                 }
@@ -109,14 +109,10 @@ namespace CentralDeErros.Services
             return failed;
         }
 
-        public bool CheckId<T>(int id) where T : class
+        public bool CheckError(int id)
         {
-            return Context.Set<T>().Find(id) != null;
+            return Context.Errors.Any(x => x.Id == id);
         }
 
-        public bool CheckId<T>(Guid clientId) where T : class
-        {
-            return Context.Set<T>().Find(clientId) != null;
-        }
     }
 }
