@@ -2,6 +2,7 @@
 using CentralDeErros.Core.Extensions;
 using CentralDeErros.Model.Models;
 using CentralDeErros.Services;
+using CentralDeErros.Services.Interfaces;
 using CentralDeErros.Transport.MicrosserviceDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,11 @@ namespace CentralDeErros.API.Controllers
     [ApiController]
     public class MicrosserviceController : ControllerBase
     {
-        private readonly MicrosserviceService _service;
+        private readonly IMicrosserviceService _service;
         private readonly IMapper _mapper;
-        private readonly TokenGeneratorService _tokenGeneratorService;
+        private readonly ITokenGeneratorService _tokenGeneratorService;
 
-        public MicrosserviceController(MicrosserviceService service, IMapper mapper, TokenGeneratorService tokenGeneratorService)
+        public MicrosserviceController(IMicrosserviceService service, IMapper mapper, ITokenGeneratorService tokenGeneratorService)
         {
             _service = service;
             _mapper = mapper;
@@ -141,7 +142,7 @@ namespace CentralDeErros.API.Controllers
                 }
                 else
                 {
-                    return Ok(_mapper.Map<MicrosserviceDTO>(_service.GenerateClientSecret(response)));
+                    return Ok(_mapper.Map<MicrosserviceRegisterDTO>(_service.GenerateClientSecret(response)));
                 }
             }
         }

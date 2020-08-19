@@ -142,11 +142,12 @@ namespace CentralDeErros.ControllersTests
         [Fact]
         public void UpdateEnvironment_ShouldCallService_AndReturn200WithDtos_WhenEnvironmentFound()
         {
+            var environmentDTO = new EnvironmentDTO() { Id = 1, Phase = "Teste" };
             var expectedReturnFromService = new Environment() { Id = 1, Phase = "Teste" };
 
             _serviceMock.Setup(x => x.RegisterOrUpdate(It.IsAny<Environment>())).Returns(expectedReturnFromService);
 
-            var result = _controller.UpdateEnvironment(1, expectedReturnFromService);
+            var result = _controller.UpdateEnvironment(environmentDTO);
 
             _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Environment>()), Times.Once);
 
@@ -158,19 +159,14 @@ namespace CentralDeErros.ControllersTests
         }
 
         [Fact]
-        public void UpdateEnvironment_ShouldCallService_AndReturn204_WhenEnvironmentNoContent()
+        public void UpdateEnvironment_ShouldCallService_AndReturn400WithError()
         {
-            var expectedReturnFromService = new Environment();
+            _controller.ModelState.AddModelError("test", "test");
 
-            var result = _controller.UpdateEnvironment(null, expectedReturnFromService);
-
-            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Environment>()), Times.Never);
-
-            var objectResult = Assert.IsType<NoContentResult>(result.Result);
-            Assert.Equal(204, objectResult.StatusCode);
+            var result = _controller.UpdateEnvironment(new EnvironmentDTO());
+            var objectResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.Equal(400, objectResult.StatusCode);
         }
-
-
 
         [Fact]
         public void DeleteEnvironmentId_ShouldCallService_AndReturn200()
