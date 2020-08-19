@@ -18,20 +18,17 @@ namespace CentralDeErros.API.Controllers
     {
         private readonly SignInManager<IdentityUser> _signInUserManager;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly UserService _userService;
         private readonly IMicrosserviceService _microsserviceService;
         private readonly IMapper _mapper;
         private readonly ITokenGeneratorService _tokenGeneratorService;
 
-        public AuthController(UserService userService,
-                              IMicrosserviceService microsserviceService,
+        public AuthController(IMicrosserviceService microsserviceService,
                               IMapper mapper,
                               SignInManager<IdentityUser> signInUserManager,
                               UserManager<IdentityUser> userManager,
                               ITokenGeneratorService tokenGeneratorService)
 
         {
-            _userService = userService;
             _microsserviceService = microsserviceService;
             _mapper = mapper;
             _signInUserManager = signInUserManager;

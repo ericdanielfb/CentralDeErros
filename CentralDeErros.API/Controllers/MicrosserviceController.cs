@@ -142,7 +142,7 @@ namespace CentralDeErros.API.Controllers
                 }
                 else
                 {
-                    return Ok(_mapper.Map<MicrosserviceDTO>(_service.GenerateClientSecret(response)));
+                    return Ok(_mapper.Map<MicrosserviceRegisterDTO>(_service.GenerateClientSecret(response)));
                 }
             }
         }

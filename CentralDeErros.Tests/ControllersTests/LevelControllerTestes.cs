@@ -160,21 +160,16 @@ namespace CentralDeErros.ControllersTests
         }
 
         [Fact]
-        public void UpdateLevel_ShouldCallService_AndReturn204_WhenLevelNoContent()
+        public void UpdateLevel_ShouldCallService_AndReturn400WithError()
         {
-            var expectedReturnFromService = new LevelDTO();
+            _controller.ModelState.AddModelError("test", "test");
 
-            var result = _controller.UpdateLevel(expectedReturnFromService);
-
-            _serviceMock.Verify(x => x.RegisterOrUpdate(It.IsAny<Level>()), Times.Never);
-
-            var objectResult = Assert.IsType<NoContentResult>(result.Result);
-            Assert.Equal(204, objectResult.StatusCode);
+            var result = _controller.UpdateLevel(new LevelDTO());
+            var objectResult = Assert.IsType<BadRequestObjectResult>(result.Result);
+            Assert.Equal(400, objectResult.StatusCode);
         }
 
-
-
-        [Fact]
+            [Fact]
         public void DeleteLevelId_ShouldCallService_AndReturn200()
         {
 
