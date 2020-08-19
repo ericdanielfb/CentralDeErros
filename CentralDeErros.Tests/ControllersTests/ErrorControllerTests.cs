@@ -86,7 +86,7 @@ namespace CentralDeErros.ControllersTests
             var mockService = new Mock<IErrorService>();
             mockService.Setup(x => x.Update(It.IsAny<Error>()))
                 .Returns(updatedError);
-            mockService.Setup(x => x.CheckId<Error>(It.IsAny<int>()))
+            mockService.Setup(x => x.CheckError(It.IsAny<int>()))
                 .Returns((int id) => errors.Any(x => x.Id == id));
 
 
