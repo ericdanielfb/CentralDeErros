@@ -27,12 +27,27 @@ namespace CentralDeErros.API.Controllers
             _mapper = mapper;
         }
 
+        
         [HttpGet("{id}")]
         public ActionResult<ErrorDTO> Get(int id)
         {
             return Ok(_mapper.Map<ErrorDTO>(_service.Fetch(id)));
         }
 
+        [HttpGet("Microsservice/{clientId}")]
+        public ActionResult<IEnumerable<ErrorDTO>> GetByMicrosserviceClientId(Guid? clientId)
+        {
+            if (clientId is null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok(_mapper.Map<IEnumerable<ErrorDTO>>(_service.SearchByMicrosservice((Guid)clientId)));
+            }
+        }
+
+        [ClaimsAuthorize("Admin", "Read")]
         [HttpGet]
         public ActionResult<IEnumerable<ErrorDTO>> List(int? start, int? end, bool archived = false)
         {
