@@ -62,13 +62,14 @@ namespace CentralDeErros.API.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult> UpdateAsync([FromBody] IdentityUser identityUser)
+        public async Task<ActionResult<UserGetDTO>> UpdateAsync([FromBody] UserUpdateDTO identityUser)
         {
             if (ModelState.IsValid)
             {
                 var findBy = await _userManager.FindByIdAsync(identityUser.Id);
 
-                findBy.UserName = identityUser.UserName;     
+                findBy.UserName = identityUser.Email;
+                findBy.Email = identityUser.Email;
 
                 var result = await _userManager.UpdateAsync(findBy);
 
@@ -77,7 +78,7 @@ namespace CentralDeErros.API.Controllers
                     return BadRequest(result.Errors);
                 }
 
-                return Ok();
+                return Ok(_mapper.Map<UserGetDTO>(await _userManager.FindByIdAsync(identityUser.Id))); ;
             }
             return BadRequest();
         }
