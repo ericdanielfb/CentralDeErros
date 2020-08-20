@@ -59,6 +59,17 @@ namespace CentralDeErros.Services
                 .ToList();
         }
 
+        /// <summary>
+        /// Search based on Microsservice ClientId
+        /// </summary>
+        /// <param name="microsserviceClientId"></param>
+        /// <returns></returns>
+        public ICollection<Error> SearchByMicrosservice(Guid microsserviceClientId)
+        {
+            return List(x => x.MicrosserviceClientId == microsserviceClientId)
+                .ToList();
+        }
+
 
         /// <summary>
         /// Search between a given DateTime

@@ -23,6 +23,7 @@ namespace CentralDeErros.API
             CreateMap<IdentityUser, RegisterUserDTO>().ReverseMap();
             CreateMap<IdentityUser, LoginDTO>().ReverseMap();
             CreateMap<IdentityUser, UserGetDTO>().ReverseMap();
+            CreateMap<IdentityUser, UserUpdateDTO>().ReverseMap();
             CreateMap<IdentityUser, UserUpdatePassword>().ReverseMap();
         }
 
