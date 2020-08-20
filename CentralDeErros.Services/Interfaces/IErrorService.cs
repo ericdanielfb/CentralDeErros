@@ -15,7 +15,7 @@ namespace CentralDeErros.Services.Interfaces
         
         ICollection<Error> SearchByErrorLevel(string errorLevel);
 
-        public ICollection<Error> SearchByMicrosservice(Guid clientId);
+        ICollection<Error> SearchByMicrosservice(Guid clientId);
 
         ICollection<Error> SearchByDate(DateTime start, DateTime end);
         new Error Register(Error entry);
